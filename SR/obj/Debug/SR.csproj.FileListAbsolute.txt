@@ -137,3 +137,7 @@ F:\SR\SR\obj\Debug\SR.csproj.CopyComplete
 F:\SR\SR\obj\Debug\SR.dll
 F:\SR\SR\obj\Debug\SR.pdb
 F:\SR\SR\obj\Debug\SR.csprojAssemblyReference.cache
+D:\working\APMDC-SR\Sr\SR\obj\Debug\SR.csprojAssemblyReference.cache
+D:\working\APMDC-SR\Sr\SR\obj\Debug\SR.csproj.CoreCompileInputs.cache
+D:\working\APMDC-SR\Sr\SR\obj\Debug\SR.dll
+D:\working\APMDC-SR\Sr\SR\obj\Debug\SR.pdb

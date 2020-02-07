@@ -286,14 +286,12 @@
     <Content Include="css\jquery-ui.css" />
     <Content Include="css\login.css" />
     <Content Include="css\main.css" />
-    <Content Include="favicon.ico" />
     <Content Include="fonts\icomoon.svg" />
     <Content Include="fonts\iconic\css\material-design-iconic-font.css" />
     <Content Include="fonts\iconic\css\material-design-iconic-font.min.css" />
     <Content Include="fonts\iconic\fonts\Material-Design-Iconic-Font.svg" />
     <Content Include="fonts\style.css" />
     <Content Include="Global.asax" />
-    <Content Include="HtmlPage1.html" />
     <Content Include="img\1223.jpg" />
     <Content Include="img\ap-logo.png" />
     <Content Include="img\department-icons\11.png" />
@@ -343,7 +341,9 @@
     <Content Include="img\department-icons\vijayanagaram.png" />
     <Content Include="img\fav.png" />
     <Content Include="index.html" />
-    <Content Include="index.js" />
+    <Content Include="index1234.js" />
+    <Content Include="index_old.html" />
+    <Content Include="index_old.js" />
     <Content Include="js\ajaxrequest.js" />
     <Content Include="js\bootstrap.bundle.min.js" />
     <Content Include="js\custom.js" />

@@ -340,6 +340,10 @@
     <Content Include="img\department-icons\time.png" />
     <Content Include="img\department-icons\vijayanagaram.png" />
     <Content Include="img\fav.png" />
+    <Content Include="img\preloader.gif" />
+    <Content Include="img\123.gif" />
+    <Content Include="img\1234.gif" />
+    <Content Include="img\123456.gif" />
     <Content Include="index.html" />
     <Content Include="index1234.js" />
     <Content Include="index_old.html" />

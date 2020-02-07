@@ -11,23 +11,14 @@ var tableperhourDisplay = [];
 var myhours = '';
 
 $(document).ready(function () {
-    var ob = location.search.slice(1);
-    var id = ob.split('^');
 
-sessionStorage.setItem("userid", id[0]);
-sessionStorage.setItem('role', id[1]);
-sessionStorage.setItem("secid",id[2]);
-
-    
-	 if (sessionStorage.getItem('userid') != null && sessionStorage.getItem('userid') != undefined && sessionStorage.getItem('role') != null && sessionStorage.getItem('role') != undefined && sessionStorage.getItem('secid') != null && sessionStorage.getItem('secid') != undefined) {
-        var url = "../DashboardSocket";
-        var obj = "{FTYPE:'1',Username:'" + sessionStorage.getItem('userid') + "',SOURCE:'WEB'}";
-    _Sand_Auth(url, obj, function (res) {
-    if (res.Code == "100") {
-    var today = new Date();
+	$('#loading-wrapper').hide();
+	var today = new Date();
 	var dd = String(today.getDate()).padStart(2, '0');
 	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 	var yyyy = today.getFullYear();
+	var hhh = today.getHours();
+	$("#timeChangerPerhour").val(hhh);
 	today = dd + '/' + mm + '/' + yyyy;
 	$("#from_datepicker").val(today);
 	$("#to_datepicker").val(today);
@@ -35,32 +26,129 @@ sessionStorage.setItem("secid",id[2]);
 	load_district_ava_or_not();
 	
 
-            }
-            if (res.Code != "100") {
+
+ //   var ob = location.search.slice(1);
+ //   var id = ob.split('^');
+
+	//	sessionStorage.setItem("userid", id[0]);
+	//	sessionStorage.setItem('role', id[1]);
+	//	sessionStorage.setItem("secid",id[2]);
+
+    
+	// if (sessionStorage.getItem('userid') != null && sessionStorage.getItem('userid') != undefined && sessionStorage.getItem('role') != null && sessionStorage.getItem('role') != undefined && sessionStorage.getItem('secid') != null && sessionStorage.getItem('secid') != undefined) {
+ //       var url = "../DashboardSocket";
+ //       var obj = "{FTYPE:'1',Username:'" + sessionStorage.getItem('userid') + "',SOURCE:'WEB'}";
+ //   _Sand_Auth(url, obj, function (res) {
+ //   if (res.Code == "100") {
+ //   var today = new Date();
+	//var dd = String(today.getDate()).padStart(2, '0');
+	//var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+	//var yyyy = today.getFullYear();
+	//today = dd + '/' + mm + '/' + yyyy;
+	//$("#from_datepicker").val(today);
+	//$("#to_datepicker").val(today);
+	//load_district();
+	//load_district_ava_or_not();
+	
+
+ //           }
+ //           if (res.Code != "100") {
 				
-                alert("please re-Login session expire");
-                window.sessionStorage.clear(),
-                sessionStorage.clear();
-                setTimeout(function () { window.location.href = 'https://sand.ap.gov.in/Login.htm' }, 1000);
+ //               alert("please re-Login session expire");
+ //               window.sessionStorage.clear(),
+ //               sessionStorage.clear();
+ //               setTimeout(function () { window.location.href = 'https://sand.ap.gov.in/Login.htm' }, 1000);
 	
                
-            }
+ //           }
 
 
-        });
-    }
-    else {
-		return;
-	}
+ //       });
+ //   }
+ //   else {
+	//	return;
+	//}
 	 
 });
 
-$(function () {
+function userlogfirst() {
+	if (sessionStorage.getItem('userid') != null && sessionStorage.getItem('userid') != undefined && sessionStorage.getItem('role') != null && sessionStorage.getItem('role') != undefined && sessionStorage.getItem('secid') != null && sessionStorage.getItem('secid') != undefined) {
+		var url = "../DashboardSocket";
+		var obj = "{FTYPE:'1',Username:'" + sessionStorage.getItem('userid') + "',SOURCE:'WEB'}";
+		_Sand_Auth(url, obj, function (res) {
+			if (res.code == "100") {
+				var today = new Date();
+				var dd = String(today.getDate()).padStart(2, '0');
+				var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+				var yyyy = today.getFullYear();
+				today = dd + '/' + mm + '/' + yyyy;
+				$("#from_datepicker").val(today);
+				$("#to_datepicker").val(today);
+				//......................................................................................................... to load date values to textboxes End
+				load_district();
+				load_district_ava_or_not();
+
+
+			}
+			if (res.code != "100") {
+				_n_plain_mes_1("<strong>Duplicate Session</strong>", "Multiple Login Found ....please check once", "danger");
+				_n_plain_mes_1("<strong>Session Expire!</strong>", "please re-Login session expire", "danger");
+				window.sessionStorage.clear(),
+					sessionStorage.clear();
+				setTimeout(function () { window.location.href = 'https://sand.ap.gov.in/Login.htm' }, 2000);
+			}
+
+
+		});
+	}
+	else {
+		_n_plain_mes_1("<strong>Session Expire!</strong>", "please re-Login session expire", "danger");
+		window.sessionStorage.clear(),
+			sessionStorage.clear();
+		setTimeout(function () { window.location.href = 'https://sand.ap.gov.in/Login.htm' }, 2000);
+
+	}
+}
+function userlog() {
+	if (sessionStorage.getItem('userid') != null && sessionStorage.getItem('userid') != undefined && sessionStorage.getItem('role') != null && sessionStorage.getItem('role') != undefined && sessionStorage.getItem('secid') != null && sessionStorage.getItem('secid') != undefined) {
+		var url = "../DashboardSocket";
+		var obj = "{FTYPE:'1',Username:'" + sessionStorage.getItem('userid') + "',SOURCE:'WEB'}";
+		_Sand_Auth(url, obj, function (res) {
+			if (res.Code == "100") {
+				return;
+			}
+			if (res.Code != "100") {
+
+				alert("please re-Login session expire");
+				window.sessionStorage.clear(),
+					sessionStorage.clear();
+				setTimeout(function () { window.location.href = 'https://sand.ap.gov.in/Login.htm' }, 2000);
+			}
+
+
+		});
+	}
+	else {
+
+		alert("please re-Login session expire");
+		window.sessionStorage.clear(),
+			sessionStorage.clear();
+		setTimeout(function () { window.location.href = 'https://sand.ap.gov.in/Login.htm' }, 2000);
+
+	}
+}
+
+
+
+//$(function () {
   
-    window.setInterval(function () {
-        userlog();
-    }, 20000);
-});
+//    window.setInterval(function () {
+//      //  userlog();
+//    }, 20000);
+//});
+
+
+//......................................................................................................... Logout button code start
 $(function () {
    $("#logout").click(function () {
      
@@ -85,7 +173,7 @@ $(function () {
            });
    })
 });
-
+ //......................................................................................................... Logout button code End
 
 //......................................................................................................... to load values on calender textboxes changed Start
 $('#to_datepicker').datepicker({
@@ -98,21 +186,23 @@ $('#to_datepicker').datepicker({
 		load_Counters(1, $("#Loadistricts").find("option:selected").val());
 		load_Counters(10, $("#Loadistricts").find("option:selected").val());
 		load_Counters(11, $("#Loadistricts").find("option:selected").val());
-		$("#collapseOne").hide();
 		$("#from_datepicker").datepicker("option", "maxDate", date);
 		$('#from_datepicker').datepicker('setDate', date);
 		$("#collapseOne").hide();
-		$('#ContractorDetails_show').hide();
-		$('#vehicle_register_show').hide();
 		load_per_hourdisplay($("#Loadistricts").find("option:selected").val());
 		Func72hoursOfDipaly($("#Loadistricts").find("option:selected").val());
+
+
+
 		myhours = '';
 		myhours = new Date().getHours();
 		if ($("#Loadistricts").val() == '1') {
-			perhourchangefunc('1', '510');
+			perhourchangefunc('1', '1');
 		}
 		else {
+			$("#timeChangerPerhour").val() = myhours;
 			perhourchangefunc(myhours, $("#Loadistricts").find("option:selected").val());
+
 		}
 	}
 });
@@ -127,14 +217,12 @@ $('#from_datepicker').datepicker({
 		load_Counters(10, $("#Loadistricts").find("option:selected").val());
 		load_Counters(11, $("#Loadistricts").find("option:selected").val());
 		$("#collapseOne").hide();
-		$('#ContractorDetails_show').hide();
-		$('#vehicle_register_show').hide();
 		load_per_hourdisplay($("#Loadistricts").find("option:selected").val());
 		Func72hoursOfDipaly($("#Loadistricts").find("option:selected").val());
 		myhours = '';
 		myhours = new Date().getHours();
 		if ($("#Loadistricts").val() == '1') {
-			perhourchangefunc('1', '510');
+			perhourchangefunc('1', '1');
 		}
 		else {
 			perhourchangefunc(myhours, $("#Loadistricts").find("option:selected").val());
@@ -197,6 +285,8 @@ $("#submit").click(function () {
 	load_Counters(10, $("#Loadistricts").find("option:selected").val());
 	load_Counters(11, $("#Loadistricts").find("option:selected").val());
 	Func72hoursOfDipaly($("#Loadistricts").find("option:selected").val());
+	$("#icloseVehicle").click();
+	$("#icloseContractor").click();
 	myhours = '';
 	myhours = new Date().getHours();
 	if ($("#Loadistricts").val() == '1') {
@@ -300,6 +390,7 @@ function load_Counters(id,tdis) {
 
 //......................................................................................................... to load Count for type 1 , 11 , 12 with MT Quantity start
 function TntViews(id) {
+	$('loading-wrapper').show();
 	ods_order = id;
 	if (id == 4.5) {
 		$('#Vtyre').text("Tractor (4.5 MT)");
@@ -325,21 +416,23 @@ function TntViews(id) {
 
 	var obj = "{FTYPE:'12',FDISTRICT:'" + $("#Loadistricts").find("option:selected").val() + "',FROMDATE:'" + $("#from_datepicker").val() + "',TODATE:'" + $("#to_datepicker").val() + "',FSANDQUANTY:'" + id + "'}";
 	_Sand_Auth("../SandTransportReports_Get_for_total_orders", obj, function (res) {
-
+		$('#loading-wrapper').show();
+		var OnestDistrict = $("#Loadistricts").find("option:selected").val();
 		if (res.Code == "100") {
 
-
+			
 			$("#dt_table_1").empty('');
 			tablebody = '<table id="dt_table_1" class="table text-left"><thead style="font-size:16px;"><tr class="text-left"><th class="pt-0" style="width:2%">#</th><th class="pt-0" style="width:3%;">Name</th><th class="pt-0" style="width:1%;">Total</th></tr ></thead ><tbody>';
 
 			for (var index = 0; index < res.DailyRepDetsli.length; index++) {
 				var obj = res.DailyRepDetsli[index];
 				var counter = index + 1;
-				tablebody += "<tr><td>" + obj.SNo + "</td ><td <a style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:15px;'  onClick=load_Cluster('" + obj.SNo + mytyreObj + "','" + obj.Name + "')>" + (obj.Name).replace('_', ' ') + "</a></td ><td ><label class='badge badge-info mr-4 mr-xl-2' style='font-size:20px;border-radius:10px;'>" + obj.Total + "</label></td></tr>";
+				tablebody += "<tr><td>" + obj.SNo + "</td ><td <a style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:15px;'  onClick=load_Cluster('" + obj.SNo + mytyreObj + OnestDistrict + "','" + obj.Name + "')>" + (obj.Name).replace('_', ' ') + "</a></td ><td ><label class='badge badge-info mr-4 mr-xl-2' style='font-size:20px;border-radius:10px;'>" + obj.Total + "</label></td></tr>";
 			}
 
 
 			TotalOrdersTyres(tablebody);
+			$('#loading-wrapper').hide();
 		}
 		else {
 
@@ -961,72 +1054,6 @@ function closebtn_veh(sn1_veh) {
 
 }
 
-function userlogfirst() {
-    if (sessionStorage.getItem('userid') != null && sessionStorage.getItem('userid') != undefined && sessionStorage.getItem('role') != null && sessionStorage.getItem('role') != undefined && sessionStorage.getItem('secid') != null && sessionStorage.getItem('secid') != undefined) {
-        var url = "../DashboardSocket";
-        var obj = "{FTYPE:'1',Username:'" + sessionStorage.getItem('userid') + "',SOURCE:'WEB'}";
-        _Sand_Auth(url, obj, function (res) {
-            if (res.code == "100") {
-                	var today = new Date();
-	var dd = String(today.getDate()).padStart(2, '0');
-	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-	var yyyy = today.getFullYear();
-	today = dd + '/' + mm + '/' + yyyy;
-	$("#from_datepicker").val(today);
-	$("#to_datepicker").val(today);
-	//......................................................................................................... to load date values to textboxes End
-	load_district();
-	load_district_ava_or_not();
-	
-
-            }
-            if (res.code != "100") {
-                _n_plain_mes_1("<strong>Duplicate Session</strong>", "Multiple Login Found ....please check once", "danger");
-                _n_plain_mes_1("<strong>Session Expire!</strong>", "please re-Login session expire", "danger");
-                window.sessionStorage.clear(),
-                    sessionStorage.clear();
-                setTimeout(function () { window.location.href = 'https://sand.ap.gov.in/Login.htm' }, 2000);
-            }
-
-
-        });
-    }
-    else {
-        _n_plain_mes_1("<strong>Session Expire!</strong>", "please re-Login session expire", "danger");
-        window.sessionStorage.clear(),
-            sessionStorage.clear();
-        setTimeout(function () { window.location.href = 'https://sand.ap.gov.in/Login.htm' }, 2000);
-
-    }
-}
-function userlog() {
-    if (sessionStorage.getItem('userid') != null && sessionStorage.getItem('userid') != undefined && sessionStorage.getItem('role') != null && sessionStorage.getItem('role') != undefined && sessionStorage.getItem('secid') != null && sessionStorage.getItem('secid') != undefined) {
-      var url = "../DashboardSocket";
-        var obj = "{FTYPE:'1',Username:'" + sessionStorage.getItem('userid') + "',SOURCE:'WEB'}";
-    _Sand_Auth(url, obj, function (res) {
-            if (res.Code == "100") {
-                return;
-            }
-            if (res.Code != "100") {
-			
-                alert("please re-Login session expire");
-                window.sessionStorage.clear(),
-                    sessionStorage.clear();
-                setTimeout(function () { window.location.href = 'https://sand.ap.gov.in/Login.htm'}, 2000);
-            }
-
-
-        });
-    }
-    else {
-     
-		   alert("please re-Login session expire");
-        window.sessionStorage.clear(),
-            sessionStorage.clear();
-        setTimeout(function () { window.location.href = 'https://sand.ap.gov.in/Login.htm' }, 2000);
-
-    }
-}
 
 
 
@@ -1036,3 +1063,4 @@ $("#icloseVehicle").click(function () {
 $("#icloseContractor").click(function () {
 	$('#ContractorDetails_show').hide();
 });
+

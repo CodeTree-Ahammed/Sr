@@ -344,6 +344,7 @@
     <Content Include="img\123.gif" />
     <Content Include="img\1234.gif" />
     <Content Include="img\123456.gif" />
+    <Content Include="img\source.gif" />
     <Content Include="index.html" />
     <Content Include="index1234.js" />
     <Content Include="index_old.html" />

@@ -1,4 +1,5 @@
-﻿var tablebody2 = [];
+﻿
+var tablebody2 = [];
 var tablebody3 = [];
 var tablebody4 = [];
 var tablebody5 = [];
@@ -9,6 +10,7 @@ var mydistrict = [];
 var contractor_view = 0;
 var tableperhourDisplay = [];
 var myhours = '';
+var btnval_72 = 0;
 
 $(document).ready(function () {
 
@@ -148,7 +150,7 @@ function userlog() {
 //});
 
 
-//......................................................................................................... Logout button code start
+// region LogOut Code......................................................................................................... Logout button code start
 $(function () {
    $("#logout").click(function () {
      
@@ -258,6 +260,7 @@ function load_district() {
 function load_district_ava_or_not() {
 	if ($("#Loadistricts").val() == '0') {
 		alert('Please select District');
+		$("#collapseOne").hide();
 	}
 	else if ($("#Loadistricts").val() != 'undefined') {
 		load_Counters(1, 1);
@@ -272,6 +275,7 @@ function load_district_ava_or_not() {
 	}
 	else if ($("#Loadistricts").val() != null) {
 		alert('Please select District');
+		$("#collapseOne").hide();
 	}
 	else {
 
@@ -360,31 +364,51 @@ function load_Counters(id,tdis) {
 					$('#TOTAL_VEHICLES').jQuerySimpleCounter({ end: res.DailyRepDetsli[0].TOTAL_VEHICLES, duration: 3000 });
 					$('#TODAY_VEHICLES').jQuerySimpleCounter({ end: res.DailyRepDetsli[0].TODAY_VEHICLES, duration: 3000 });
 
-					//TOTAL_45: 262
-					//TODAY_45: 0
-					//TOTAL_9_10: 33
-					//TODAY_9_10: 0
-					//TOTAL_18: 40
-					//TODAY_18: 0
-					////////////////////////////TOTAL_24: 0
-					////////////////////////////TODAY_24: 0
-					//TOTAL_REG: 335
-					//TODAY_REG: 0
-
-
 				}
 			}
 			else {
-				// alert("No data Found"); return;
+				$('#todaysandquantity').text("0");
+				$('#totalsandquantitycum').text("0");
+				$('#todayquantitydispatched').text("0");
+				$('#totalquantitydispatched_cum').text("0");
+				$('#tobdispatch').text("0");
+				$('#Tnt_Tractor_Booked').text("0");
+				$('#Tnt_Tractor_Dispathed').text("0");
+				$('#Tnt_Tractor_Booked_Cum').text("0");
+				$('#Tnt_Tractor_Pending_Cum').text("0");
+				$('#Tnt_Tractor_Dispathed_Cum').text("0");
+
+				$('#Tnt_6Tyre_Booked').text("0");
+				$('#Tnt_6Tyre_Dispathed').text("0");
+				$('#Tnt_6Tyre_Booked_Cum').text("0");
+				$('#Tnt_6Tyre_Pending_Cum').text("0");
+				$('#Tnt_6Tyre_Dispathed_Cum').text("0");
+
+				$('#Tnt_10Tyre_Booked').text("0");
+				$('#Tnt_10Tyre_Dispathed').text("0");
+				$('#Tnt_10Tyre_Booked_Cum').text("0");
+				$('#Tnt_10Tyre_Pending_Cum').text("0");
+				$('#Tnt_10Tyre_Dispathed_Cum').text("0");
+				$('#Tnt_Booked').text("0");
+				$('#Tnt_Dispathed').text("0");
+				$('#Tnt_Booked_Cum').text("0");
+				$('#Tnt_Pending_Cum').text("0");
+				$('#Tnt_Dispathed_Cum').text("0");
+				$('#TOTAL_REG').text("0");
+				$('#TODAY_REG').text("0");
+				$('#TOTAL_45').text("0");
+				$('#TODAY_45').text("0");
+				$('#TOTAL_9_10').text("0");
+				$('#TODAY_9_10').text("0");
+				$('#TOTAL_18').text("0");
+				$('#TODAY_18').text("0");
+				$('#TOTAL_24').text("0");
+				$('#TODAY_24').text("0");
+				$('#TOTAL_VEHICLES').text("0");
+				$('#TODAY_VEHICLES').text("0");
+				
 			}
 		});
-	
-	//	$('#todaysandquantity').text("0");
-	//	$('#totalsandquantitycum').text("0");
-	//	$('#todayquantitydispatched').text("0");
-	//	$('#totalquantitydispatched_cum').text("0");
-	//	$('#tobdispatch').text("0");
-	
 }
 //......................................................................................................... to load Count for type 1 , 11 , 12 End
 
@@ -825,9 +849,131 @@ function Func72hoursOfDipaly(distr) {
 	}
 }	
 
+var but_72 = 0;
+$('#Tractor_view_72').on('click', function (e) {
+	but_72 = 1;
+	load72hours_panel();
+});
+
+$('#6Tyre_view_72').on('click', function (e) {
+	but_72 = 2;
+	load72hours_panel();
+});
+$('#10Tyre_view_72').on('click', function (e) {
+	but_72 = 3;
+	load72hours_panel();
+});
+
+$('#TotalTyre_view_72').on('click', function (e) {
+	but_72 = 4;
+	load72hours_panel();
+});
+$('#icloseme_72').on('click', function (e) {
+
+	but_72 = 0;
+	load72hours_panel();
+});
 
 
 
+
+function load72hours_panel() {
+	event.preventDefault();
+	if (but_72 == undefined) {
+		$("#hour_Table_display_72").hide();
+	}
+	else if (but_72 == '0') {
+		$("#hour_Table_display_72").hide();
+	}
+	else if (but_72 == '1') {
+
+		btnval_72 = 4.5;
+		$("#hour_heading_vehicle_72").text("Tractor (4.5 MT)");
+		$("#headcolor_72").removeClass();
+		$("#headcolor_72").addClass('icon-bg bg-primary dropdown-head');
+		$("#hour_Table_display_72").show();
+		load_panel_72("#hour_Table_lobipanel_72");
+		load_72_hours_cluster_data($("#Loadistricts").find("option:selected").val(), btnval_72);
+
+
+
+	}
+	else if (but_72 == '2') {
+		btnval_72 = 10;		
+		$("#hour_heading_vehicle_72").text("6 Tyre (10 MT)");
+		$("#headcolor_72").removeClass();
+		$("#headcolor_72").addClass('icon-bg bg-success dropdown-head');
+		$("#hour_Table_display_72").delay(500).show();
+		load_panel_72("#hour_Table_lobipanel_72");
+		load_72_hours_cluster_data($("#Loadistricts").find("option:selected").val(), btnval_72);
+
+	}
+	else if (but_72 == '3') {
+		btnval_72 = 18;
+		$("#hour_heading_vehicle_72").text("10 Tyre (18 MT)");
+		$("#headcolor_72").removeClass();
+		$("#headcolor_72").addClass('icon-bg bg-danger dropdown-head');
+		$("#hour_Table_display_72").delay(500).show();
+		load_panel_72("#hour_Table_lobipanel_72");
+		load_72_hours_cluster_data($("#Loadistricts").find("option:selected").val(), btnval_72);
+	}
+	else if (but_72 == '4') {
+		$("#hour_heading_vehicle_72").text("Total No.of Trips");
+		btnval_72 = 22;
+		$("#headcolor_72").removeClass();
+		$("#headcolor_72").addClass('card-header icon-bg bg-white dropdown-head text-dark');
+		$("#hour_Table_display_72").delay(500).show();
+		load_panel_72("#hour_Table_lobipanel_72");
+		load_72_hours_cluster_data($("#Loadistricts").find("option:selected").val(), btnval_72);
+	}
+	else {
+		$("#hour_Table_display_72").hide();
+	}
+}
+
+function load_panel_72(pid) {
+	
+	$(pid).lobiPanel();
+}
+
+var tablebody_dt_table_72_hours_cluster_data = [];
+function load_72_hours_cluster_data(distr,mtmid) {
+	//var obj = "{FTYPE:'12',FDISTRICT:'" + $("#Loadistricts").find("option:selected").val() + "',FROMDATE:'" + $("#from_datepicker").val() + "',TODATE:'" + $("#to_datepicker").val() + "',FSANDQUANTY:'" + id + "'}";
+
+	var obj = "{P_type: '2',P_district_id:'" + distr + "',P_cluster_id:'',P_stockyard_id:'',P_permit_quantity:'" + mtmid+"'}";
+
+	_Sand_Auth("../SandTransportReports_72Hours_Route", obj, function (res) {
+		console.log(res);
+
+
+		//$('#loading-wrapper').show();
+		//var OnestDistrict = $("#Loadistricts").find("option:selected").val();
+		if (res.Code == "100") {
+
+
+			$("#dt_table_72_hours_cluster_data").empty('');
+			tablebody_dt_table_72_hours_cluster_data = '<table id="dt_table_72_hours_cluster_data" class="table text-left"><thead style="font-size:16px;"><tr class="text-left"><th class="pt-0" style="width:2%">Cluster ID</th><th class="pt-0" style="width:3%;">Cluster Name</th><th class="pt-0" style="width:1%;">Total Orders</th></tr ></thead ><tbody>';
+
+			for (var index = 0; index < res.DailyRepDetsli.length; index++) {
+				var obj = res.DailyRepDetsli[index];
+				var counter = index + 1;
+				tablebody_dt_table_72_hours_cluster_data += "<tr><td>" + obj.CLUSTER_ID + "</td ><td <a style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:15px;'  >" + obj.CLUSTER_NAME + "</a></td ><td ><label class='badge badge-info mr-4 mr-xl-2' style='font-size:20px;border-radius:10px;'>" + obj.TOTAL_ORDERS + "</label></td></tr>";
+			}
+
+
+			table_72_hours_cluster_data(tablebody_dt_table_72_hours_cluster_data);
+			$('#loading-wrapper').hide();
+		}
+		else {
+
+		}
+	});
+}
+
+function table_72_hours_cluster_data(tabledata) {
+	$('#table_72_hours_cluster').html(tabledata + '<tbody><table>');
+
+}
 
 function closebtn(sn1) {
 	if (sn1 != 0 || sn1 == undefined) {
@@ -1023,7 +1169,7 @@ function veh_details_data(vehd_custid, veh_objs, mt) {
 	_Sand_Auth("../SandTransportReportsapi_Stockyard", obj, function (res) {
 
 
-		veh_details = '<table id="dt_table_vehicle" class="table"><thead style="font-size:11px;"> <tr class="text-left"> <th style="width: 13%;">CONTRACTOR ID</th> <th  style="width: 10%;">CONTRACTOR MOBILE </th> <th  style="width: 8%;">CONTRACTOR NAME</th> <th  style="width: 2%;">DRIVER NAME</th> <th  style="width: 10%;">DRIVER MOBILENUMBER </th> <th  style="width: 2%;">VEHICLE NO</th> </tr> </thead> </thead><tbody>';
+		veh_details = '<table id="dt_table_vehicle" class="table"><thead style="font-size:11px;"> <tr class="text-left"> <th style="width: 13%;">CONTRACTOR ID</th> <th  style="width: 10%;">CONTRACTOR MOBILE </th> <th  style="width: 8%;">CONTRACTOR NAME</th> <th  style="width: 2%;">VEHICLE NO</th> </tr> </thead> </thead><tbody>';
 		if (res.Code == "100") {
 
 
@@ -1031,7 +1177,7 @@ function veh_details_data(vehd_custid, veh_objs, mt) {
 				var obj = res.DailyRepDetsli[index];
 				var counter = index + 1;
 
-				veh_details += "<tr><td><a>" + obj.CONTRACTOR_ID + "  </a></td><td><a>" + obj.CONTRACTOR_MOBILE + " </a></td><td><a>" + obj.CONTRACTOR_NAME + "</a></td><td>" + obj.DRIVER_NAME + "</td><td style='text-align:center'>" + obj.DRIVER_MOBILENUMBER + "</td><td style='text-align:center'>" + obj.VEHICLE_NO + "</td></tr>";
+				veh_details += "<tr><td><a>" + obj.CONTRACTOR_ID + "  </a></td><td><a>" + obj.CONTRACTOR_MOBILE + " </a></td><td><a>" + obj.CONTRACTOR_NAME + "</a></td><td style='text-align:center'>" + obj.VEHICLE_NO + "</td></tr>";
 
 
 			}

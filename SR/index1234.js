@@ -190,12 +190,10 @@ $('#to_datepicker').datepicker({
 		load_Counters(11, $("#Loadistricts").find("option:selected").val());
 		$("#from_datepicker").datepicker("option", "maxDate", date);
 		$('#from_datepicker').datepicker('setDate', date);
-		$("#collapseOne").hide();
+		$("#collapseOne").hide();		
+		$("#hour_Table_display_72").hide();
 		load_per_hourdisplay($("#Loadistricts").find("option:selected").val());
 		Func72hoursOfDipaly($("#Loadistricts").find("option:selected").val());
-
-
-
 		myhours = '';
 		myhours = new Date().getHours();
 		if ($("#Loadistricts").val() == '1') {
@@ -219,6 +217,7 @@ $('#from_datepicker').datepicker({
 		load_Counters(10, $("#Loadistricts").find("option:selected").val());
 		load_Counters(11, $("#Loadistricts").find("option:selected").val());
 		$("#collapseOne").hide();
+		$("#hour_Table_display_72").hide();
 		load_per_hourdisplay($("#Loadistricts").find("option:selected").val());
 		Func72hoursOfDipaly($("#Loadistricts").find("option:selected").val());
 		myhours = '';
@@ -261,6 +260,7 @@ function load_district_ava_or_not() {
 	if ($("#Loadistricts").val() == '0') {
 		alert('Please select District');
 		$("#collapseOne").hide();
+		$("#hour_Table_display_72").hide();
 	}
 	else if ($("#Loadistricts").val() != 'undefined') {
 		load_Counters(1, 1);
@@ -270,12 +270,14 @@ function load_district_ava_or_not() {
 		load_per_hourdisplay(1);
 		myhours = '';
 		myhours = new Date().getHours();
-	    perhourchangefunc('1', '510');
+		perhourchangefunc('1', '510');
+		$("#hour_Table_display_72").hide();
 
 	}
 	else if ($("#Loadistricts").val() != null) {
 		alert('Please select District');
 		$("#collapseOne").hide();
+		$("#hour_Table_display_72").hide();
 	}
 	else {
 
@@ -290,6 +292,7 @@ $("#submit").click(function () {
 	load_Counters(11, $("#Loadistricts").find("option:selected").val());
 	Func72hoursOfDipaly($("#Loadistricts").find("option:selected").val());
 	$("#collapseOne").hide();
+	$("#hour_Table_display_72").hide();
 	$("#icloseVehicle").click();
 	$("#icloseContractor").click();
 	myhours = '';
@@ -350,7 +353,7 @@ function load_Counters(id,tdis) {
 
 				}
 				if (id == 11) {
-					console.log(res.DailyRepDetsli);
+				
 					$('#TOTAL_REG').jQuerySimpleCounter({ end: res.DailyRepDetsli[0].TOTAL_REG, duration: 3000 });
 					$('#TODAY_REG').jQuerySimpleCounter({ end: res.DailyRepDetsli[0].TODAY_REG, duration: 3000 });
 					$('#TOTAL_45').jQuerySimpleCounter({ end: res.DailyRepDetsli[0].TOTAL_45, duration: 3000 });
@@ -698,7 +701,7 @@ function load_cluster_for_contrator(id) {
 
 				var obj = res.DailyRepDetsli[index];
 				var counter = index + 1;
-				contractor_cluster_tablebody += "<tr><td><a>" + obj.CONTRACTOR_ID + " </a></td><td><a>" + obj.CONTRACTOR_NAME + "</a></td><td>" + obj.CONTRACTOR_MOBILE + "</td><td>" + obj.TOTAL_4_5 + "</td><td style='text-align:center'>" + obj.TOTAL_9_10 + "</td><td style='text-align:center'>" + obj.TOTAL_18 + "</td><td style='text-align:center'>" + obj.TOTAL_24 + "</td><td style='text-align:center'>" + obj.TOTAL_491024 + "</td></tr>";
+				contractor_cluster_tablebody += "<tr><td>" + obj.CONTRACTOR_ID + "</td><td><a>" + obj.CONTRACTOR_NAME + "</a></td><td>" + obj.CONTRACTOR_MOBILE + "</td><td>" + obj.TOTAL_4_5 + "</td><td style='text-align:center'>" + obj.TOTAL_9_10 + "</td><td style='text-align:center'>" + obj.TOTAL_18 + "</td><td style='text-align:center'>" + obj.TOTAL_24 + "</td><td style='text-align:center'>" + obj.TOTAL_491024 + "</td></tr>";
 			}
 
 			cluster_for_contractor(contractor_cluster_tablebody);
@@ -724,7 +727,7 @@ function load_cluster_for_contrator_cumulative(id) {
 
 				var obj = res.DailyRepDetsli[index];
 				var counter = index + 1;
-				contractor_cluster_tablebody_cumulative += "<tr><td><a>" + obj.CONTRACTOR_ID + " </a></td><td><a>" + obj.CONTRACTOR_NAME + "</a></td><td>" + obj.CONTRACTOR_MOBILE + "</td><td>" + obj.TOTAL_4_5_CUM + "</td><td style='text-align:center'>" + obj.TOTAL_9_10_CUM + "</td><td style='text-align:center'>" + obj.TOTAL_18_CUM + "</td><td style='text-align:center'>" + obj.TOTAL_24_CUM + "</td><td style='text-align:center'>" + obj.TOTAL_491024_CUM + "</td></tr>";
+				contractor_cluster_tablebody_cumulative += "<tr><td>" + obj.CONTRACTOR_ID + "</td><td><a>" + obj.CONTRACTOR_NAME + "</a></td><td>" + obj.CONTRACTOR_MOBILE + "</td><td>" + obj.TOTAL_4_5_CUM + "</td><td style='text-align:center'>" + obj.TOTAL_9_10_CUM + "</td><td style='text-align:center'>" + obj.TOTAL_18_CUM + "</td><td style='text-align:center'>" + obj.TOTAL_24_CUM + "</td><td style='text-align:center'>" + obj.TOTAL_491024_CUM + "</td></tr>";
 			}
 			cluster_for_contractor_cumulative(contractor_cluster_tablebody_cumulative);
 		}
@@ -735,19 +738,27 @@ function load_cluster_for_contrator_cumulative(id) {
 }
 
 
+
+
 function cluster_for_contractor(tabledata) {
 
 	$('#tbl_cluster_Contractor').html(tabledata + '<tbody><table>');
 	$('#tbl_cluster_Contractor').DataTable({
-		columnDefs: [{
-			targets: 0,
-			//render: $.fn.dataTable.render.ellipsis()
-		}],
 		destroy: true,
 		stateSave: true,
 		paging: true,
 		"pageLength": 10,
 		"ordering": false
+	});
+	var clustertablesss = $('#tbl_cluster_Contractor').DataTable();		
+	$('#tbl_cluster_Contractor').on('click', 'tr', function () {
+		var rowData = clustertablesss.rows(this).data().toArray();
+
+		$('#exampleModal2').modal('show');
+		var UsedContracotor = rowData[0][0]
+		load_cluster_for_contrator_by_contratorID(UsedContracotor);
+		//$('#mylabels').text();
+		
 	});
 
 }
@@ -766,6 +777,35 @@ function cluster_for_contractor_cumulative(tabledata) {
 
 }
 
+
+function load_cluster_for_contrator_by_contratorID(contratorID) {
+
+	var obj = "{FTYPE:'8',FDISTRICT:'" + $("#Loadistricts").find("option:selected").val() + "',FROMDATE:'" + $("#from_datepicker").val() + "',TODATE:'" + $("#to_datepicker").val() + "',FSANDQUANTY:'',fcluster_id:'',fstockyard_id:'" + contratorID + "'}";
+
+	_Sand_Auth("../Load_Contarctor_Details_by_id_route", obj, function (res) {
+
+		console.log(res);
+		//$('#loading-wrapper').show();
+
+		//tablebody3 = '<table id="dt_table_3" class="table"><thead style="font-size:14px;"> <tr class="text-left"> <th style="width:8%"> STOCKYARD ID</th> <th style="width: 13%;">STOCKYARD NAME</th> <th  style="width: 10%;">CLUSTER NAME</th> <th  style="width: 8%;">TOTAL ORDERS</th> <th  style="width: 2%;">ALLOCATED</th> <th  style="width: 2%;">ACCEPTED</th> <th  style="width: 10%;">WAY BILL GENRATED</th> <th  style="width: 2%;">DELIVERD</th> </tr> </thead> </thead><tbody>';
+		//if (res.Code == "100") {
+
+		//	for (var index = 0; index < res.DailyRepDetsli.length; index++) {
+		//		var obj = res.DailyRepDetsli[index];
+		//		var counter = index + 1;
+
+		//		tablebody3 += "<tr><td><a style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:15px;'  onclick=load_stockyard_contractor_info('" + obj.STOCKYARD_ID + mytyreObj + "','" + obj.STOCKYARD_ID + "','" + obj.CLUSTER_ID + "');>" + obj.STOCKYARD_ID + "</a></td><td>" + obj.STOCKYARD_NAME + "</td><td>" + obj.CLUSTER_NAME + "</td><td style='text-align:center'>" + obj.TOTAL_ORDERS + "</td><td style='text-align:center'>" + obj.ALLOCATED + "</td><td style='text-align:center'>" + obj.ACCEPTED + "</td><td style='text-align:center'>" + obj.WAYBILL_GENRATED + "</td><td style='text-align:center'>" + obj.DELIVERD + "</td></tr>";
+
+
+		//	}
+		//	//$('#mydatatabs').append(navtabs);
+		//	//$('#mytabcontent').append(navbody);
+		//	$("#mycsttab" + custidobjName).html(tablebody3 + '<tbody><table>');
+		//	$('#loading-wrapper').hide();
+		//}
+	});
+}
+
 function load_contractor_panel() {
 	contractor_view = 1
 
@@ -780,6 +820,7 @@ function load_contractor_panel() {
 		$('#ContractorDetails_show').hide();
 	}
 }
+
 
 
 
@@ -943,7 +984,7 @@ function load_72_hours_cluster_data(distr,mtmid) {
 	var obj = "{P_type: '2',P_district_id:'" + distr + "',P_cluster_id:'',P_stockyard_id:'',P_permit_quantity:'" + mtmid+"'}";
 
 	_Sand_Auth("../SandTransportReports_72Hours_Route", obj, function (res) {
-		console.log(res);
+		
 
 
 		//$('#loading-wrapper').show();
@@ -1035,7 +1076,7 @@ function perhourchangefunc(p_hour,distrperhour) {
 	var obj = "{FTYPE:'6',FDISTRICT:'" + distrperhour + "',FROMDATE:'',TODATE:'',FSANDQUANTY:'" + p_hour + "',fcluster_id:'',fstockyard_id:''}";
 	_Sand_Auth("../PerhourDisplay_hour_route", obj, function (res) {
 
-		console.log(res);
+		
 		if (res.Code == "100") {
 			$('#TOTAL_ALLOCATED_per_h').jQuerySimpleCounter({ end: res.DailyRepDetsli[0].TOTAL_ALLOCATED, duration: 3000 });
 			$('#TOTAL_ACCEPTED_per_h').jQuerySimpleCounter({ end: res.DailyRepDetsli[0].TOTAL_ACCEPTED, duration: 3000 });

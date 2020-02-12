@@ -1996,7 +1996,7 @@
 																	<div class="icon-bg bg-contractor dropdown-head">
 																		<div><label style="font-size: 22px !important;">Contractor Details</label>	  </div>
 
-																	</div>	<i class="far fa-times-circle" style="color:white;" id="icloseContractor"></i>
+																	</div>	<i class="far fa-times-circle" style="color:white; position: absolute; z-index: 9999; font-size: 17px; top: -17px; right: 120px;" id="icloseContractor"></i>
 
 																</div>
 																<div id="lobipanel_custom_control_contaractor">
@@ -2007,7 +2007,28 @@
 																		<div id="Contractor_views">
 																			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 																				<div id="mytabcontent_new">
+																					<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+																						<div class="modal-dialog modal-lg" role="document">
+																							<div class="modal-content">
+																								<div class="modal-header">
+																									<h5 class="modal-title" id="exampleModalLabel">SAND</h5>
+																									<a class="Close" data-dismiss="modal" aria-label="Close" onclick="return close();"><i class="far fa-times-circle"></i></a>
 
+																								</div>
+																								<div class="modal-body" style="max-height:500px;overflow:auto;">
+
+																											<label id="mylabels"></label>
+																								</div>
+
+																								<!--<div class="modal-footer">
+
+					<button class="btn btn-primary" type="button" id="popup_submit" >Submit</button>
+
+				</div>-->
+
+																							</div>
+																						</div>
+																					</div>
 																					<div id="Contractor_view_today">
 																						<h5 style="color: #dc3545;text-decoration: underline;margin-bottom: 15px;">Today Registered Contractors</h5>
 																						<div class="table-responsive">
@@ -2035,7 +2056,7 @@
 														<div id="vehicle_register_show" style="display:none;">
 															<div class="card">
 																<div class="card-header" style="border-top: 2px solid #33af65;">
-																	<div class="icon-bg bg-success dropdown-head" id="veh_headcolor"><label id="Vtyre">Vehicle Registered</label> <i class="far fa-times-circle" style="color:white;" id="icloseVehicle"></i></div>
+																	<div class="icon-bg bg-success dropdown-head" id="veh_headcolor"><label id="Vtyre">Vehicle Registered</label> <i class="far fa-times-circle" style="color:white;position: absolute; z-index: 9999; font-size: 17px; top: 1px; right: 6px;" id="icloseVehicle"></i></div>
 																</div>
 																<div id="lobipanel_custom_control_Vehicle" class="scroll-lobi">
 																	<div class="panel-heading">
@@ -2098,11 +2119,11 @@
                  
                 </div>
 
-                <div class="modal-footer">
+                <!--<div class="modal-footer">
 
                     <button class="btn btn-primary" type="button" id="popup_submit" >Submit</button>
 
-                </div>
+                </div>-->
                 
             </div>
         </div>
@@ -2128,8 +2149,7 @@
 
         function openModal() {
             $('#exampleModal').modal('show');
-           
-            //$('[id*=exampleModal]').modal('show');
+          
         }
 
     </script>

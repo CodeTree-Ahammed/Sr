@@ -130,6 +130,30 @@ namespace SR.help
 		}
 
 		/// <summary>
+		///  This function is used to get the contractor details on pop up and hence using the existance sp of " SandTransportReports_Get_sp_StockYard "
+		/// </summary>
+		/// <param name="root"></param>
+		/// <returns></returns>
+		public dynamic Load_Contarctor_Details_by_id_Valid(Load_district root)
+		{
+			dynamic userdata = new ExpandoObject();
+
+			Dt = sandget.SandTransportReports_Get_sp_StockYard(root);
+			if (Dt != null && Dt.Rows.Count > 0)
+			{
+				userdata.Code = "100";
+				userdata.DailyRepDetsli = Dt;
+				userdata.Message = "success";
+			}
+			else
+			{
+				userdata.Code = "101";
+				userdata.Message = "No Data Found";
+			}
+			return userdata;
+		}
+
+		/// <summary>
 		/// This valid is for the per hour display and written by ahammed
 		/// </summary>
 		/// <param name="root"></param>

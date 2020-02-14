@@ -138,7 +138,7 @@ namespace SR.help
 		{
 			dynamic userdata = new ExpandoObject();
 
-			Dt = sandget.SandTransportReports_Get_sp_StockYard(root);
+			Dt = sandget.PerhourDisplay_sp(root);
 			if (Dt != null && Dt.Rows.Count > 0)
 			{
 				userdata.Code = "100";
@@ -152,6 +152,29 @@ namespace SR.help
 			}
 			return userdata;
 		}
+
+
+		public dynamic SandTransportReports_VehilceSearch_valid(Load_district root)
+		{
+			dynamic userdata = new ExpandoObject();
+
+			Dt = sandget.SandTransportReports_VehilceSearch_sp(root);
+			if (Dt != null && Dt.Rows.Count > 0)
+			{
+				userdata.Code = "100";
+				userdata.DailyRepDetsli = Dt;
+				userdata.Message = "success";
+			}
+			else
+			{
+
+				userdata.Code = "101";
+				userdata.Message = "No Data Found";
+			}
+			return userdata;
+		}
+
+
 
 		/// <summary>
 		/// This valid is for the per hour display and written by ahammed

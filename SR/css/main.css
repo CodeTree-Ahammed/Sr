@@ -2661,13 +2661,14 @@ label {
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     border-radius: 8px; }
-  .modal .modal-header {
-    background: #074b9c;
-    color: #ffffff;
-    border: 0;
-    -webkit-border-radius: 6px 6px 0 0;
-    -moz-border-radius: 6px 6px 0 0;
-    border-radius: 6px 6px 0 0; }
+	.modal .modal-header {
+		/*background: #074b9c;*/
+		color: #0d0a0a;
+		border-top: 3px solid green;
+		-webkit-border-radius: 6px 6px 0 0;
+		-moz-border-radius: 6px 6px 0 0;
+		border-radius: 6px 6px 0 0;
+	}
   .modal .modal-footer.custom {
     padding: 0; }
     .modal .modal-footer.custom .left-side, .modal .modal-footer.custom .right-side {

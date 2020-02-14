@@ -625,7 +625,7 @@
 
 
 
-		<h3><span style="color:#ffc107"> Data Loading </span><span style="color:#fff;font-size:12px">   &nbsp;&nbsp;&nbsp;<span style="color:#ffc107">...</span> </span></h3> &nbsp;&nbsp;&nbsp; <img src="img/source.gif" style="height:16vh;margin-bottom: 60px;" />
+		<h3><span style="color:#fff"> Data Loading </span><span style="color:#fff;font-size:12px">   &nbsp;&nbsp;&nbsp;<span style="color:#fff">...</span> </span></h3> &nbsp;&nbsp;&nbsp; <img src="img/source.gif" style="margin-bottom: 15px;" />
 	</div>
 		<!-- Loading ends -->
 		<!-- Header start -->
@@ -687,7 +687,7 @@
 
 				<!-- Content wrapper start -->
 				<div class="content-wrapper">
-                    <button class="btn btn-success" type="button" id="popup" onclick="return openModal()" >Popup</button>
+                  
 					<!-- Row start -->
 					<div class="row gutters">
 						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" style="margin-bottom:5px;">
@@ -1265,30 +1265,30 @@
 																								<div class="form-group">
 																									<label style="float:left;font-weight:600;">Select Time</label>
 																									<select class=" form-control" id="timeChangerPerhour" onchange="perhourchangefunc()">
-																										<option value="1">00 - 01 AM</option>
-																										<option value="2">01 - 02 AM</option>
-																										<option value="3">02 - 03 AM</option>
-																										<option value="4">03 - 04 AM</option>
-																										<option value="5">04 - 05 AM</option>
-																										<option value="6">05 - 06 AM</option>
-																										<option value="7">06 - 07 AM</option>
-																										<option value="8">07 - 08 AM</option>
-																										<option value="9">08 - 09 AM</option>
-																										<option value="10">09 - 10 AM</option>
-																										<option value="11">10 - 11 AM</option>
-																										<option value="12">11 - 12 AM</option>
-																										<option value="13">12 - 01 PM</option>
-																										<option value="14">01 - 02 PM</option>
-																										<option value="15">02 - 03 PM</option>
-																										<option value="16">03 - 04 PM</option>
-																										<option value="17">04 - 05 PM</option>
-																										<option value="18">05 - 06 PM</option>
-																										<option value="19">06 - 07 PM</option>
-																										<option value="20">07 - 08 PM</option>
-																										<option value="21">08 - 09 PM</option>
-																										<option value="22">09 - 10 PM</option>
-																										<option value="23">10 - 11 PM</option>
-																										<option value="24">11 - 12 PM</option>
+																										<option value="0">00 - 01 AM</option>
+																										<option value="1">01 - 02 AM</option>
+																										<option value="2">02 - 03 AM</option>
+																										<option value="3">03 - 04 AM</option>
+																										<option value="4">04 - 05 AM</option>
+																										<option value="5">05 - 06 AM</option>
+																										<option value="6">06 - 07 AM</option>
+																										<option value="7">07 - 08 AM</option>
+																										<option value="8">08 - 09 AM</option>
+																										<option value="9">09 - 10 AM</option>
+																										<option value="10">10 - 11 AM</option>
+																										<option value="11">11 - 12 AM</option>
+																										<option value="12">12 - 01 PM</option>
+																										<option value="13">01 - 02 PM</option>
+																										<option value="14">02 - 03 PM</option>
+																										<option value="15">03 - 04 PM</option>
+																										<option value="16">04 - 05 PM</option>
+																										<option value="17">05 - 06 PM</option>
+																										<option value="18">06 - 07 PM</option>
+																										<option value="19">07 - 08 PM</option>
+																										<option value="20">08 - 09 PM</option>
+																										<option value="21">09 - 10 PM</option>
+																										<option value="22">10 - 11 PM</option>
+																										<option value="23">11 - 12 PM</option>
 																									</select>
 																									<!--<div class="select-arrow">
 																									<div class="arrow-up"></div>
@@ -1797,13 +1797,8 @@
 
 																					</div>
 																					<div class="col-md-12" id="headingten" style="margin-top: -10px;margin-left: 0px;text-align: right">
-																						<button class="btn btn-white" style="margin-top: -26px;
-
-																					text-align: right;
-																					padding: 1px 5px;
-																					margin-right: -13px;" id="btn_contractorshow" aria-controls="collapseten" onclick="load_contractor_panel();">
-																							<i class="fas fa-eye"></i>
-																						</button>
+																						<button class="btn btn-success" style="margin-top: -26px; text-align: right; padding: 1px 5px; margin-right: 2px;" id="btn_vehshow_pop_up" aria-controls="collapseten" onclick="return openModal()"> <i class="fas fa-truck"></i> </button>
+																						<button class="btn btn-white" style="margin-top: -26px; text-align: right; padding: 1px 5px; margin-right: -13px;" id="btn_contractorshow" aria-controls="collapseten" onclick="load_contractor_panel();"> <i class="fas fa-eye"></i> </button>
 
 																					</div>
 																					<div class="col-md-12 text-center" style="border-bottom: 1px dotted white;">
@@ -1844,6 +1839,7 @@
 
 																					</div>
 																					<div class="col-md-12" id="headingten2" style="margin-top: -10px;margin-left: 0px;text-align: right">
+																					
 																						<button class="btn btn-info" style="margin-top: -26px;
 
 																					text-align: right;
@@ -1994,9 +1990,9 @@
 																<div class="card-header" style="border-top: 2px solid  #1f728f;">
 
 																	<div class="icon-bg bg-contractor dropdown-head">
-																		<div><label style="font-size: 22px !important;">Contractor Details</label>	  </div>
-
-																	</div>	<i class="far fa-times-circle" style="color:white; position: absolute; z-index: 9999; font-size: 17px; top: -17px; right: 120px;" id="icloseContractor"></i>
+																		<label style="font-size: 22px !important;">Contractor Details</label>  
+																		<i class="far fa-times-circle" style="color:white;position: absolute; z-index: 9999; font-size: 17px; top: 1px; right: 6px;" id="icloseContractor"></i>
+																	</div>	
 
 																</div>
 																<div id="lobipanel_custom_control_contaractor">
@@ -2007,17 +2003,21 @@
 																		<div id="Contractor_views">
 																			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 																				<div id="mytabcontent_new">
-																					<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+																					<div class="modal fade" id="Load_contractor_id_popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
 																						<div class="modal-dialog modal-lg" role="document">
 																							<div class="modal-content">
 																								<div class="modal-header">
-																									<h5 class="modal-title" id="exampleModalLabel">SAND</h5>
+																									<h5 class="modal-title" id="exampleModalLabel">Contractor Information</h5>
 																									<a class="Close" data-dismiss="modal" aria-label="Close" onclick="return close();"><i class="far fa-times-circle"></i></a>
 
 																								</div>
 																								<div class="modal-body" style="max-height:500px;overflow:auto;">
+																									<div class="table-responsive">
+																										<div id="Load_contractor_id_table">
+																											
 
-																											<label id="mylabels"></label>
+																										</div>
+																									</div>
 																								</div>
 
 																								<!--<div class="modal-footer">
@@ -2072,7 +2072,7 @@
 																			</ul>
 																			<div class='tab-content' id="mytabcontent_vehicle">
 
-																				<div class="col-md-4 tab-pane fade show in active" id="vehicle_cluster-tab" role="tabpanel" aria-labelledby="vehicle_cluster">
+																				<div class="col-md-6 tab-pane fade show in active" id="vehicle_cluster-tab" role="tabpanel" aria-labelledby="vehicle_cluster">
 
 																					<div class="table-responsive" id="tbl_cluster_vehicledata"></div>
 
@@ -2107,27 +2107,36 @@
 		</div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">SAND</h5>
-                    <a  class="Close" data-dismiss="modal" aria-label="Close" onclick="return close();"><i class="far fa-times-circle"></i></a>
-                   
-</div>
-                <div class="modal-body" style="max-height:500px;overflow:auto;">
+        <div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Vehicle Information</h5>
+					<a class="Close" data-dismiss="modal" aria-label="Close" onclick="return close();"><i class="far fa-times-circle" style="font-size:20px;"></i></a>
+				</div>
+				<div class="modal-body" style="max-height:500px;overflow:auto;">
+					<div class="form-group" style="margin-top:20px;margin-bottom:20px;">
+						<div class="row">
+							<label class="col-md-2" style="margin-top:10px;">Enter Vehicle Number</label>
+							<div class="col-md-4">
+								<input id="txt_veh_number" class="form-control" type="text" />
+							</div>
+							<div class="col-md-3">
+								<a class="btn btn-success btn-lg" id="btn_submit_vehicle" >Check</a>
+							</div>
+						</div>
 
-                 
-                </div>
+						<div id="veh_search_data_table_inPopup" style="margin-top:25px;">
 
-                <!--<div class="modal-footer">
+						</div>
 
-                    <button class="btn btn-primary" type="button" id="popup_submit" >Submit</button>
-
-                </div>-->
-                
-            </div>
+					</div>
+				</div>
+				<div class="modal-footer" style="border-top:0px solid grey;">
+						<!--<button type="button" class="btn btn-danger">close</button>-->
+				</div>
         </div>
-    </div>
+			</div>
+		</div>
 		<script src="../js/jquery.min.js"></script>
 		<script src="../js/jquery-1.12.4.js"></script>
 

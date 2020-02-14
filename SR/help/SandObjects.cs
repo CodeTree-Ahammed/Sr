@@ -80,6 +80,9 @@ namespace SR.help
 		public string P_stockyard_id { get => p_stockyard_id; set => p_stockyard_id = value; }
 		public string P_permit_quantity { get => p_permit_quantity; set => p_permit_quantity = value; }
 		public int P_district_id { get => p_district_id; set => p_district_id = value; }
+		public string Vehnumber { get => vehnumber; set => vehnumber = value; }
+
+		private string vehnumber;
 
 		private int p_type, p_district_id;
 		private string  p_cluster_id, p_stockyard_id, p_permit_quantity;

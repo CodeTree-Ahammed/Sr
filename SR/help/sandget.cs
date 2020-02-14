@@ -551,6 +551,44 @@ namespace SR.help
 
 		}
 
+		public dynamic SandTransportReports_VehilceSearch_sp(Load_district obj)
+		{
+			try
+			{
+				data.Reset(); data.Clear();
+				con.Open();
+				cmd = new OracleCommand();
+				cmd.Connection = con;
+				cmd.InitialLONGFetchSize = 1000;
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.CommandText = "APMDC_SP_VEHICLE_SEARCH";
+				cmd.Parameters.Add("P_TYPE", OracleDbType.Int16).Value = obj.FTYPE;
+				cmd.Parameters.Add("P_VEHICLE", OracleDbType.Varchar2).Value = obj.Vehnumber;
+				cmd.Parameters.Add("P_CUR", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+				OracleDataAdapter oda = new OracleDataAdapter(cmd);
+				oda.Fill(data);
+				if (data != null && data.Rows.Count > 0)
+				{
+					return data;
+				}
+				else
+				{
+					return data;
+				}
+			}
+			catch (Exception ex)
+			{
+				return ex.Message;
+			}
+			finally
+			{
+				con.Close();
+				cmd.Dispose();
+			}
+
+		}
+
+
 		//public dynamic APMDC_SP_GET_USER_SESSION_CHK(E_Login obj)
 		//{
 		//	try

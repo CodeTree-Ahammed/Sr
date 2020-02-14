@@ -293,6 +293,7 @@
     <Content Include="fonts\style.css" />
     <Content Include="Global.asax" />
     <Content Include="img\1223.jpg" />
+    <Content Include="img\source.gif" />
     <Content Include="img\ap-logo.png" />
     <Content Include="img\department-icons\11.png" />
     <Content Include="img\department-icons\12.png" />
@@ -344,7 +345,7 @@
     <Content Include="img\123.gif" />
     <Content Include="img\1234.gif" />
     <Content Include="img\123456.gif" />
-    <Content Include="img\source.gif" />
+    <Content Include="img\source123.gif" />
     <Content Include="index.html" />
     <Content Include="index1234.js" />
     <Content Include="index_old.html" />

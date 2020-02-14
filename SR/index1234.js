@@ -42,10 +42,13 @@ $(document).ready(function () {
  //       var obj = "{FTYPE:'1',Username:'" + sessionStorage.getItem('userid') + "',SOURCE:'WEB'}";
  //   _Sand_Auth(url, obj, function (res) {
  //   if (res.Code == "100") {
- //   var today = new Date();
+ // 	$('#loading-wrapper').hide();
+	//var today = new Date();
 	//var dd = String(today.getDate()).padStart(2, '0');
 	//var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 	//var yyyy = today.getFullYear();
+	//var hhh = today.getHours();
+	//$("#timeChangerPerhour").val(hhh);
 	//today = dd + '/' + mm + '/' + yyyy;
 	//$("#from_datepicker").val(today);
 	//$("#to_datepicker").val(today);
@@ -145,35 +148,30 @@ function userlog() {
 //$(function () {
   
 //    window.setInterval(function () {
-//      //  userlog();
+//        userlog();
 //    }, 20000);
 //});
 
 
 // region LogOut Code......................................................................................................... Logout button code start
 $(function () {
-   $("#logout").click(function () {
-     
-       swal({
-           title: "alert!",
-           text: "Are you sure you want to LogOut?",
-           icon: "warning",
-           buttons: true,
-           dangerMode: true,
-       })
-           .then((willDelete) => {
-               if (willDelete) {
-                   sessionStorage.clear(),
-                       window.sessionStorage.clear(),
-                       window.sessionStorage.clear(),
-                       sessionStorage.clear();
-                   window.location.href = 'https://sand.ap.gov.in/Login.htm';
-                   window.close();
-               } else {
-                   swal("ok thank you.. contuine");
-               }
-           });
-   })
+	$("#logout").click(function () {
+		var r = confirm("Are you Sure want to logOut");
+		if (r == true) {
+
+			sessionStorage.clear(),
+				window.sessionStorage.clear(),
+				window.sessionStorage.clear(),
+				sessionStorage.clear();
+			window.location.href = 'https://sand.ap.gov.in/Login.htm';
+			window.close();
+
+		} else {
+
+
+		}
+	});
+
 });
  //......................................................................................................... Logout button code End
 
@@ -190,7 +188,8 @@ $('#to_datepicker').datepicker({
 		load_Counters(11, $("#Loadistricts").find("option:selected").val());
 		$("#from_datepicker").datepicker("option", "maxDate", date);
 		$('#from_datepicker').datepicker('setDate', date);
-		$("#collapseOne").hide();		
+		$("#collapseOne").hide();
+		$('.nav-hide').hide();
 		$("#hour_Table_display_72").hide();
 		load_per_hourdisplay($("#Loadistricts").find("option:selected").val());
 		Func72hoursOfDipaly($("#Loadistricts").find("option:selected").val());
@@ -200,7 +199,7 @@ $('#to_datepicker').datepicker({
 			perhourchangefunc('1', '1');
 		}
 		else {
-			$("#timeChangerPerhour").val() = myhours;
+			$("#timeChangerPerhour").val(myhours);
 			perhourchangefunc(myhours, $("#Loadistricts").find("option:selected").val());
 
 		}
@@ -217,6 +216,7 @@ $('#from_datepicker').datepicker({
 		load_Counters(10, $("#Loadistricts").find("option:selected").val());
 		load_Counters(11, $("#Loadistricts").find("option:selected").val());
 		$("#collapseOne").hide();
+		$('.nav-hide').hide();
 		$("#hour_Table_display_72").hide();
 		load_per_hourdisplay($("#Loadistricts").find("option:selected").val());
 		Func72hoursOfDipaly($("#Loadistricts").find("option:selected").val());
@@ -270,7 +270,7 @@ function load_district_ava_or_not() {
 		load_per_hourdisplay(1);
 		myhours = '';
 		myhours = new Date().getHours();
-		perhourchangefunc('1', '510');
+		perhourchangefunc(myhours, '1');
 		$("#hour_Table_display_72").hide();
 
 	}
@@ -292,6 +292,7 @@ $("#submit").click(function () {
 	load_Counters(11, $("#Loadistricts").find("option:selected").val());
 	Func72hoursOfDipaly($("#Loadistricts").find("option:selected").val());
 	$("#collapseOne").hide();
+	$('.nav-hide').hide();
 	$("#hour_Table_display_72").hide();
 	$("#icloseVehicle").click();
 	$("#icloseContractor").click();
@@ -299,9 +300,11 @@ $("#submit").click(function () {
 	myhours = new Date().getHours();
 	if ($("#Loadistricts").val() == '1') {
 		perhourchangefunc('1', '510');
+		load_per_hourdisplay('1');
 	}
 	else {
 		perhourchangefunc(myhours, $("#Loadistricts").find("option:selected").val());
+		load_per_hourdisplay($("#Loadistricts").find("option:selected").val());
 	}
 
 });
@@ -418,7 +421,7 @@ function load_Counters(id,tdis) {
 
 //......................................................................................................... to load Count for type 1 , 11 , 12 with MT Quantity start
 function TntViews(id) {
-	$('loading-wrapper').show();
+	
 	ods_order = id;
 	if (id == 4.5) {
 		$('#Vtyre').text("Tractor (4.5 MT)");
@@ -438,13 +441,11 @@ function TntViews(id) {
 		$('#Vtyre').text("Total No.of Trips");
 		mytyreObj = 'TotNfT';
 	}
-	//$("#dt_table_2").empty('');
-	//$("#dt_table_3").empty('');
 	$('.nav-hide').hide();
-
+	$('#loading-wrapper').show();
 	var obj = "{FTYPE:'12',FDISTRICT:'" + $("#Loadistricts").find("option:selected").val() + "',FROMDATE:'" + $("#from_datepicker").val() + "',TODATE:'" + $("#to_datepicker").val() + "',FSANDQUANTY:'" + id + "'}";
 	_Sand_Auth("../SandTransportReports_Get_for_total_orders", obj, function (res) {
-		$('#loading-wrapper').show();
+		
 		var OnestDistrict = $("#Loadistricts").find("option:selected").val();
 		if (res.Code == "100") {
 
@@ -463,7 +464,8 @@ function TntViews(id) {
 			$('#loading-wrapper').hide();
 		}
 		else {
-
+			$('#loading-wrapper').hide();
+			$('#tbl_OrderDetails_counts_table').html('No data found');
 		}
 	});
 }
@@ -544,13 +546,12 @@ function load_stockyard(sn1cusObj, sn1cus) {
 
 //stock yard function to get the cid at cluster id and mt as type of metric tons
 function stockyard_details(custid, custidobjName, mt) {
-
+	$('#loading-wrapper').show();
 	var obj = "{FTYPE:'1',FDISTRICT:'" + $("#Loadistricts").find("option:selected").val() + "',FROMDATE:'" + $("#from_datepicker").val() + "',TODATE:'" + $("#to_datepicker").val() + "',FSANDQUANTY:'" + mt + "',fcluster_id:'" + custid + "',fstockyard_id:''}";
 
 	_Sand_Auth("../SandTransportReportsapi_Stockyard", obj, function (res) {
 
-		$('#loading-wrapper').show();
-
+		
 		tablebody3 = '<table id="dt_table_3" class="table"><thead style="font-size:14px;"> <tr class="text-left"> <th style="width:8%"> STOCKYARD ID</th> <th style="width: 13%;">STOCKYARD NAME</th> <th  style="width: 10%;">CLUSTER NAME</th> <th  style="width: 8%;">TOTAL ORDERS</th> <th  style="width: 2%;">ALLOCATED</th> <th  style="width: 2%;">ACCEPTED</th> <th  style="width: 10%;">WAY BILL GENRATED</th> <th  style="width: 2%;">DELIVERD</th> </tr> </thead> </thead><tbody>';
 		if (res.Code == "100") {
 
@@ -562,10 +563,14 @@ function stockyard_details(custid, custidobjName, mt) {
 
 
 			}
-			//$('#mydatatabs').append(navtabs);
-			//$('#mytabcontent').append(navbody);
-			$("#mycsttab" + custidobjName).html(tablebody3 + '<tbody><table>');
 			$('#loading-wrapper').hide();
+			$("#mycsttab" + custidobjName).html(tablebody3 + '<tbody><table>');
+			
+		}
+		else {
+			$('#loading-wrapper').hide();
+			$("#mycsttab" + custidobjName).html('No data Found');
+			
 		}
 	});
 }
@@ -585,20 +590,17 @@ function load_stockyard_contractor_info(sn1stock_id, sn1stock_idObj, sn1stock_cl
 		contaractor_details(sn1stock_clusterid, sn1stock_idObj, sn1stock_id, ods_order);
 	}
 	else {
-		this.$("#li" + sn1stock_id).hide();
-		//this.$("#mycsttab" + sn1).hide();
-		this.$("#chinturmandal-tab").show();
 		return;
 	}
-
+																
 
 }
 
 function contaractor_details(custid, stock_id, stock_id_obj, mt) {
-
+	$('#loading-wrapper').show();
 	var obj = "{FTYPE:'3',FDISTRICT:'" + $("#Loadistricts").find("option:selected").val() + "',FROMDATE:'" + $("#from_datepicker").val() + "',TODATE:'" + $("#to_datepicker").val() + "',FSANDQUANTY:'" + mt + "',fcluster_id:'" + custid + "',fstockyard_id:'" + stock_id + "'}";
 	_Sand_Auth("../SandTransportReportsapi_Stockyard", obj, function (res) {
-		$('#loading-wrapper').show();
+		
 		tablebody4 = '<table id="dt_table_4" class="table"><thead style="font-size:14px;"> <tr class="text-left"> <th style="width:8%"> CONTRACTOR ID</th>  <th  style="width: 10%;">CONTRACTOR NAME</th> <th  style="width: 8%;">TOTAL ORDERS</th> <th  style="width: 2%;">ALLOCATED</th> <th  style="width: 2%;">ACCEPTED</th> <th  style="width: 10%;">WAY BILL GENRATED</th> <th  style="width: 2%;">DELIVERD</th> </tr> </thead> </thead><tbody>';
 		if (res.Code == "100") {
 
@@ -609,16 +611,23 @@ function contaractor_details(custid, stock_id, stock_id_obj, mt) {
 
 				tablebody4 += "<tr><td><a style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:15px;'  onclick=load_contaractor_veh_details('" + obj.CONTRACTOR_ID + "','" + obj.CONTRACTOR_ID + mytyreObj + "','" + stock_id + "','" + custid + "');>" + obj.CONTRACTOR_ID + "</a></td><td>" + obj.CONTRACTOR_NAME + "</td><td style='text-align:center'>" + obj.TOTAL_ORDERS + "</td><td style='text-align:center'>" + obj.ALLOCATED + "</td><td style='text-align:center'>" + obj.ACCEPTED + "</td><td style='text-align:center'>" + obj.WAYBILL_GENRATED + "</td><td style='text-align:center'>" + obj.DELIVERD + "</td></tr>";
 			}
-
+			
 			$("#mycsttab" + stock_id_obj).html(tablebody4 + '<tbody><table>');
 			$('#loading-wrapper').hide();
+
 		}
+		else {
+			$('#loading-wrapper').hide();
+			$("#mycsttab" + stock_id_obj).html('No data Fountd');
+		}
+
+
 	});
 }
 
 
 function load_contaractor_veh_details(mycontractors_id_obj, contractors_id, sn1stock_id, sn1stock_clusterid) {
-
+	
 	navtabs += "<li class='nav-item nav-hide' id='" + "li" + contractors_id + "' style='display:none;' ><a class='nav-link' id='" + "lia" + contractors_id + "' data-toggle='tab' href='" + "#mycsttab" + contractors_id + "' role='tab' aria-controls='" + "mycsttab" + contractors_id + "' aria-selected='false'>" + mycontractors_id_obj + "<button class='align-btn' style='border:none;' id='" + "btn" + contractors_id + "' onClick=closebtn('" + contractors_id + "') ><i class='mdi mdi-close-circle'></i></button></a></li>";
 	navbody += "<div class='tab-pane fade' id='" + "mycsttab" + contractors_id + "' role='tabpanel' aria-labelledby='" + "mycsttab" + contractors_id + "'>" + mycontractors_id_obj + " </div>";
 	$('#mydatatabs').append(navtabs);
@@ -637,11 +646,9 @@ function load_contaractor_veh_details(mycontractors_id_obj, contractors_id, sn1s
 
 }
 function contaractor_veh_details(contractor_id, contractorsObj, stock_id, custid, mt) {
-
+	$('#loading-wrapper').show();
 	var obj = "{FTYPE:'4',FDISTRICT:'" + $("#Loadistricts").find("option:selected").val() + "',FROMDATE:'" + $("#from_datepicker").val() + "',TODATE:'" + $("#to_datepicker").val() + "',FSANDQUANTY:'" + mt + "',fcluster_id:'" + custid + "',fstockyard_id:'" + stock_id + "',fcontractor_id:'" + contractor_id + "'}";
-
 	_Sand_Auth("../SandTransportReportsapi_Stockyard", obj, function (res) {
-		$('#loading-wrapper').show();
 		tablebody5 = '<table id="dt_table_5" class="table"><thead style="font-size:14px;"> <tr class="text-left"> <th style="width:8%">VEHICLE NO</th><th  style="width: 8%;">TOTAL ORDERS</th> <th  style="width: 2%;">ALLOCATED</th> <th  style="width: 2%;">ACCEPTED</th> <th  style="width: 10%;">WAY BILL GENRATED</th> <th  style="width: 2%;">DELIVERD</th><th  style="width: 2%;">DOWNLOAD</th> </tr> </thead> </thead><tbody>';
 		if (res.Code == "100") {
 
@@ -654,6 +661,11 @@ function contaractor_veh_details(contractor_id, contractorsObj, stock_id, custid
 			}
 
 			$("#mycsttab" + contractorsObj).html(tablebody5 + '<tbody><table>');
+			$('#loading-wrapper').hide();
+		}
+		else {
+
+			$("#mycsttab" + contractorsObj).html('No Data Found');
 			$('#loading-wrapper').hide();
 		}
 	});
@@ -754,7 +766,7 @@ function cluster_for_contractor(tabledata) {
 	$('#tbl_cluster_Contractor').on('click', 'tr', function () {
 		var rowData = clustertablesss.rows(this).data().toArray();
 
-		$('#exampleModal2').modal('show');
+		$('#Load_contractor_id_popup').modal('show');
 		var UsedContracotor = rowData[0][0]
 		load_cluster_for_contrator_by_contratorID(UsedContracotor);
 		//$('#mylabels').text();
@@ -774,35 +786,77 @@ function cluster_for_contractor_cumulative(tabledata) {
 		"pageLength": 10,
 		"ordering": false
 	});
+	var clustertablesss_cum = $('#tbl_cluster_Contractor_cumulative').DataTable();
+	$('#tbl_cluster_Contractor_cumulative').on('click', 'tr', function () {
+		var rowData = clustertablesss_cum.rows(this).data().toArray();
+
+		$('#Load_contractor_id_popup').modal('show');
+		var UsedContracotor_cum = rowData[0][0]
+		load_cluster_for_contrator_by_contratorID(UsedContracotor_cum);
+		
+
+	});
 
 }
 
-
+var Load_contractor_id_datatable = [];
 function load_cluster_for_contrator_by_contratorID(contratorID) {
 
-	var obj = "{FTYPE:'8',FDISTRICT:'" + $("#Loadistricts").find("option:selected").val() + "',FROMDATE:'" + $("#from_datepicker").val() + "',TODATE:'" + $("#to_datepicker").val() + "',FSANDQUANTY:'',fcluster_id:'',fstockyard_id:'" + contratorID + "'}";
+	var obj = "{FTYPE:'8',FDISTRICT:'" + $("#Loadistricts").find("option:selected").val() + "',FROMDATE:'',TODATE:'',FSANDQUANTY:'',fcluster_id:'',fstockyard_id:'',Fcontractor_id:'" + contratorID + "'}";
 
 	_Sand_Auth("../Load_Contarctor_Details_by_id_route", obj, function (res) {
 
 		console.log(res);
 		//$('#loading-wrapper').show();
 
-		//tablebody3 = '<table id="dt_table_3" class="table"><thead style="font-size:14px;"> <tr class="text-left"> <th style="width:8%"> STOCKYARD ID</th> <th style="width: 13%;">STOCKYARD NAME</th> <th  style="width: 10%;">CLUSTER NAME</th> <th  style="width: 8%;">TOTAL ORDERS</th> <th  style="width: 2%;">ALLOCATED</th> <th  style="width: 2%;">ACCEPTED</th> <th  style="width: 10%;">WAY BILL GENRATED</th> <th  style="width: 2%;">DELIVERD</th> </tr> </thead> </thead><tbody>';
-		//if (res.Code == "100") {
+		Load_contractor_id_datatable = '<table id="dt_table_Load_contractor_id" class="table"><thead style="font-size:12px;"> <tr class="text-left"> <th>AGENCY NAME</th> <th  title="Contractor Name">NAME</th> <th >PAN NUMBER</th> <th>BANK NAME</th> <th>VEHICLE NUMBER</th> </tr> </thead> </thead><tbody>';
+		if (res.Code == "100") {
 
-		//	for (var index = 0; index < res.DailyRepDetsli.length; index++) {
-		//		var obj = res.DailyRepDetsli[index];
-		//		var counter = index + 1;
+			for (var index = 0; index < res.DailyRepDetsli.length; index++) {
+				var obj = res.DailyRepDetsli[index];
+				var counter = index + 1;
 
-		//		tablebody3 += "<tr><td><a style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:15px;'  onclick=load_stockyard_contractor_info('" + obj.STOCKYARD_ID + mytyreObj + "','" + obj.STOCKYARD_ID + "','" + obj.CLUSTER_ID + "');>" + obj.STOCKYARD_ID + "</a></td><td>" + obj.STOCKYARD_NAME + "</td><td>" + obj.CLUSTER_NAME + "</td><td style='text-align:center'>" + obj.TOTAL_ORDERS + "</td><td style='text-align:center'>" + obj.ALLOCATED + "</td><td style='text-align:center'>" + obj.ACCEPTED + "</td><td style='text-align:center'>" + obj.WAYBILL_GENRATED + "</td><td style='text-align:center'>" + obj.DELIVERD + "</td></tr>";
+				Load_contractor_id_datatable += "<tr><td><a>" + obj.CONTRACTOR_AGENCY_NAME + "</a></td><td>" + obj.CONTRACTOR_NAME + "</td><td>" + obj.CONRACTOR_PAN_NUMBER + "</td><td style='text-align:center'>" + obj.CONTRACTOR_BANK_NAME + "</td><td style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:15px;'>" + obj.VEHICLE_NO + "</td></tr>";
 
 
-		//	}
-		//	//$('#mydatatabs').append(navtabs);
-		//	//$('#mytabcontent').append(navbody);
-		//	$("#mycsttab" + custidobjName).html(tablebody3 + '<tbody><table>');
-		//	$('#loading-wrapper').hide();
-		//}
+
+				
+			//	CONTRACTOR_AGENCY_NAME: "DVN TRANSPORT"
+				//CONTRACTOR_NAME: "SUBHASHINI"
+				
+				//CONTRACTOR_MAIL_ID: null
+				
+				
+			//	CONRACTOR_PAN_NUMBER: "CICPD2447J"
+				//CONTRACTOR_BANK_IFSCCODE: "KVBL0004818"
+				//CONTRACTOR_BANK_NAME: "KARUR VYSYA BANK"
+				//CONTRACTOR_BANK_BRANCH_NAME: "RAJAMPET"
+				//CONTRACTOR_BANK_ACCOUNT_NUMBER: "4818155000019660"
+				//CONTRACTOR_CAPTUERDATETIME: "2020-02-12T08:08:16"
+				//CLUSTER_ID: "C504001"
+				//CLUSTER_NAME: "Rajampeta"
+				//VEHICLE_CREATED_DATE: "2020-02-12T00:00:00"
+				//VEHICLE_NO: "AP04TX6756"
+				//VEHICLE_QTY: 4.5
+				//GPS_STATUS: "GPS Enabled"
+
+
+
+
+
+
+			}
+			//$('#mydatatabs').append(navtabs);
+			//$('#mytabcontent').append(navbody);
+			$('#Load_contractor_id_table').html(Load_contractor_id_datatable + '<tbody><table>');
+			//$('#Load_contractor_id_table').DataTable({
+			//	destroy: true,
+			//	stateSave: true,
+			//	paging: true,
+			//	"pageLength": 10,
+			//	"ordering": false
+			//});
+		}
 	});
 }
 
@@ -929,43 +983,47 @@ function load72hours_panel() {
 	else if (but_72 == '1') {
 
 		btnval_72 = 4.5;
+		mytyreObj_72 = 'Tractor_72';
 		$("#hour_heading_vehicle_72").text("Tractor (4.5 MT)");
 		$("#headcolor_72").removeClass();
 		$("#headcolor_72").addClass('icon-bg bg-primary dropdown-head');
 		$("#hour_Table_display_72").show();
 		load_panel_72("#hour_Table_lobipanel_72");
-		load_72_hours_cluster_data($("#Loadistricts").find("option:selected").val(), btnval_72);
+		load_72_hours_cluster_data($("#Loadistricts").find("option:selected").val(), btnval_72, mytyreObj_72);
 
 
 
 	}
 	else if (but_72 == '2') {
 		btnval_72 = 10;		
+		mytyreObj_72 = '6Tyre_72';
 		$("#hour_heading_vehicle_72").text("6 Tyre (10 MT)");
 		$("#headcolor_72").removeClass();
 		$("#headcolor_72").addClass('icon-bg bg-success dropdown-head');
 		$("#hour_Table_display_72").delay(500).show();
 		load_panel_72("#hour_Table_lobipanel_72");
-		load_72_hours_cluster_data($("#Loadistricts").find("option:selected").val(), btnval_72);
+		load_72_hours_cluster_data($("#Loadistricts").find("option:selected").val(), btnval_72, mytyreObj_72);
 
 	}
 	else if (but_72 == '3') {
 		btnval_72 = 18;
+		mytyreObj_72 = '10Tyre_72';
 		$("#hour_heading_vehicle_72").text("10 Tyre (18 MT)");
 		$("#headcolor_72").removeClass();
 		$("#headcolor_72").addClass('icon-bg bg-danger dropdown-head');
 		$("#hour_Table_display_72").delay(500).show();
 		load_panel_72("#hour_Table_lobipanel_72");
-		load_72_hours_cluster_data($("#Loadistricts").find("option:selected").val(), btnval_72);
+		load_72_hours_cluster_data($("#Loadistricts").find("option:selected").val(), btnval_72, mytyreObj_72);
 	}
 	else if (but_72 == '4') {
 		$("#hour_heading_vehicle_72").text("Total No.of Trips");
 		btnval_72 = 22;
+		mytyreObj_72 = '18Tyre_72';
 		$("#headcolor_72").removeClass();
 		$("#headcolor_72").addClass('card-header icon-bg bg-white dropdown-head text-dark');
 		$("#hour_Table_display_72").delay(500).show();
 		load_panel_72("#hour_Table_lobipanel_72");
-		load_72_hours_cluster_data($("#Loadistricts").find("option:selected").val(), btnval_72);
+		load_72_hours_cluster_data($("#Loadistricts").find("option:selected").val(), btnval_72, mytyreObj_72);
 	}
 	else {
 		$("#hour_Table_display_72").hide();
@@ -978,19 +1036,13 @@ function load_panel_72(pid) {
 }
 
 var tablebody_dt_table_72_hours_cluster_data = [];
-function load_72_hours_cluster_data(distr,mtmid) {
-	//var obj = "{FTYPE:'12',FDISTRICT:'" + $("#Loadistricts").find("option:selected").val() + "',FROMDATE:'" + $("#from_datepicker").val() + "',TODATE:'" + $("#to_datepicker").val() + "',FSANDQUANTY:'" + id + "'}";
-
-	var obj = "{P_type: '2',P_district_id:'" + distr + "',P_cluster_id:'',P_stockyard_id:'',P_permit_quantity:'" + mtmid+"'}";
-
+function load_72_hours_cluster_data(distr, mtmid, mytyreObj_72_val) {
+	
+	$('#loading-wrapper').show();
+	var obj = "{P_type: '2',P_district_id:'" + distr + "',P_cluster_id:'',P_stockyard_id:'',P_permit_quantity:'" + mtmid + "'}";
+	var OnestDistrict_72 = $("#Loadistricts").find("option:selected").val();
 	_Sand_Auth("../SandTransportReports_72Hours_Route", obj, function (res) {
-		
-
-
-		//$('#loading-wrapper').show();
-		//var OnestDistrict = $("#Loadistricts").find("option:selected").val();
 		if (res.Code == "100") {
-
 
 			$("#dt_table_72_hours_cluster_data").empty('');
 			tablebody_dt_table_72_hours_cluster_data = '<table id="dt_table_72_hours_cluster_data" class="table text-left"><thead style="font-size:16px;"><tr class="text-left"><th class="pt-0" style="width:2%">Cluster ID</th><th class="pt-0" style="width:3%;">Cluster Name</th><th class="pt-0" style="width:1%;">Total Orders</th></tr ></thead ><tbody>';
@@ -998,7 +1050,7 @@ function load_72_hours_cluster_data(distr,mtmid) {
 			for (var index = 0; index < res.DailyRepDetsli.length; index++) {
 				var obj = res.DailyRepDetsli[index];
 				var counter = index + 1;
-				tablebody_dt_table_72_hours_cluster_data += "<tr><td>" + obj.CLUSTER_ID + "</td ><td <a style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:15px;'  >" + obj.CLUSTER_NAME + "</a></td ><td ><label class='badge badge-info mr-4 mr-xl-2' style='font-size:20px;border-radius:10px;'>" + obj.TOTAL_ORDERS + "</label></td></tr>";
+				tablebody_dt_table_72_hours_cluster_data += "<tr><td onClick=load_72hrs_stockyard_info('" + obj.CLUSTER_ID + mytyreObj_72_val + OnestDistrict_72 + "','" + obj.CLUSTER_ID + "')  <a style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:15px;'>" + obj.CLUSTER_ID + "</a></td ><td   >" + obj.CLUSTER_NAME + "</td ><td ><label class='badge badge-info mr-4 mr-xl-2' style='font-size:20px;border-radius:10px;'>" + obj.TOTAL_ORDERS + "</label></td></tr>";
 			}
 
 
@@ -1006,15 +1058,79 @@ function load_72_hours_cluster_data(distr,mtmid) {
 			$('#loading-wrapper').hide();
 		}
 		else {
+			$('#loading-wrapper').hide();
+			$('#table_72_hours_cluster').html('No Data Found');
 
 		}
 	});
 }
 
+
+
+
+
 function table_72_hours_cluster_data(tabledata) {
 	$('#table_72_hours_cluster').html(tabledata + '<tbody><table>');
-
 }
+
+
+var nav_tabs_72 = [];
+var navbody_72 = [];
+function load_72hrs_stockyard_info(sn1Cluster_72_obj, sn1_clusterid_72) {
+
+	/// ahammed working now .. .. .. .. .. ...
+
+	nav_tabs_72 += "<li class='nav-item nav-hide' id='" + "li" + sn1Cluster_72_obj + "' style='display:none;' ><a class='nav-link' id='" + "lia" + sn1Cluster_72_obj + "' data-toggle='tab' href='" + "#mycsttab" + sn1Cluster_72_obj + "' role='tab' aria-controls='" + "mycsttab" + sn1Cluster_72_obj + "' aria-selected='false'>" + sn1_clusterid_72 + "<button class='align-btn' style='border:none;' id='" + "btn" + sn1Cluster_72_obj + "' onClick=closebtn('" + sn1Cluster_72_obj + "') ><i class='mdi mdi-close-circle'></i></button></a></li>";
+	navbody_72 += "<div class='tab-pane fade' id='" + "mycsttab" + sn1Cluster_72_obj + "' role='tabpanel' aria-labelledby='" + "mycsttab" + sn1Cluster_72_obj + "'>" + sn1_clusterid_72 + " </div>";
+	$('#notDeliverin72h_ul').append(nav_tabs_72);
+	$('#notDeliverin72h_tab_content').append(navbody_72);
+
+	if (sn1Cluster_72_obj != 0 || sn1Cluster_72_obj == undefined) {
+		this.$("#li" + sn1Cluster_72_obj).show();
+		this.$("#mycsttab" + sn1Cluster_72_obj).show();
+		contaractor_details_72(sn1Cluster_72_obj, sn1_clusterid_72, btnval_72);
+	}
+	else {
+		this.$("#li" + sn1Cluster_72_obj).hide();
+		return;
+	}
+}
+
+
+var contaractor_details_table_body_72 = [];
+function contaractor_details_72(sn1_contract_obj_72, sn1_contract_Clust_id_72, mtmid_con) {
+	$('#loading-wrapper').show();
+
+	var distr_cou_72 =  $("#Loadistricts").find("option:selected").val()
+	var obj = "{P_type: '3',P_district_id:'" + distr_cou_72 + "',P_cluster_id:'" + sn1_contract_Clust_id_72 + "',P_stockyard_id:'',P_permit_quantity:'" + mtmid_con + "'}";
+	_Sand_Auth("../SandTransportReportsapi_Stockyard", obj, function (res) {
+
+		contaractor_details_table_body_72 = '<table id="dt_table_contaractor_details_table_body_72" class="table"><thead style="font-size:14px;"> <tr class="text-left"> <th style="width:8%"> CONTRACTOR ID</th>  <th  style="width: 10%;">CONTRACTOR NAME</th> <th  style="width: 8%;">TOTAL ORDERS</th> <th  style="width: 2%;">ALLOCATED</th> <th  style="width: 2%;">ACCEPTED</th> <th  style="width: 10%;">WAY BILL GENRATED</th> <th  style="width: 2%;">DELIVERD</th> </tr> </thead> </thead><tbody>';
+		if (res.Code == "100") {
+
+
+			for (var index = 0; index < res.DailyRepDetsli.length; index++) {
+				var obj = res.DailyRepDetsli[index];
+				var counter = index + 1;
+
+				contaractor_details_table_body_72 += "<tr><td><a style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:15px;'  onclick=load_contaractor_veh_details('" + obj.CONTRACTOR_ID + "','" + obj.CONTRACTOR_ID + mytyreObj + "','" + stock_id + "','" + custid + "');>" + obj.CONTRACTOR_ID + "</a></td><td>" + obj.CONTRACTOR_NAME + "</td><td style='text-align:center'>" + obj.TOTAL_ORDERS + "</td><td style='text-align:center'>" + obj.ALLOCATED + "</td><td style='text-align:center'>" + obj.ACCEPTED + "</td><td style='text-align:center'>" + obj.WAYBILL_GENRATED + "</td><td style='text-align:center'>" + obj.DELIVERD + "</td></tr>";
+			}
+
+			$("#mycsttab" + sn1_contract_obj_72).html(contaractor_details_table_body_72 + '<tbody><table>');
+			$('#loading-wrapper').hide();
+
+		}
+		else {
+			$('#loading-wrapper').hide();
+			$("#mycsttab" + sn1_contract_obj_72).html('No data Fountd');
+		}
+
+
+	});
+}
+
+
+
 
 function closebtn(sn1) {
 	if (sn1 != 0 || sn1 == undefined) {
@@ -1043,7 +1159,7 @@ function load_per_hourdisplay(disthourdisp) {
 	_Sand_Auth("../PerhourDisplay_route", obj, function (res) {
 
 
-		tableperhourDisplay = '<table id="dt_table_perhourtable" class="table"><thead style="font-size:14px;"> <tr class="text-left"> <th style="width:7%">Time in Hours</th> <th style="width: 8%;">DISTRICT</th> <th  style="width: 4%;">Pushed Request</th> <th  style="width: 5%;">Accepted Request</th> <th  style="width: 2%;">TRACTOR</th> <th  style="width: 2%;">6 TYRE</th> <th  style="width: 1%;">10 TYRE</th> </tr> </thead> </thead><tbody>';
+		tableperhourDisplay = '<table id="dt_table_perhourtable" class="table"><thead style="font-size:14px;"> <tr class="text-left"> <th style="width:7%">Time in Hours</th> <th style="width: 8%;">District</th> <th  style="width: 4%;">Pushed Request</th> <th  style="width: 5%;">Accepted Request</th> <th  style="width: 2%;">Tractor</th> <th  style="width: 2%;">6 Tyre</th> <th  style="width: 1%;">10 Tyre</th> </tr> </thead> </thead><tbody>';
 
 		if (res.Code == "100") {
 
@@ -1053,9 +1169,23 @@ function load_per_hourdisplay(disthourdisp) {
 
 				tableperhourDisplay += "<tr><td> " + obj.HR + "</td><td>" + obj.DISTRICT + "</td><td style='text-align:center'>" + obj.TOTAL_ALLOCATED + "</td><td style='text-align:center'>" + obj.TOTAL_ACCEPTED + "</td><td style='text-align:center'>" + obj.TRACTOR + "</td><td style='text-align:center'>" + obj.SIXTYRE + "</td><td style='text-align:center'>" + obj.TENTYRE + "</td></tr>";
 			}
-			$("#prehour_datatable").html(tableperhourDisplay + '<tbody><table>');
+
+			if (disthourdisp == '1') {
+				$("#prehour_datatable").html(tableperhourDisplay + '<tbody><table>');
+				$("#prehour_datatable tr:contains('ANANTAPUR')").css("background-color", "#d8d2d2a8");
+				$("#prehour_datatable tr:contains('KADAPA')").css("background-color", "#d8d2d2a8");
+				$("#prehour_datatable tr:contains('NELLORE')").css("background-color", "#d8d2d2a8");
+				$("#prehour_datatable tr:contains('SRIKAKULAM')").css("background-color", "#d8d2d2a8");
+				//$("#prehour_datatable tr:contains('SRIKAKULAM')").css("background-color", "#d8d2d2a8");
+			}
+			else {
+				$("#prehour_datatable").html(tableperhourDisplay + '<tbody><table>');
+			}
+
+			
 		}
 		else {
+			$("#prehour_datatable").html('No Data Found');
 		}
 	});
 
@@ -1065,12 +1195,13 @@ $('#timeChangerPerhour').on("change", function () {
 	myhours = '';
 	myhours = $("#timeChangerPerhour").find("option:selected").val();
 	if ($("#Loadistricts").val() == '1') {
-		perhourchangefunc('1', '510');
+		perhourchangefunc(myhours, '1');
 	}
 	else {
 		perhourchangefunc(myhours, $("#Loadistricts").find("option:selected").val());
 	}
 });
+
 function perhourchangefunc(p_hour,distrperhour) {
 
 	var obj = "{FTYPE:'6',FDISTRICT:'" + distrperhour + "',FROMDATE:'',TODATE:'',FSANDQUANTY:'" + p_hour + "',fcluster_id:'',fstockyard_id:''}";
@@ -1218,7 +1349,7 @@ function veh_details_data(vehd_custid, veh_objs, mt) {
 				var obj = res.DailyRepDetsli[index];
 				var counter = index + 1;
 
-				veh_details += "<tr><td><a>" + obj.CONTRACTOR_ID + "  </a></td><td><a>" + obj.CONTRACTOR_MOBILE + " </a></td><td><a>" + obj.CONTRACTOR_NAME + "</a></td><td style='text-align:center'>" + obj.VEHICLE_NO + "</td></tr>";
+				veh_details += "<tr><td><a style='color: #33af65;font-weight: bold; text-decoration: underline;font-size:10px;' >" + obj.CONTRACTOR_ID + "  </a></td><td><a>" + obj.CONTRACTOR_MOBILE + " </a></td><td><a>" + obj.CONTRACTOR_NAME + "</a></td><td style='text-align:center'>" + obj.VEHICLE_NO + "</td></tr>";
 
 
 			}
@@ -1251,3 +1382,39 @@ $("#icloseContractor").click(function () {
 	$('#ContractorDetails_show').hide();
 });
 
+
+
+//vechile data search
+
+contractor_clustervehicle_tablebody_POP = [];
+function load_cluster_for_vechiledatasearch(id) {
+	$('#veh_search_data_table_inPopup').html('');
+	var obj = "{FTYPE:'1',FDISTRICT:'',FROMDATE:'',TODATE:'',Vehnumber:'" + id + "'}";
+	_Sand_Auth("../SandTransportReports_VehilceSearch_Route", obj, function (res) {
+
+		if (res.Code == "100") {
+			console.log(res);
+			contractor_clustervehicle_tablebody_POP = '<table id="dt_table_veh_search" class="table"><thead style="font-size:14px;"> <tr class="text-left" > <th style="width:11% !important;;">CONTRACTOR NAME</th> <th style="width:9% !important;;">MOBILE NUMBER</th><th style="width:11% !important;; ">VEHICLE NO</th> <th style="width:8% !important;">VEHICLE QTY</th> <th style="width:8% !important;">GPS STATUS</th> <th style="width:8% !important;">DISTRICT</th> </thead> </thead><tbody>';
+
+			for (var index = 0; index < res.DailyRepDetsli.length; index++) {
+
+				var obj = res.DailyRepDetsli[index];
+				var counter = index + 1;
+				contractor_clustervehicle_tablebody_POP += "<tr><td><a>" + obj.CONTRACTOR_NAME + " </a></td><td><a>" + obj.MOBILE_NUMBER + "</a></td><td>" + obj.VEHICLE_NO + "</td><td>" + obj.VEHICLE_QTY + "</td><td style='text-align:left'>" + obj.GPS_STATUS + "</td><td style='text-align:left'>" + obj.DISTRICT + "</td></tr>";
+			}
+
+
+			$('#veh_search_data_table_inPopup').html(contractor_clustervehicle_tablebody_POP + '<tbody><table>');
+			
+		}
+		else {
+			$('#veh_search_data_table_inPopup').html('No data found');
+		}
+	});
+}
+
+$("#btn_submit_vehicle").click(function () {
+	
+	var textValue = $("#txt_veh_number").val();
+	load_cluster_for_vechiledatasearch(textValue);
+});

@@ -26,7 +26,6 @@ $(document).ready(function () {
 	$("#to_datepicker").val(today);
 	load_district();
 	load_district_ava_or_not();
-	
 
 
  //   var ob = location.search.slice(1);
@@ -42,18 +41,8 @@ $(document).ready(function () {
  //       var obj = "{FTYPE:'1',Username:'" + sessionStorage.getItem('userid') + "',SOURCE:'WEB'}";
  //   _Sand_Auth(url, obj, function (res) {
  //   if (res.Code == "100") {
- // 	$('#loading-wrapper').hide();
-	//var today = new Date();
-	//var dd = String(today.getDate()).padStart(2, '0');
-	//var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-	//var yyyy = today.getFullYear();
-	//var hhh = today.getHours();
-	//$("#timeChangerPerhour").val(hhh);
-	//today = dd + '/' + mm + '/' + yyyy;
-	//$("#from_datepicker").val(today);
-	//$("#to_datepicker").val(today);
-	//load_district();
-	//load_district_ava_or_not();
+		
+	//			   // BASHS CODE HERE
 	
 
  //           }
@@ -147,7 +136,7 @@ function userlog() {
 
 //$(function () {
   
-//    window.setInterval(function () {
+//    window.setinterval(function () {
 //        userlog();
 //    }, 20000);
 //});
@@ -1045,12 +1034,12 @@ function load_72_hours_cluster_data(distr, mtmid, mytyreObj_72_val) {
 		if (res.Code == "100") {
 
 			$("#dt_table_72_hours_cluster_data").empty('');
-			tablebody_dt_table_72_hours_cluster_data = '<table id="dt_table_72_hours_cluster_data" class="table text-left"><thead style="font-size:16px;"><tr class="text-left"><th class="pt-0" style="width:2%">Cluster ID</th><th class="pt-0" style="width:3%;">Cluster Name</th><th class="pt-0" style="width:1%;">Total Orders</th></tr ></thead ><tbody>';
+			tablebody_dt_table_72_hours_cluster_data = '<table id="dt_table_72_hours_cluster_data" class="table text-left"><thead style="font-size:14px;"><tr class="text-left"><th class="pt-0" style="width:2%">Cluster ID</th><th class="pt-0" style="width:3%;">Cluster Name</th><th class="pt-0" style="width:1%;">Total Orders</th></tr ></thead ><tbody>';
 
 			for (var index = 0; index < res.DailyRepDetsli.length; index++) {
 				var obj = res.DailyRepDetsli[index];
 				var counter = index + 1;
-				tablebody_dt_table_72_hours_cluster_data += "<tr><td onClick=load_72hrs_stockyard_info('" + obj.CLUSTER_ID + mytyreObj_72_val + OnestDistrict_72 + "','" + obj.CLUSTER_ID + "')  <a style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:15px;'>" + obj.CLUSTER_ID + "</a></td ><td   >" + obj.CLUSTER_NAME + "</td ><td ><label class='badge badge-info mr-4 mr-xl-2' style='font-size:20px;border-radius:10px;'>" + obj.TOTAL_ORDERS + "</label></td></tr>";
+				tablebody_dt_table_72_hours_cluster_data += "<tr><td onClick=load_72hrs_stockyard_info('" + obj.CLUSTER_ID + mytyreObj_72_val + OnestDistrict_72 + "','" + obj.CLUSTER_ID + "')  <a style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:13px;'>" + obj.CLUSTER_ID + "</a></td ><td   >" + obj.CLUSTER_NAME + "</td ><td ><label class='badge badge-info mr-4 mr-xl-2' style='font-size:20px;border-radius:10px;'>" + obj.TOTAL_ORDERS + "</label></td></tr>";
 			}
 
 
@@ -1088,7 +1077,7 @@ function load_72hrs_stockyard_info(sn1Cluster_72_obj, sn1_clusterid_72) {
 	if (sn1Cluster_72_obj != 0 || sn1Cluster_72_obj == undefined) {
 		this.$("#li" + sn1Cluster_72_obj).show();
 		this.$("#mycsttab" + sn1Cluster_72_obj).show();
-		contaractor_details_72(sn1Cluster_72_obj, sn1_clusterid_72, btnval_72);
+		stockyard_details_72(sn1Cluster_72_obj, sn1_clusterid_72, btnval_72, mytyreObj_72);
 	}
 	else {
 		this.$("#li" + sn1Cluster_72_obj).hide();
@@ -1097,15 +1086,15 @@ function load_72hrs_stockyard_info(sn1Cluster_72_obj, sn1_clusterid_72) {
 }
 
 
-var contaractor_details_table_body_72 = [];
-function contaractor_details_72(sn1_contract_obj_72, sn1_contract_Clust_id_72, mtmid_con) {
+var stockyard_details_table_body_72 = [];
+function stockyard_details_72(sn1_stockyard_obj_72, sn1_stockyard_Clust_id_72, mtmid_Stock, mytyreObj_stck_72) {
 	$('#loading-wrapper').show();
 
 	var distr_cou_72 =  $("#Loadistricts").find("option:selected").val()
-	var obj = "{P_type: '3',P_district_id:'" + distr_cou_72 + "',P_cluster_id:'" + sn1_contract_Clust_id_72 + "',P_stockyard_id:'',P_permit_quantity:'" + mtmid_con + "'}";
-	_Sand_Auth("../SandTransportReportsapi_Stockyard", obj, function (res) {
+	var obj = "{P_type: '3',P_district_id:'" + distr_cou_72 + "',P_cluster_id:'" + sn1_stockyard_Clust_id_72 + "',P_stockyard_id:'',P_permit_quantity:'" + mtmid_Stock + "'}";
+	_Sand_Auth("../SandTransportReports_72Hours_Route", obj, function (res) {
 
-		contaractor_details_table_body_72 = '<table id="dt_table_contaractor_details_table_body_72" class="table"><thead style="font-size:14px;"> <tr class="text-left"> <th style="width:8%"> CONTRACTOR ID</th>  <th  style="width: 10%;">CONTRACTOR NAME</th> <th  style="width: 8%;">TOTAL ORDERS</th> <th  style="width: 2%;">ALLOCATED</th> <th  style="width: 2%;">ACCEPTED</th> <th  style="width: 10%;">WAY BILL GENRATED</th> <th  style="width: 2%;">DELIVERD</th> </tr> </thead> </thead><tbody>';
+		stockyard_details_table_body_72 = '<table id="dt_table_stockyard_details_table_body_72" class="table col-md-5"><thead style="font-size:14px;"> <tr class="text-left"> <th style="width:8%"> STOCKYARD ID</th>  <th  style="width: 10%;">STOCKYARD NAME</th> <th  style="width: 8%;">TOTAL ORDERS</th> </tr> </thead> </thead><tbody>';
 		if (res.Code == "100") {
 
 
@@ -1113,21 +1102,79 @@ function contaractor_details_72(sn1_contract_obj_72, sn1_contract_Clust_id_72, m
 				var obj = res.DailyRepDetsli[index];
 				var counter = index + 1;
 
-				contaractor_details_table_body_72 += "<tr><td><a style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:15px;'  onclick=load_contaractor_veh_details('" + obj.CONTRACTOR_ID + "','" + obj.CONTRACTOR_ID + mytyreObj + "','" + stock_id + "','" + custid + "');>" + obj.CONTRACTOR_ID + "</a></td><td>" + obj.CONTRACTOR_NAME + "</td><td style='text-align:center'>" + obj.TOTAL_ORDERS + "</td><td style='text-align:center'>" + obj.ALLOCATED + "</td><td style='text-align:center'>" + obj.ACCEPTED + "</td><td style='text-align:center'>" + obj.WAYBILL_GENRATED + "</td><td style='text-align:center'>" + obj.DELIVERD + "</td></tr>";
+				stockyard_details_table_body_72 += "<tr><td onClick=load_72hrs_Contractor_info_delay('" + obj.STOCKYARD_ID + mytyreObj_stck_72 +distr_cou_72 + "','" + obj.STOCKYARD_ID + "','" + obj.CLUSTER_ID + "') <a style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:13px;'>" + obj.STOCKYARD_ID + "</a></td><td>" + obj.STOCKYARD_NAME + "</td><td style='text-align:center'>" + obj.TOTAL_ORDERS + "</td></tr>";
 			}
 
-			$("#mycsttab" + sn1_contract_obj_72).html(contaractor_details_table_body_72 + '<tbody><table>');
+			$("#mycsttab" + sn1_stockyard_obj_72).html(stockyard_details_table_body_72 + '<tbody><table>');
 			$('#loading-wrapper').hide();
 
 		}
 		else {
 			$('#loading-wrapper').hide();
-			$("#mycsttab" + sn1_contract_obj_72).html('No data Fountd');
+			$("#mycsttab" + sn1_stockyard_obj_72).html('No data Fountd');
 		}
 
 
 	});
 }
+
+
+
+function load_72hrs_Contractor_info_delay(sn1Stock_72_obj, sn1Stock_72_id, sn1Cluster_72_id) {
+
+	/// ahammed working now .. .. .. .. .. ...
+
+	nav_tabs_72 += "<li class='nav-item nav-hide' id='" + "li" + sn1Stock_72_obj + "' style='display:none;' ><a class='nav-link' id='" + "lia" + sn1Stock_72_obj + "' data-toggle='tab' href='" + "#mycsttab" + sn1Stock_72_obj + "' role='tab' aria-controls='" + "mycsttab" + sn1Stock_72_obj + "' aria-selected='false'>" + sn1Stock_72_id + "<button class='align-btn' style='border:none;' id='" + "btn" + sn1Stock_72_obj + "' onClick=closebtn('" + sn1Stock_72_obj + "') ><i class='mdi mdi-close-circle'></i></button></a></li>";
+	navbody_72 += "<div class='tab-pane fade' id='" + "mycsttab" + sn1Stock_72_obj + "' role='tabpanel' aria-labelledby='" + "mycsttab" + sn1Stock_72_obj + "'>" + sn1Stock_72_id + " </div>";
+	$('#notDeliverin72h_ul').append(nav_tabs_72);
+	$('#notDeliverin72h_tab_content').append(navbody_72);
+
+	if (sn1Stock_72_obj != 0 || sn1Stock_72_obj == undefined) {
+		this.$("#li" + sn1Stock_72_obj).show();
+		this.$("#mycsttab" + sn1Stock_72_obj).show();
+		Contractor_details_72_dealy(sn1Stock_72_obj, sn1Stock_72_id, sn1Cluster_72_id, btnval_72);
+	}
+	else {
+		this.$("#li" + sn1Stock_72_obj).hide();
+		return;
+	}
+}
+
+
+
+var Contractor_details_table_body_72 = [];
+function Contractor_details_72_dealy(sn1_Contractor_obj_72, sn1_Contractor_Stock_id_72, sn1_Contractor_Clust_id_72 ,mtmid_con) {
+	$('#loading-wrapper').show();
+
+	var distr_cou_Contractor_72 = $("#Loadistricts").find("option:selected").val()
+	var obj = "{P_type: '4',P_district_id:'" + distr_cou_Contractor_72 + "',P_cluster_id:'" + sn1_Contractor_Clust_id_72 + "',P_stockyard_id:'" + sn1_Contractor_Stock_id_72+"',P_permit_quantity:'" + mtmid_con + "'}";
+	_Sand_Auth("../SandTransportReports_72Hours_Route", obj, function (res) {
+		console.log(res);
+		Contractor_details_table_body_72 = '<table id="dt_table_Contracotr_details_table_body_72" class="table"><thead style="font-size:14px;"> <tr class="text-left"> <th style="width:8%">Order ID</th>  <th  style="width: 10%;">Transaction ID</th> <th  style="width: 8%;">Customer ID</th><th  style="width: 8%;">Customer Name</th><th  style="width: 8%;">Mobile</th><th  style="width: 8%;">Address</th> <th  style="width: 8%;">Delayed Days</th> </tr> </thead> </thead><tbody>';
+		if (res.Code == "100") {
+
+			console.log(res);
+			for (var index = 0; index < res.DailyRepDetsli.length; index++) {
+				var obj = res.DailyRepDetsli[index];
+				var counter = index + 1;
+				
+				Contractor_details_table_body_72 += "<tr><td >" + obj.ORDER_ID + "</td><td>" + obj.TRANSACTION_ID + "</td><td >" + obj.CUSTOMER_ID + "</td> <td >" + obj.CUSTOMER_NAME + "</td><td >" + obj.CUSTOMER_MOBILE + "</td><td title='" + obj.ADDRESS + "' >" + obj.ADDRESS1 + "..." + "</td><td style='text-align: center;'>" + obj.DELAY_DAYS + "</td></tr>";
+			}
+
+			$("#mycsttab" + sn1_Contractor_obj_72).html(Contractor_details_table_body_72 + '<tbody><table>');
+			$('#loading-wrapper').hide();
+
+		}
+		else {
+			$('#loading-wrapper').hide();
+			$("#mycsttab" + sn1_Contractor_obj_72).html('No data Fountd');
+		}
+
+
+	});
+}
+
+
 
 
 
@@ -1297,13 +1344,13 @@ var obj = "{FTYPE:'31',FDISTRICT:'" + $("#Loadistricts").find("option:selected")
 	_Sand_Auth("../get_contractor_details", obj, function (res) {
 
 		if (res.Code == "100") {
-			vehicle_cluster_tablebody = '<table id="dt_table_vehicle_cluster" class="table text-left"><thead style="font-size:12px;"><tr class="text-left"><th class="pt-0" style="width:2%">CLUSTER ID</th><th class="pt-0" style="width:3%;">CLUSTER NAME</th><th class="pt-0" style="width:3%;">NO OF VEHICLES </th></tr ></thead ><tbody>';
+			vehicle_cluster_tablebody = '<table id="dt_table_vehicle_cluster" class="table text-left"><thead style="font-size:14px;"><tr class="text-left"><th class="pt-0" style="width:2%">CLUSTER ID</th><th class="pt-0" style="width:3%;">CLUSTER NAME</th><th class="pt-0" style="width:3%;">NO OF VEHICLES </th></tr ></thead ><tbody>';
 
 			for (var index = 0; index < res.DailyRepDetsli.length; index++) {
 
 				var obj = res.DailyRepDetsli[index];
 				var counter = index + 1;
-				vehicle_cluster_tablebody += "<tr style='font-size:10px;'><td onClick=load_cluster_for_vehicle_info('" + obj.CLUSTER_ID + veh_Obj + "','" + obj.CLUSTER_ID + "') <a style='color: #33af65;font-weight: bold; text-decoration: underline;font-size:10px;'>" + obj.CLUSTER_ID + "</a></td ><td  >" + (obj.CLUSTER_NAME).replace('_', ' ') + "</td ><td ><label>" + obj.NO_OF_VEHICLES + "</label></td></tr>";
+				vehicle_cluster_tablebody += "<tr style='font-size:12px;'><td onClick=load_cluster_for_vehicle_info('" + obj.CLUSTER_ID + veh_Obj + "','" + obj.CLUSTER_ID + "') <a style='color: #33af65;font-weight: bold; text-decoration: underline;font-size:12px;'>" + obj.CLUSTER_ID + "</a></td ><td  >" + (obj.CLUSTER_NAME).replace('_', ' ') + "</td ><td ><label>" + obj.NO_OF_VEHICLES + "</label></td></tr>";
 			}
 			cluster_for_vehicle(vehicle_cluster_tablebody);
 		}
@@ -1341,7 +1388,7 @@ function veh_details_data(vehd_custid, veh_objs, mt) {
 	_Sand_Auth("../SandTransportReportsapi_Stockyard", obj, function (res) {
 
 
-		veh_details = '<table id="dt_table_vehicle" class="table"><thead style="font-size:11px;"> <tr class="text-left"> <th style="width: 13%;">CONTRACTOR ID</th> <th  style="width: 10%;">CONTRACTOR MOBILE </th> <th  style="width: 8%;">CONTRACTOR NAME</th> <th  style="width: 2%;">VEHICLE NO</th> </tr> </thead> </thead><tbody>';
+		veh_details = '<table id="dt_table_vehicle" class="table"><thead style="font-size:13px;"> <tr class="text-left"> <th style="width: 13%;">CONTRACTOR ID</th> <th  style="width: 10%;">CONTRACTOR MOBILE </th> <th  style="width: 8%;">CONTRACTOR NAME</th> <th  style="width: 2%;">VEHICLE NO</th> </tr> </thead> </thead><tbody>';
 		if (res.Code == "100") {
 
 
@@ -1349,7 +1396,7 @@ function veh_details_data(vehd_custid, veh_objs, mt) {
 				var obj = res.DailyRepDetsli[index];
 				var counter = index + 1;
 
-				veh_details += "<tr><td><a style='color: #33af65;font-weight: bold; text-decoration: underline;font-size:10px;' >" + obj.CONTRACTOR_ID + "  </a></td><td><a>" + obj.CONTRACTOR_MOBILE + " </a></td><td><a>" + obj.CONTRACTOR_NAME + "</a></td><td style='text-align:center'>" + obj.VEHICLE_NO + "</td></tr>";
+				veh_details += "<tr><td><a style='color: #33af65;font-weight: bold; text-decoration: underline;font-size:12px;' >" + obj.CONTRACTOR_ID + "  </a></td><td><a>" + obj.CONTRACTOR_MOBILE + " </a></td><td><a>" + obj.CONTRACTOR_NAME + "</a></td><td style='text-align:center'>" + obj.VEHICLE_NO + "</td></tr>";
 
 
 			}

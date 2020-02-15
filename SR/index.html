@@ -26,6 +26,23 @@
 	<link href="vendors/mdi/css/materialdesignicons.min.css" rel="stylesheet" />
 
 	<style>
+
+		.tooltip .tooltiptext {
+			visibility: hidden;
+			width: 500px;
+			background-color: #2C3E50;
+			color: #fff;
+			text-align: center;
+			border-radius: 66px;
+			padding: 5px 0 12px 12px;
+			position: absolute;
+			z-index: 1;
+		}
+		.tooltip:hover .tooltiptext {
+			visibility: visible;
+		}
+
+
 		.scroll-lobi {
 			max-height: 100vh;
 			overflow-y: scroll;
@@ -662,10 +679,10 @@
 								</div>
 								<div class="col-md-4 col-12 ">
 									<div class="form-group row">
-										<div class="col-md-4 col-3">
+										<div class="col-lg-5 col-md-4 col-3">
 											<label for="sel1" style="color:white;padding-top:10px;">Select District:</label>
 										</div>
-										<div class="col-md-8 col-9" style="padding-left:0px;">
+										<div class="col-lg-7 col-md-8 col-9" style="padding-left:0px;">
 											<select class="form-control" id="Loadistricts"></select>
 										</div>
 									</div>
@@ -673,7 +690,7 @@
 								<div class="col-md-1 col-12" id="refreshb" style="padding-left:0px;text-align: center;">
 									<button class="btn btn-success" type="button" id="submit">Submit</button>
 								</div>
-								<div class="col-md-1 col-12"> <i class="fa fa-power-off" title="Logout" style="font-size: 22px;color: white;margin-top: 7px;" id="logout"></i></div>
+								<div class="col-md-1 col-12" style="text-align:right;"> <i class="fa fa-power-off" title="Logout" style="font-size: 22px;color: white;margin-top: 7px;" id="logout"></i></div>
 							</div>
 						</form>
 					</div>
@@ -779,15 +796,15 @@
 																				<!--tractores-->
 																				<div class="row">
 																					<div class="col-md-12 cumulative-adj">Cumulative</div>
-																					<div class="col-md-4 col-4" style="text-align:center">
+																					<div class="col-md-4 col-12" style="text-align:center">
 																						<p class="" style="font-size:11px;margin-top:0px;">Booked</p>
 																						<h4 id="Tnt_Tractor_Booked_Cum" class="cumulative-num-align  " style="color:#066eea">00</h4>
 																					</div>
-																					<div class="col-md-4 col-4" style="text-align:center">
+																					<div class="col-md-4 col-12" style="text-align:center">
 																						<p class="" style="font-size:11px;margin-top:0px;">Pending</p>
 																						<h4 id="Tnt_Tractor_Pending_Cum" class="cumulative-num-align  " style="color:#066eea">00</h4>
 																					</div>
-																					<div class="col-md-4 col-4" style="text-align:center">
+																					<div class="col-md-4 col-12" style="text-align:center">
 																						<p style="font-size:11px;margin-top:0px;">Dispatched</p>
 																						<h4 id="Tnt_Tractor_Dispathed_Cum" class="cumulative-num-align" style="color:#066eea">00</h4>
 
@@ -832,15 +849,15 @@
 																				<!-- Row end -->
 																				<div class="row">
 																					<div class="col-md-12 cumulative-adj" style="color:#33af65;">Cumulative</div>
-																					<div class="col-md-4 col-4" style="text-align:center">
+																					<div class="col-md-4 col-12" style="text-align:center">
 																						<p class="" style="font-size:11px;margin-top:0px;">Booked</p>
 																						<h4 id="Tnt_6Tyre_Booked_Cum" class="cumulative-num-align  " style="color:#33af65;">00</h4>
 																					</div>
-																					<div class="col-md-4 col-4" style="text-align:center">
+																					<div class="col-md-4 col-12" style="text-align:center">
 																						<p class="" style="font-size:11px;margin-top:0px;">Pending</p>
 																						<h4 id="Tnt_6Tyre_Pending_Cum" class="cumulative-num-align  " style="color:#33af65;">00</h4>
 																					</div>
-																					<div class="col-md-4 col-4" style="text-align:center">
+																					<div class="col-md-4 col-12" style="text-align:center">
 																						<p style="font-size:11px;margin-top:0px;">Dispatched</p>
 																						<h4 id="Tnt_6Tyre_Dispathed_Cum" class="cumulative-num-align" style="color:#33af65;">00</h4>
 
@@ -885,15 +902,15 @@
 																				<!--10-jan-2020-->
 																				<div class="row">
 																					<div class="col-md-12 cumulative-adj" style="color:#ec4842">Cumulative</div>
-																					<div class="col-md-4 col-4" style="text-align:center;">
+																					<div class="col-md-4 col-12" style="text-align:center;">
 																						<p class="" style="font-size:11px;margin-top:0px;">Booked</p>
 																						<h4 id="Tnt_10Tyre_Booked_Cum" class="cumulative-num-align  " style="color:#ec4842">00</h4>
 																					</div>
-																					<div class="col-md-4 col-4" style="text-align:center">
+																					<div class="col-md-4 col-12" style="text-align:center">
 																						<p class="" style="font-size:11px;margin-top:0px;">Pending</p>
 																						<h4 id="Tnt_10Tyre_Pending_Cum" class="cumulative-num-align  " style="color:#ec4842">00</h4>
 																					</div>
-																					<div class="col-md-4 col-4" style="text-align:center">
+																					<div class="col-md-4 col-12" style="text-align:center">
 																						<p style="font-size:11px;margin-top:0px;">Dispatched</p>
 																						<h4 id="Tnt_10Tyre_Dispathed_Cum" class="cumulative-num-align" style="color:#ec4842">00</h4>
 
@@ -943,15 +960,15 @@
 																				<!--10-jan-2020-->
 																				<div class="row">
 																					<div class="col-md-12 cumulative-adj" style="color:white;">Cumulative</div>
-																					<div class="col-md-4 col-4" style="text-align:center">
+																					<div class="col-md-4 col-12" style="text-align:center">
 																						<p class="" style="font-size:11px;margin-top:0px;color:white">Booked</p>
 																						<h4 id="Tnt_Booked_Cum" class="cumulative-num-align  " style="color:white">00</h4>
 																					</div>
-																					<div class="col-md-4 col-4" style="text-align:center">
+																					<div class="col-md-4 col-12" style="text-align:center">
 																						<p class="" style="font-size:11px;margin-top:0px;color:white">Pending</p>
 																						<h4 id="Tnt_Pending_Cum" class="cumulative-num-align  " style="color:white">00</h4>
 																					</div>
-																					<div class="col-md-4 col-4" style="text-align:center">
+																					<div class="col-md-4 col-12" style="text-align:center">
 																						<p style="font-size:11px;margin-top:0px;color:white">Dispatched</p>
 																						<h4 id="Tnt_Dispathed_Cum" class="cumulative-num-align" style="color:white">00</h4>
 
@@ -1195,7 +1212,7 @@
 																				<div class="col-md-12 tab-pane fade show in active" id="notDeliverin72h_Cluster" role="tabpanel" >
 
 																					<div class="table-responsive scroll-lobi">
-																						<div id="table_72_hours_cluster"></div>
+																						<div class="col-md-6" id="table_72_hours_cluster"></div>
 																					</div>
 
 																				</div>
@@ -1412,7 +1429,7 @@
 																	<div class="icon-bg bg-primary dropdown-head"><label id="Vtyre">Per Day Display</label></div>
 																</div>
 
-																<div id="lobipanel-custom-control" class="scroll-lobi">
+																<div id="lobipanel-custom-control" class="scroll-lobi" style="margin-bottom:15px;">
 																	<div class="panel-heading">
 																		<!--<i class="far fa-times-circle" style="font-size: 19px;
 																	float: right;
@@ -1797,7 +1814,7 @@
 
 																					</div>
 																					<div class="col-md-12" id="headingten" style="margin-top: -10px;margin-left: 0px;text-align: right">
-																						<button class="btn btn-success" style="margin-top: -26px; text-align: right; padding: 1px 5px; margin-right: 2px;" id="btn_vehshow_pop_up" aria-controls="collapseten" onclick="return openModal()"> <i class="fas fa-truck"></i> </button>
+																						<button class="btn btn-success" style="margin-top: -26px; text-align: right; padding: 1px 5px; margin-right: 2px;" id="btn_vehshow_pop_up" data-toggle="modal" data-target="#mymodal" > <i class="fas fa-truck"></i> </button>
 																						<button class="btn btn-white" style="margin-top: -26px; text-align: right; padding: 1px 5px; margin-right: -13px;" id="btn_contractorshow" aria-controls="collapseten" onclick="load_contractor_panel();"> <i class="fas fa-eye"></i> </button>
 
 																					</div>
@@ -1995,7 +2012,7 @@
 																	</div>	
 
 																</div>
-																<div id="lobipanel_custom_control_contaractor">
+																<div id="lobipanel_custom_control_contaractor" style="margin-top:30px;">
 																	<div class="panel-heading">
 
 																	</div>
@@ -2058,7 +2075,7 @@
 																<div class="card-header" style="border-top: 2px solid #33af65;">
 																	<div class="icon-bg bg-success dropdown-head" id="veh_headcolor"><label id="Vtyre">Vehicle Registered</label> <i class="far fa-times-circle" style="color:white;position: absolute; z-index: 9999; font-size: 17px; top: 1px; right: 6px;" id="icloseVehicle"></i></div>
 																</div>
-																<div id="lobipanel_custom_control_Vehicle" class="scroll-lobi">
+																<div id="lobipanel_custom_control_Vehicle" class="scroll-lobi" style="margin-top:30px;">
 																	<div class="panel-heading">
 
 																	</div>
@@ -2106,7 +2123,7 @@
 			</div>
 		</div>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-xl" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -2145,7 +2162,7 @@
 		<script src="../js/bootstrap.bundle.min.js"></script>
 		<script src="../js/ajaxrequest.js"></script>
 
-		<script src="../index1234.js?id=2"></script>
+		<script src="../index1234.js?id=8"></script>
 
 		<script src="../tabsof.js"></script>
 		<link href="../js/datatable.css" rel="stylesheet" />

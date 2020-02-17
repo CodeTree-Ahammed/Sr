@@ -569,7 +569,7 @@ function load_stockyard_contractor_info(sn1stock_id, sn1stock_idObj, sn1stock_cl
 
 
 	navtabs += "<li class='nav-item nav-hide' id='" + "li" + sn1stock_id + "' style='display:none;' ><a class='nav-link' id='" + "lia" + sn1stock_id + "' data-toggle='tab' href='" + "#mycsttab" + sn1stock_id + "' role='tab' aria-controls='" + "mycsttab" + sn1stock_id + "' aria-selected='false'>" + sn1stock_idObj + "<button class='align-btn' style='border:none;' id='" + "btn" + sn1stock_id + "' onClick=closebtn('" + sn1stock_id + "') ><i class='mdi mdi-close-circle'></i></button></a></li>";
-	navbody += "<div class='tab-pane fade' id='" + "mycsttab" + sn1stock_id + "' role='tabpanel' aria-labelledby='" + "mycsttab" + sn1stock_id + "'>" + sn1stock_idObj + " </div>";
+	navbody += "<div class='tab-pane fade nav-hide' id='" + "mycsttab" + sn1stock_id + "' role='tabpanel' aria-labelledby='" + "mycsttab" + sn1stock_id + "'>" + sn1stock_idObj + " </div>";
 	$('#mydatatabs').append(navtabs);
 	$('#mytabcontent').append(navbody);
 
@@ -618,7 +618,7 @@ function contaractor_details(custid, stock_id, stock_id_obj, mt) {
 function load_contaractor_veh_details(mycontractors_id_obj, contractors_id, sn1stock_id, sn1stock_clusterid) {
 	
 	navtabs += "<li class='nav-item nav-hide' id='" + "li" + contractors_id + "' style='display:none;' ><a class='nav-link' id='" + "lia" + contractors_id + "' data-toggle='tab' href='" + "#mycsttab" + contractors_id + "' role='tab' aria-controls='" + "mycsttab" + contractors_id + "' aria-selected='false'>" + mycontractors_id_obj + "<button class='align-btn' style='border:none;' id='" + "btn" + contractors_id + "' onClick=closebtn('" + contractors_id + "') ><i class='mdi mdi-close-circle'></i></button></a></li>";
-	navbody += "<div class='tab-pane fade' id='" + "mycsttab" + contractors_id + "' role='tabpanel' aria-labelledby='" + "mycsttab" + contractors_id + "'>" + mycontractors_id_obj + " </div>";
+	navbody += "<div class='tab-pane fade nav-hide' id='" + "mycsttab" + contractors_id + "' role='tabpanel' aria-labelledby='" + "mycsttab" + contractors_id + "'>" + mycontractors_id_obj + " </div>";
 	$('#mydatatabs').append(navtabs);
 	$('#mytabcontent').append(navbody);
 
@@ -1070,7 +1070,7 @@ function load_72hrs_stockyard_info(sn1Cluster_72_obj, sn1_clusterid_72) {
 	/// ahammed working now .. .. .. .. .. ...
 
 	nav_tabs_72 += "<li class='nav-item nav-hide' id='" + "li" + sn1Cluster_72_obj + "' style='display:none;' ><a class='nav-link' id='" + "lia" + sn1Cluster_72_obj + "' data-toggle='tab' href='" + "#mycsttab" + sn1Cluster_72_obj + "' role='tab' aria-controls='" + "mycsttab" + sn1Cluster_72_obj + "' aria-selected='false'>" + sn1_clusterid_72 + "<button class='align-btn' style='border:none;' id='" + "btn" + sn1Cluster_72_obj + "' onClick=closebtn('" + sn1Cluster_72_obj + "') ><i class='mdi mdi-close-circle'></i></button></a></li>";
-	navbody_72 += "<div class='tab-pane fade' id='" + "mycsttab" + sn1Cluster_72_obj + "' role='tabpanel' aria-labelledby='" + "mycsttab" + sn1Cluster_72_obj + "'>" + sn1_clusterid_72 + " </div>";
+	navbody_72 += "<div class='tab-pane fade nav-hide' id='" + "mycsttab" + sn1Cluster_72_obj + "' role='tabpanel' aria-labelledby='" + "mycsttab" + sn1Cluster_72_obj + "'>" + sn1_clusterid_72 + " </div>";
 	$('#notDeliverin72h_ul').append(nav_tabs_72);
 	$('#notDeliverin72h_tab_content').append(navbody_72);
 
@@ -1125,7 +1125,7 @@ function load_72hrs_Contractor_info_delay(sn1Stock_72_obj, sn1Stock_72_id, sn1Cl
 	/// ahammed working now .. .. .. .. .. ...
 
 	nav_tabs_72 += "<li class='nav-item nav-hide' id='" + "li" + sn1Stock_72_obj + "' style='display:none;' ><a class='nav-link' id='" + "lia" + sn1Stock_72_obj + "' data-toggle='tab' href='" + "#mycsttab" + sn1Stock_72_obj + "' role='tab' aria-controls='" + "mycsttab" + sn1Stock_72_obj + "' aria-selected='false'>" + sn1Stock_72_id + "<button class='align-btn' style='border:none;' id='" + "btn" + sn1Stock_72_obj + "' onClick=closebtn('" + sn1Stock_72_obj + "') ><i class='mdi mdi-close-circle'></i></button></a></li>";
-	navbody_72 += "<div class='tab-pane fade' id='" + "mycsttab" + sn1Stock_72_obj + "' role='tabpanel' aria-labelledby='" + "mycsttab" + sn1Stock_72_obj + "'>" + sn1Stock_72_id + " </div>";
+	navbody_72 += "<div class='tab-pane fade nav-hide' id='" + "mycsttab" + sn1Stock_72_obj + "' role='tabpanel' aria-labelledby='" + "mycsttab" + sn1Stock_72_obj + "'>" + sn1Stock_72_id + " </div>";
 	$('#notDeliverin72h_ul').append(nav_tabs_72);
 	$('#notDeliverin72h_tab_content').append(navbody_72);
 
@@ -1364,7 +1364,7 @@ function cluster_for_vehicle(tabledata) {
 }
 function load_cluster_for_vehicle_info(veh_cust_id, veh_obj) {
 	veh_navtabs += "<li class='nav-item nav-hide' id='" + "veh_li" + veh_cust_id + "' style='display:none;' ><a class='nav-link' id='" + "veh_lia" + veh_cust_id + "' data-toggle='tab' href='" + "#veh_mycsttab" + veh_cust_id + "' role='tab' aria-controls='" + "veh_mycsttab" + veh_cust_id + "' aria-selected='false'>" + veh_obj + "<button class='align-btn' style='border:none;' id='" + "veh_btn" + veh_cust_id + "' onClick=closebtn_veh('" + veh_cust_id + "') ><i class='mdi mdi-close-circle'></i></button></a></li>";
-	veh_navbody += "<div class='tab-pane fade' id='" + "veh_mycsttab" + veh_cust_id + "' role='tabpanel' aria-labelledby='" + "veh_mycsttab" + veh_cust_id + "'>" + veh_obj + " </div>";
+	veh_navbody += "<div class='tab-pane fade nav-hide' id='" + "veh_mycsttab" + veh_cust_id + "' role='tabpanel' aria-labelledby='" + "veh_mycsttab" + veh_cust_id + "'>" + veh_obj + " </div>";
 	$('#myvehicletabs').append(veh_navtabs);
 	$('#mytabcontent_vehicle').append(veh_navbody);
 
@@ -1433,7 +1433,7 @@ $("#icloseContractor").click(function () {
 
 //vechile data search
 
-contractor_clustervehicle_tablebody_POP = [];
+var contractor_clustervehicle_tablebody_POP = [];
 function load_cluster_for_vechiledatasearch(id) {
 	$('#veh_search_data_table_inPopup').html('');
 	var obj = "{FTYPE:'1',FDISTRICT:'',FROMDATE:'',TODATE:'',Vehnumber:'" + id + "'}";

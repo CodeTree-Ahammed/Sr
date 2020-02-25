@@ -6,7 +6,7 @@ using System.Web;
 namespace SR.help
 {
 	
-		public class Dist
+	public class Dist
 		{
 			public string District_code { get; set; }
 			public string District_name { get; set; }
@@ -45,7 +45,11 @@ namespace SR.help
 			public string TODATE { get; set; }
 			public string IMEI_IP { get; set; }
 			public string FSchQUANTY { get; set; }
-			public string F_SCH_NO { get; set; }
+		public string Fclusterid { get; set; }
+
+		public string STOCKYARD_ID { get; set; }
+
+		public string F_SCH_NO { get; set; }
 			public string Remarks { get; set; }
 			public string Trips { get; set; }
 			public string P_ACT_STA { get; set; }
@@ -81,6 +85,9 @@ namespace SR.help
 		public string P_permit_quantity { get => p_permit_quantity; set => p_permit_quantity = value; }
 		public int P_district_id { get => p_district_id; set => p_district_id = value; }
 		public string Vehnumber { get => vehnumber; set => vehnumber = value; }
+		public string Status { get => status; set => status = value; }
+
+		private string status;
 
 		private string vehnumber;
 
@@ -246,4 +253,63 @@ namespace SR.help
 		public string STATUS { get; set; }
 		public string REMARKS { get; set; }
 	}
+
+	public class Getstockyardprice
+	{
+		public string Code { set; get; }
+		public string Message { set; get; }
+		public string Type { set; get; }
+		public string amount { set; get; }
+
+		public string SAND_PRICE { set; get; }
+		public string STOCKYARD_EXTENT { set; get; }
+		public string STOCKYARD_LAT { set; get; }
+		public string STOCKYARD_LONG { set; get; }
+
+		public List<tbl_Stockyard_Master_price> Tbl_Stockyard_Master_priceli { set; get; }
+	}
+
+	public class tbl_Stockyard_Master_price
+	{
+		public string E_STOCKYARD_ID { get; set; }
+		public string E_Stockyard_Name { get; set; }
+		public Double STOCKYARD_EXTENT { get; set; }
+		public Double SAND_PRICE { get; set; }
+		public int TransportCharge { get; set; }
+		public int LoadCharge { get; set; }
+		public int RDCCGST { get; set; }
+		public int RDCSGST { get; set; }
+		public int CGST { get; set; }
+		public int SGST { get; set; }
+		public int ServiceCharge { get; set; }
+		public int RoadDamageCharge { get; set; }
+		public double TotalAmount { get; set; }
+		public string SAND_TRANSACTION_ID { get; set; }
+		public string SAND_TRANSACTION_DATE { get; set; }
+		public string SAND_ORDER_ID { get; set; }
+		public string DRIVER_MOBILENUMBER { get; set; }
+		public string DRIVER_NAME { get; set; }
+		public string VECHILE_NO { get; set; }
+		public string STATUS { get; set; }
+		public string CAPUTER_DATE { get; set; }
+		public string Ch_RIPI { get; set; }
+		public string Ch_SW { get; set; }
+		public string Ch_DMF98 { get; set; }
+		public string Ch_DMF2 { get; set; }
+		public string Ch_MERT { get; set; }
+		public string Ch_OTH { get; set; }
+		public string COUNT { get; set; }
+
+		public double SAND_SOLD { get; set; }
+		public double SELLING_BAL { get; set; }
+
+	}
+	  /// <summary>
+	  /// created this object by bhagya a for GIS communication 
+	  /// </summary>
+	public class Gisshow
+	{
+		public string Txtid { get; set; }
+	}
+
 }

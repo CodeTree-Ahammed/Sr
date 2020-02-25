@@ -47,7 +47,10 @@ namespace SR
 		{
 			routes.MapPageRoute("", "", "~/index.html");
 			routes.MapPageRoute("Login", "Login", "~/Login.aspx");
-			routes.MapPageRoute("Dashboard", "Dashboard", "~/index.html");			
+			routes.MapPageRoute("Dashboard", "Dashboard", "~/index.html");
+			routes.MapPageRoute("DDTS", "DDTS", "~/DdTripStatus.html");
+			routes.MapPageRoute("DDCR", "DDCR", "~/DdCumulativeReport.html");
+			
 		}
 	}
 }

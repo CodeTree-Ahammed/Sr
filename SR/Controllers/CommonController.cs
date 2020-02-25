@@ -2,10 +2,13 @@
 using SR.help;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Dynamic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -121,17 +124,30 @@ namespace SR.Controllers
 			}
 			catch (Exception)
 			{
-				//string logdata = JsonConvert.SerializeObject(root);
-				//string mappath = HttpContext.Current.Server.MapPath("ExceptionLogs");
-				//Task WriteTask = Task.Factory.StartNew(() => _Security.Log(logdata + "Exception" + "TransportReport" + ex.Message.ToString(), mappath, DateTime.Now.ToString("yyyyMMddhhmmssmmm")));
-
-				//E_return E_return = new E_return();
-				//E_return.code = "99";
-				//E_return.message = "something went wrong please contact admin";
-				//E_return.url = "Error.htm";
 				return 0;
 			}
 		}
+
+		[HttpPost]
+		[Route("Load_Contarctor_Details_by_id_route")]
+		public dynamic Load_Contarctor_Details_by_id_route(Load_district root)
+		{
+			try
+			{
+
+				return _valid.Load_Contarctor_Details_by_id_Valid(root);
+
+			}
+			catch (Exception ex)
+			{
+				E_return E_return = new E_return();
+				E_return.Code = "99";
+				E_return.Message = "something went wrong please contact admin" + ex.Message;
+				E_return.Url = "Error.htm";
+				return E_return;
+			}
+		}
+
 
 		///Token Gen
 		SR_Security _Security = new SR_Security(); SR_Valid valid = new SR_Valid();
@@ -320,14 +336,176 @@ namespace SR.Controllers
 				return E_return;
 			}
 		}
-		
+
+		[HttpPost]
+		[Route("SandTransportReports_VehilceSearch_Route")]
+		public dynamic SandTransportReports_VehilceSearch_Route(Load_district root)
+		{
+			try
+			{
+				return _valid.SandTransportReports_VehilceSearch_valid(root);
+			}
+			catch (Exception)
+			{
+				return 0;
+			}
+		}
 
 
+		[HttpPost]
+		[Route("GET_deliveryreportRoute")]
+		public dynamic GET_deliveryreportRoute(Load_district root)
+		{
+			try
+			{
+				return _valid.GET_deliveryreport_Valid(root);
+			}
+			catch (Exception ex)
+			{
+				//E_return E_return = new E_return();
+	
+				return 0;
+			}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="root"></param>
+		/// <returns></returns>
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="root"></param>
+		/// <returns></returns>
+		[HttpPost]
+		[Route("APMDC_SP_GET_STOCKYARD_DETAILS_Route")]
+		public dynamic APMDC_SP_GET_STOCKYARD_DETAILS_Route(Load_district root)
+		{
+			try
+			{
+
+				return _valid.APMDC_SP_GET_STOCKYARD_DETAILS_Valid(root);
+
+			}
+			catch (Exception ex)
+			{
+				string logdata = JsonConvert.SerializeObject(root);
+				string mappath = HttpContext.Current.Server.MapPath("ExceptionLogs");
+				Task WriteTask = Task.Factory.StartNew(() => _Security.Log(logdata + "Exception" + "stockyardload" + ex.Message.ToString(), mappath, DateTime.Now.ToString("yyyyMMddhhmmssmmm")));
+
+				E_return E_return = new E_return();
+				E_return.Code = "99";
+				E_return.Message = "something went wrong please contact admin";
+				E_return.Url = "Error.htm";
+				return E_return;
+			}
+		}
 
 
+		[HttpPost]
+		[Route("APMDC_SP_GET_STOCKYARD_NAME_Route")]
+		public dynamic APMDC_SP_GET_STOCKYARD_NAME_Route(Load_district root)
+		{
+			try
+			{
+				return _valid.APMDC_SP_GET_STOCKYARD_NAME_valid(root);
 
- 
+			}
+			catch (Exception)
+			{
 
+				return 0;
+			}
+		}
+
+		[HttpPost]
+		[Route("Tripsdoordelivery_Route")]
+		public dynamic Tripsdoordelivery_Route(Load_district root)
+		{
+			try
+			{
+				return _valid.Tripsdoordelivery_Valid(root);
+			}
+			catch (Exception)
+			{
+				return 0;
+			}
+		}
+
+		[HttpPost]
+		[Route("Tripsdoordelivery_Update_Status_Route")]
+		public dynamic Tripsdoordelivery_Update_Status_Route(Load_district root)
+		{
+			try
+			{
+				return _valid.Tripsdoordelivery_Update_Status_Valid(root);
+			}
+			catch (Exception)
+			{
+				return 0;
+			}
+		}
+
+		[HttpPost]
+		[Route("VtsRoads")]
+		public dynamic VtsRoads(Gisshow lmobj)
+		{
+			dynamic obj = new ExpandoObject();
+			DataTable dt = new DataTable();
+
+			try
+			{
+				var value = PostData2(lmobj.Txtid);
+				obj.Data = value;
+			}
+			catch (WebException wex)
+			{
+				throw wex;
+			}
+			return obj;
+
+		}
+
+
+		public dynamic PostData2(string Txid)
+		{
+			string url = "http://svts.mines.ap.gov.in:8041/ewaybilltripdistancewithpath?id=" + Txid + "&expiry_time_in_hours=24&buffer_radius_meters=5000";
+			var response = String.Empty;
+			try
+			{
+				var req = (HttpWebRequest)WebRequest.Create(url);
+				req.ContentType = "application/json; charset=utf-8";
+				var username = "apdmg";
+				var password = "apdmg@987";
+				var bytes = Encoding.UTF8.GetBytes($"{username}:{password}");
+				req.Headers.Add("Authorization", $"Basic {Convert.ToBase64String(bytes)}");
+				WebProxy myProxy = new WebProxy();
+
+				req.Proxy = myProxy;
+
+				req.Method = "GET";
+				var resp = (HttpWebResponse)req.GetResponse();
+				var sr = new StreamReader(resp.GetResponseStream());
+
+				if ((resp.StatusCode == HttpStatusCode.Redirect) || (resp.StatusCode == HttpStatusCode.SeeOther) ||
+					(resp.StatusCode == HttpStatusCode.RedirectMethod))
+				{
+
+				}
+				else
+				{
+					response = sr.ReadToEnd().Trim();
+				}
+
+
+			}
+			catch (WebException wex)
+			{
+				throw wex;
+			}
+
+			return JsonConvert.DeserializeObject<dynamic>(response);
+		}
 
 
 	}

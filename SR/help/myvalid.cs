@@ -373,5 +373,135 @@ namespace SR.help
 			}
 
 		}
+
+		public dynamic GET_deliveryreport_Valid(Load_district root)
+		{
+			dynamic userdata = new ExpandoObject();
+
+			Dt = sandget.GET_deliveryreport_sp(root);
+			if (Dt != null && Dt.Rows.Count > 0)
+			{
+				userdata.Code = "100";
+				userdata.DailyRepDetsli = Dt;
+				userdata.Message = "success";
+			}
+			else
+			{
+
+				userdata.Code = "101";
+				userdata.Message = "No Data Found";
+			}
+			return userdata;
+		}
+
+		public dynamic APMDC_SP_GET_STOCKYARD_DETAILS_Valid(Load_district root)
+		{
+			Getstockyardprice Getstockyardprice = new Getstockyardprice();
+			Getstockyardprice.Tbl_Stockyard_Master_priceli = new List<tbl_Stockyard_Master_price>();
+			Dt = sandget.APMDC_SP_GET_STOCKYARD_DETAILS_sp(root);
+			if (Dt != null && Dt.Rows.Count > 0)
+			{
+				Getstockyardprice.Code = "100";
+				Getstockyardprice.Message = "";
+				Getstockyardprice.SAND_PRICE = Dt.Rows[0][2].ToString();
+				Getstockyardprice.STOCKYARD_EXTENT = Dt.Rows[0][3].ToString();
+				foreach (DataRow dr in Dt.Rows)
+				{
+					tbl_Stockyard_Master_price tbl_Stockyard_Master_price = new tbl_Stockyard_Master_price();
+					tbl_Stockyard_Master_price.E_STOCKYARD_ID = dr["STOCKYARD_ID"].ToString().Trim();
+					tbl_Stockyard_Master_price.E_Stockyard_Name = dr["STOCKYARD_NAME"].ToString().Trim();
+					tbl_Stockyard_Master_price.SAND_PRICE = Convert.ToDouble(dr["SAND_PRICE"].ToString().Trim());
+					tbl_Stockyard_Master_price.STOCKYARD_EXTENT = Convert.ToDouble(dr["STOCKYARD_EXTENT"].ToString().Trim());
+					tbl_Stockyard_Master_price.SAND_SOLD = Convert.ToDouble(dr["SAND_SOLD"].ToString().Trim());
+					tbl_Stockyard_Master_price.SELLING_BAL = Convert.ToDouble(dr["SELLING_BAL"].ToString().Trim());
+					Getstockyardprice.Tbl_Stockyard_Master_priceli.Add(tbl_Stockyard_Master_price);
+				}
+			}
+			else
+			{
+				Getstockyardprice.Code = "101";
+				Getstockyardprice.Message = "No Data Found";
+			}
+			return Getstockyardprice;
+		}
+
+		public dynamic APMDC_SP_GET_STOCKYARD_NAME_valid(Load_district root)
+		{
+			dynamic userdata = new ExpandoObject();
+
+			Dt = sandget.APMDC_SP_GET_STOCKYARD_NAME_sp(root);
+			if (Dt != null && Dt.Rows.Count > 0)
+			{
+				userdata.code = "100";
+				userdata.dailyRepDetsli = Dt;
+				userdata.message = "success";
+			}
+			else
+			{
+
+				userdata.code = "101";
+				userdata.message = "No Data Found";
+			}
+			return userdata;
+		}
+		public dynamic Tripsdoordelivery_Valid(Load_district root)
+		{
+			dynamic userdata = new ExpandoObject();
+
+			Dt = sandget.Tripsdoordelivery_sp(root);
+			if (Dt != null && Dt.Rows.Count > 0)
+			{
+				userdata.code = "100";
+				userdata.dailyRepDetsli = Dt;
+				userdata.message = "success";
+			}
+			else
+			{
+
+				userdata.code = "101";
+				userdata.message = "No Data Found";
+			}
+			return userdata;
+		}
+
+		public dynamic Tripsdoordelivery_Update_Status_Valid(Load_district root)
+		{
+			dynamic userdata = new ExpandoObject();
+
+			Dt = sandget.Tripsdoordelivery_Update_Status_sp(root);
+			if (Dt != null && Dt.Rows.Count > 0 && Dt.Rows[0]["STATUS"].ToString() == "1")
+			{
+				userdata.code = "100";
+				userdata.dailyRepDetsli = Dt;
+				userdata.message = "success";
+			}
+			else
+			{
+
+				userdata.code = "101";
+				userdata.message = "No Data Found";
+			}
+			return userdata;
+		}
+		public dynamic Tripsdoordelivery_counts_display_valid(Load_district root)
+		{
+			dynamic userdata = new ExpandoObject();
+
+			Dt = sandget.Tripsdoordelivery_counts_display_sp(root);
+			if (Dt != null && Dt.Rows.Count > 0)
+			{
+				userdata.code = "100";
+				userdata.dailyRepDetsli = Dt;
+				userdata.message = "success";
+			}
+			else
+			{
+
+				userdata.code = "101";
+				userdata.message = "No Data Found";
+			}
+			return userdata;
+		}
+
 	}
 }

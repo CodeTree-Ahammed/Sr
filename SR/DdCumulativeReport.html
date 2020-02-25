@@ -1,0 +1,145 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Meta -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="shortcut icon" href="../img/ap-logo.png" />
+	<!-- Title -->
+	<title>Sand Dashboard</title>
+	<!-- Bootstrap css -->
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../fonts/style.css">
+	<link rel="stylesheet" href="../css/main.css">
+	<link rel="stylesheet" href="../css/all.min.css">
+	<link href="../css/jquery-ui.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../lobi/lib/jquery-ui.min.css" />
+	<link rel="stylesheet" href="../lobi/lib/font-awesome/css/font-awesome.min.css" />
+	<link href="lobi/css/lobipanel.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../lobi/lib/highlight/github.css" />
+	<link rel="stylesheet" href="../lobi/demo/documentation.css" />
+	<link rel="stylesheet" href="../lobi/dist/css/lobipanel.min.css" />
+	<link rel="stylesheet" href="../lobi/demo/demo.css" />
+	<link href="vendors/mdi/css/materialdesignicons.min.css" rel="stylesheet" />
+
+
+</head>
+<body>
+
+
+
+	<header class="header">
+		<div class="container-fluid">
+			<!-- Row start -->
+			<div class="row gutters">
+				<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+					<a href="" class="logo"><img src="img/ap-logo.png">Door Delivery Cumulative Report</a>
+				</div>
+				<div class="col-xl-9 col-lg-9 col-md-6 col-sm-6 col-12">
+					<form>
+						<div class="row" style="padding-top:5px;">
+							<div class="col-md-3 col-12">
+								<div class="form-group row">
+									<div class="col-md-4 col-3">
+										<label for="sel1" style="color:white;padding-top:10px;">From :</label>
+									</div>
+									<div class="col-md-8 col-9" style="padding-left:0px;margin-bottom:5px;">
+										<input type="text" id="from_datepicker_ddcur" readonly class="form-control" oncopy="return false" onpaste="return false" oncut="return false" maxlength="10" autocomplete="off" aria-describedby="basic-addon1">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 col-12">
+								<div class="form-group row">
+									<div class="col-md-4 col-3" style="text-align: left;">
+										<label for="sel1" style="color:white;padding-top:10px;">To :</label>
+									</div>
+									<div class="col-md-8 col-9" style="padding-left:0px;margin-bottom:5px;">
+
+										<input type="text" id="to_datepicker_ddcur" readonly class="form-control" oncopy="return false" onpaste="return false" oncut="return false" maxlength="10" autocomplete="off" aria-describedby="basic-addon1">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4 col-12 ">
+								<div class="form-group row">
+									<div class="col-lg-5 col-md-4 col-3">
+										<label for="sel1" style="color:white;padding-top:10px;">Select District:</label>
+									</div>
+									<div class="col-lg-7 col-md-8 col-9" style="padding-left:0px;">
+										<select class="form-control" id="Loadistricts_ddcur"></select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-1 col-12" id="refreshb" style="padding-left:0px;text-align: center;">
+								<button class="btn btn-success" type="button" id="submit_ddcur">Submit</button>
+							</div>
+							<div class="col-md-1 col-12" style="text-align:right;"> <i class="fa fa-power-off" title="Logout_ddcur" style="font-size: 22px;color: white;margin-top: 7px;" id="logout"></i></div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- Row end -->
+			<span style="right: -1%;font-size: 41px;color: yellow;margin-right: 56px;position: absolute;margin-top: 36px;cursor:pointer; display:none;" id="ibtn_RptView">&#128455</span>
+			<span style="right: -3%;font-size: 25px;color: #ec4842;margin-right: 67px;position: absolute;margin-top: 15px;cursor:pointer; display:none;" id="ibtn_RptClose">&#128473</span>
+			<span style="right: -3%;font-size: 25px;color: green;margin-right: 94px;position: absolute;margin-top: 16px;cursor:pointer;display:none;" id="excelXtraLarge">&#128438</span>
+			<span style="right: -3%;font-size: 25px;color: green;margin-right: 130px;position: absolute;margin-top: 16px;cursor:pointer;display:none;" id="pdfXtraLarge">&#128462</span>
+
+		</div>
+	</header>
+	<!-- Header end -->
+
+	<div class="container-fluid" id="RptView_ddcur">
+		<div class="main-container">
+			<div class="content-wrapper">
+				<div class="row gutters">
+					<div id="accordion_per" class="col-md-12 myaccordion">
+						<div id="dailyrpt">
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="card">
+									<div id="lobipanel-custom-control-dailyReport_ddcur" class="scroll-lobi" style="margin-bottom:15px;">
+										<div class="panel-heading">
+										</div>
+										<div class="tab-content" id="tabcontent">
+											<table border="1" id="dailyReport_db_ddcur"></table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/jquery-1.12.4.js"></script>
+
+
+	<script src="../js/jquery-ui.js"></script>
+	<script src="../js/bootstrap.bundle.min.js"></script>
+	<script src="../js/ajaxrequest.js"></script>
+
+	<script src="../js/DdCumulativeReport.js?id=8"></script>
+	<link href="../js/datatable.css" rel="stylesheet" />
+	<script src="../js/datatable.js"></script>
+	<script src="../lobi/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="../lobi/dist/js/lobipanel.js"></script>
+	<script src="../js/pdf1.js"></script>
+	<script src="../js/pdfcanvas.js"></script>
+	<script src="js/jquery.table2excel.js"></script>
+	<script src="js/jspdf.js"></script>
+	<script src="js/filesaver.js"></script>
+	<script src="js/jspdf.plugin.table.js"></script>
+
+</body>
+</html>
+
+

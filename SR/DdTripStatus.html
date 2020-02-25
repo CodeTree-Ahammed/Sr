@@ -1,0 +1,418 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Trips Staus :: Dashboard</title>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../fonts/style.css">
+	<link rel="stylesheet" href="../css/main.css">
+	<link rel="stylesheet" href="../css/all.min.css">
+	<link href="../css/jquery-ui.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../lobi/lib/jquery-ui.min.css" />
+	<link rel="stylesheet" href="../lobi/lib/font-awesome/css/font-awesome.min.css" />
+	<link href="lobi/css/lobipanel.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../lobi/lib/highlight/github.css" />
+	<link rel="stylesheet" href="../lobi/demo/documentation.css" />
+	<link rel="stylesheet" href="../lobi/dist/css/lobipanel.min.css" />
+	<link rel="stylesheet" href="../lobi/demo/demo.css" />
+	<link href="vendors/mdi/css/materialdesignicons.min.css" rel="stylesheet" />
+    <style>
+        a {
+            cursor: pointer !important;
+        }
+
+        table.dataTable thead th {
+            padding: 10px 8px !important;
+        }
+
+        .table.dataTable tbody td {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+	<!--<div id="loading-wrapper">
+		<h3><span style="color:#fff"> Data Loading </span><span style="color:#fff;font-size:12px">   &nbsp;&nbsp;&nbsp;<span style="color:#fff">...</span> </span></h3> &nbsp;&nbsp;&nbsp; <img src="img/source.gif" style="margin-bottom: 15px;" />
+	</div>-->
+	<!-- Loading ends -->
+	<!-- Header start -->
+	<div id="loading-wrapper">
+		<div>
+			<div class="d-flex justify-content-center">
+				<div class="spinner-border text-primary">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<header class="header">
+		<div class="container-fluid">
+			<!-- Row start -->
+			<div class="row gutters">
+				<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+					<a href="" class="logo"><img src="img/ap-logo.png"> Door Delivery Trip Status</a>
+				</div>
+			</div>
+
+		</div>
+	</header>
+	<!-- Header end -->
+	<div class="col-md-12">
+		<div class="row">
+
+
+
+			<div class="col-md-2">
+				<div class="form-group row">
+					<div class="col-md-4 col-3">
+						<label for="sel1" style="color:white;padding-top:10px;">From :</label>
+					</div>
+					<div class="col-md-8 col-9" style="padding-left:0px;margin-bottom:5px;">
+						<input type="text" id="from_datepicker" readonly class="form-control" oncopy="return false" onpaste="return false" oncut="return false" maxlength="10" autocomplete="off" aria-describedby="basic-addon1">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group row">
+					<div class="col-md-4 col-3" style="text-align: left;">
+						<label for="sel1" style="color:white;padding-top:10px;">To :</label>
+					</div>
+					<div class="col-md-8 col-9" style="padding-left:0px;margin-bottom:5px;">
+
+						<input type="text" id="to_datepicker" readonly class="form-control" oncopy="return false" onpaste="return false" oncut="return false" maxlength="10" autocomplete="off" aria-describedby="basic-addon1">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group row">
+					<label for="SandDistrict" class="col-sm-3 text-white pt-2">District:</label>
+					<div class="col-sm-9">
+						<select id="SandDistrict_dd" class="form-control" title="please Select District">
+							<option value="0">- Select District -</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2" id="load_ddl_clusterid">
+				<div class="form-group row">
+					<label for="cluserid" class="col-sm-4 text-white pt-2">Clusterid:</label>
+					<div class="col-sm-8" style="padding-right:0px;">
+						<select id="Clusteridid_dd" class="form-control" title="Please Select Cluster District">
+							<option value="0">- Select Cluster -</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3" id="load_ddl_stockyard">
+				<div class="form-group row">
+					<label for="Stockyardid" class="col-sm-3 text-white pt-2">Stockyard:</label>
+					<div class="col-sm-9">
+						<select id="Stockyardid_dd" class="form-control" title="Please Select Choose Stock Yard District">
+							<option value="0">- Select Stock Yard -</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-1">
+				<a href="javascript:void(0);" title="click here to get" id="getdata" class="btn btn-md btn-success btn-round" style="padding:7px 15px;">Submit</a>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="main-container">
+
+			<!-- Content wrapper start -->
+			<div class="content-wrapper">
+
+				<!-- Row start -->
+				<div class="row gutters">
+					<div class="col-md-4">
+						<div class="row">
+							<div class="col-md-6">
+								<p style="color: #2871c7;
+    font-weight: 700;
+">Total Records Evaluated</p>
+							</div>
+							<div class="col-md-4">
+								<h2 id="total_evaluated" class="number text-center" style="color: #2871c7;font-size: 1.3rem;font-family: 'LED Dot', Courier, monospace;">
+									0
+								</h2>
+							</div>
+
+
+						</div>
+					</div>
+					<div class="col-md-4"></div>
+					<div class="col-md-4"></div>
+					<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" style="margin-bottom:5px;">
+						<div class="main-tiles primary">
+							<p>Total Trips</p>
+							<h2 id="totaltrips" class="number text-center" style="color:white;margin-bottom:22px;">0</h2>
+							<div style="text-align:center;position: absolute;top: 86px;right: 22px;">
+								<p style="margin-bottom:10px;color:#ffffff;font-size: 14px;">Cumulative</p>
+								<h6 id="totaltrips_cum" style="font-family: 'LED Dot', Courier, monospace;font-size:20px;color:#ffffff;">0</h6>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" style="margin-bottom:5px;">
+						<div class="main-tiles blue">
+							<p>Trips Completed</p>
+							<h2 id="trips_completed" class="number text-center" style="color:white;margin-bottom:22px;">0</h2>
+							<div style="text-align: center;position: absolute;top: 86px;right: 22px;">
+								<p style="margin-bottom:10px;color:#ffffff;font-size: 14px;">Cumulative</p>
+								<h6 id="trips_completed_cum" style="font-family: 'LED Dot', Courier, monospace;font-size:20px;color:#ffffff;">0</h6>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" style="margin-bottom:5px;">
+						<div class="main-tiles red">
+							<p>Trips Not Completed</p>
+							<h2 id="trips_not_completed" class="number text-center" style="color:white;margin-bottom:22px;">0</h2>
+							<div style="text-align: center;position: absolute;top: 86px;right: 22px;">
+								<p style="margin-bottom:10px;color:#ffffff;font-size: 14px;">Cumulative</p>
+								<h6 id="trips_not_completed_cum" style="font-family: 'LED Dot', Courier, monospace;font-size:20px;color:#ffffff;">0</h6>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- Row end -->
+				<div class="tabcard">
+					<div>
+						<div class="card-body">
+
+							<div class="table-responsive">
+								<div class="maincard">
+									<div class="maincard-bdy">
+
+
+										<table id="sandtbldr" class="table table-striped table-bordered dataTable" style="width: 100%">
+
+											<thead class="bg-info text-white">
+
+												<tr style="font-size:13px;">
+													<th>TRANSACTION ID</th>
+													<th>CONSUMER DETAILS</th>
+
+													<th>TRANSPORTER DETAILS</th>
+													<th>VTS DISTANCE</th>
+
+													<th>ACTUAL DISTANCE</th>
+													<th>DISPATCHED DATE</th>
+													<th>TRANSIT ID</th>
+													<th>STATUS</th>
+													<th>UPDATE</th>
+												</tr>
+											</thead>
+											<tbody style="font-size:12px;text-align:left;"></tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="showalerts3td" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header ">
+					<h5 class="modal-title" id="changepwdLabel">Consumer Details</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true" style="color:black">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Consumer Name:</label>
+						<div class="col-sm-9">
+							<label id="name" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Mobile Number:</label>
+						<div class="col-sm-9">
+							<label id="mobile_no" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Alternate Mobile Number:</label>
+						<div class="col-sm-9">
+							<label id="alt_mobile_no" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Address:</label>
+						<div class="col-sm-9">
+							<label id="address" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Stockyard Name:</label>
+						<div class="col-sm-9">
+							<label id="stock_yard" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="showalerts3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header ">
+					<h5 class="modal-title" id="changepwdLabeliv">Transporter Details</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true" style="color:black">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!--<%-- <table id="sandtbldisiv" class="table table-striped table-bordered table-responsive dataTable" style="width: 100%">
+						<thead class="bg-info text-white">
+							<tr>
+								<th>Consumer Name</th>
+								<th>Mobile no</th>
+
+								<th>Vechicle no</th>
+								<th>Driver Name</th>
+								<th>Driver mobile no</th>
+
+
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>--%>-->
+					<!--<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Consumer Name:</label>
+						<div class="col-sm-9">
+							<label id="name_dd" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>-->
+					<!--<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Mobile Number:</label>
+						<div class="col-sm-9">
+							<label id="mobile_no_dd" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>-->
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Contractor Name:</label>
+						<div class="col-sm-9">
+							<label id="con_name_dd" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;"> Contractor Mobile Number:</label>
+						<div class="col-sm-9">
+							<label id="con_mobile_no_dd" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;"> Contractor Alternate Mobile Number:</label>
+						<div class="col-sm-9">
+							<label id="con_alt_mobile_no_dd" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Vehicle No:</label>
+						<div class="col-sm-9">
+							<label id="vehicle_no" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Driver Name:</label>
+						<div class="col-sm-9">
+							<label id="driver_name" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Driver Mobile no:</label>
+						<div class="col-sm-9">
+							<label id="driver_moible_no" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Allotment Id:</label>
+						<div class="col-sm-9">
+							<label id="allot_id" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="showupdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header ">
+					<h5 class="modal-title" id="changepwdLabel">Update Status</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true" style="color:black">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Transit Id:</label>
+						<div class="col-sm-9">
+							<label id="transit_id" class="col-sm-12 pt-2" style="color:#1f1f75;"></label>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Status:</label>
+						<div class="col-sm-9">
+							<select id="status" class="form-control" title="Please Select status">
+                                <option value="0">- Select Status -</option>
+                                <option value="1">Sand Delivered</option>
+                                <option value="2">Sand delivered but to another location (Specified by Consumer)</option>
+                                <option value="3">Sand Delivered (Incorrect VTS Data)</option>
+                                <option value="3">Sand not Delivered (Incorrect VTS Data)</option>
+                                <option value="4">Sand not delivered (Elaborate in Remarks)</option>
+                                <option value="5">Transporter renegotiated price but Sand Delivered (Elaborate in Remarks)</option>
+                                <option value="6">Transporter renegotiated price but Sand not Delivered (Elaborate in Remarks)</option>
+                                <option value="7">Others</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="cluserid" class="col-sm-3 pt-2" style="font-weight:bold;">Remarks:</label>
+						<div class="col-sm-9">
+							<input type="text" id="remarks" class="col-sm-12 pt-2" oncopy="return false" onpaste="return false" oncut="return false">
+
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal" id="Update_status">Submit</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/jquery-1.12.4.js"></script>
+	<script src="../js/jquery-ui.js"></script>
+	<script src="../js/bootstrap.bundle.min.js"></script>
+	<script src="../js/ajaxrequest.js"></script>
+	<script src="../js/DdTripStatus.js"></script>
+	<link href="../js/datatable.css" rel="stylesheet" />
+	<script src="../js/datatable.js"></script>
+	<!--<script src="../js/DdTripstatus_gis.js"></script>-->
+
+</body>
+</html>

@@ -1,5 +1,4 @@
-﻿
-var tablebody2 = [];
+﻿var tablebody2 = [];
 var tablebody3 = [];
 var tablebody4 = [];
 var tablebody5 = [];
@@ -11,6 +10,8 @@ var contractor_view = 0;
 var tableperhourDisplay = [];
 var myhours = '';
 var btnval_72 = 0;
+var btrptval = 0;
+var btrptval_all  =0;
 
 $(document).ready(function () {
 
@@ -42,7 +43,7 @@ $(document).ready(function () {
  //   _Sand_Auth(url, obj, function (res) {
  //   if (res.Code == "100") {
 		
-	//			   // BASHS CODE HERE
+	//			 // basha to paste the ready code here
 	
 
  //           }
@@ -136,7 +137,7 @@ function userlog() {
 
 //$(function () {
   
-//    window.setinterval(function () {
+//    window.setInterval(function () {
 //        userlog();
 //    }, 20000);
 //});
@@ -178,7 +179,6 @@ $('#to_datepicker').datepicker({
 		$("#from_datepicker").datepicker("option", "maxDate", date);
 		$('#from_datepicker').datepicker('setDate', date);
 		$("#collapseOne").hide();
-		$('.nav-hide').hide();
 		$("#hour_Table_display_72").hide();
 		load_per_hourdisplay($("#Loadistricts").find("option:selected").val());
 		Func72hoursOfDipaly($("#Loadistricts").find("option:selected").val());
@@ -191,6 +191,10 @@ $('#to_datepicker').datepicker({
 			$("#timeChangerPerhour").val(myhours);
 			perhourchangefunc(myhours, $("#Loadistricts").find("option:selected").val());
 
+		}
+		if (btrptval == 1) {
+
+			load_DailyReports_for_db($("#Loadistricts").find("option:selected").val(), $("#from_datepicker").val(), $("#to_datepicker").val(), $("#Loadistricts").find("option:selected").text());
 		}
 	}
 });
@@ -205,7 +209,6 @@ $('#from_datepicker').datepicker({
 		load_Counters(10, $("#Loadistricts").find("option:selected").val());
 		load_Counters(11, $("#Loadistricts").find("option:selected").val());
 		$("#collapseOne").hide();
-		$('.nav-hide').hide();
 		$("#hour_Table_display_72").hide();
 		load_per_hourdisplay($("#Loadistricts").find("option:selected").val());
 		Func72hoursOfDipaly($("#Loadistricts").find("option:selected").val());
@@ -216,6 +219,10 @@ $('#from_datepicker').datepicker({
 		}
 		else {
 			perhourchangefunc(myhours, $("#Loadistricts").find("option:selected").val());
+		}
+		if (btrptval == 1) {
+
+			load_DailyReports_for_db($("#Loadistricts").find("option:selected").val(), $("#from_datepicker").val(), $("#to_datepicker").val(), $("#Loadistricts").find("option:selected").text());
 		}
 	}
 });
@@ -295,6 +302,10 @@ $("#submit").click(function () {
 		perhourchangefunc(myhours, $("#Loadistricts").find("option:selected").val());
 		load_per_hourdisplay($("#Loadistricts").find("option:selected").val());
 	}
+	if (btrptval == 1) {
+
+		load_DailyReports_for_db($("#Loadistricts").find("option:selected").val(), $("#from_datepicker").val(), $("#to_datepicker").val(), $("#Loadistricts").find("option:selected").text());
+	}
 
 });
 
@@ -356,6 +367,8 @@ function load_Counters(id,tdis) {
 					$('#TODAY_18').jQuerySimpleCounter({ end: res.DailyRepDetsli[0].TODAY_18, duration: 3000 });
 					$('#TOTAL_24').jQuerySimpleCounter({ end: res.DailyRepDetsli[0].TOTAL_24, duration: 3000 });
 					$('#TODAY_24').jQuerySimpleCounter({ end: res.DailyRepDetsli[0].TODAY_24, duration: 3000 });
+					$('#TOTAL_30').jQuerySimpleCounter({ end: res.DailyRepDetsli[0].TOTAL_30, duration: 3000 });
+					$('#TODAY_30').jQuerySimpleCounter({ end: res.DailyRepDetsli[0].TODAY_30, duration: 3000 });
 					$('#TOTAL_VEHICLES').jQuerySimpleCounter({ end: res.DailyRepDetsli[0].TOTAL_VEHICLES, duration: 3000 });
 					$('#TODAY_VEHICLES').jQuerySimpleCounter({ end: res.DailyRepDetsli[0].TODAY_VEHICLES, duration: 3000 });
 
@@ -695,7 +708,7 @@ function load_cluster_for_contrator(id) {
 	_Sand_Auth("../get_contractor_details", obj, function (res) {
 
 		if (res.Code == "100") {
-			contractor_cluster_tablebody = '<table id="dt_table_contractor" class="table"><thead style="font-size:14px;"> <tr class="text-left" > <th style="width:11% !important;;">CONTRACTOR ID</th> <th style="width:9% !important;;">NAME</th><th style="width:11% !important;; ">MOBILE</th> <th style="width:8% !important;">4.5 Tyre</th> <th style="width:8% !important;">10 Tyre</th> <th style="width:8% !important;">18 Tyre</th><th style="width:8% !important;">24 Tyre</th> <th style="width:8% !important;">TOTAL</th> </tr> </thead> </thead><tbody>';
+			contractor_cluster_tablebody = '<table id="dt_table_contractor" class="table"><thead style="font-size:14px;"> <tr class="text-left" > <th style="width:11% !important;;">CONTRACTOR ID</th> <th style="width:9% !important;;">NAME</th><th style="width:11% !important;; ">MOBILE</th> <th style="width:8% !important;">Tractor</th> <th style="width:8% !important;">6 Tyre</th> <th style="width:8% !important;">10 Tyre</th><th style="width:8% !important;">12 Tyre</th> <th style="width:8% !important;">TOTAL</th> </tr> </thead> </thead><tbody>';
 
 
 			for (var index = 0; index < res.DailyRepDetsli.length; index++) {
@@ -719,7 +732,7 @@ function load_cluster_for_contrator_cumulative(id) {
 	_Sand_Auth("../get_contractor_details", obj, function (res) {
 
 		if (res.Code == "100") {
-			contractor_cluster_tablebody_cumulative = '<table id="dt_table_contractor_cum" class="table"><thead style="font-size:14px;"> <tr class="text-left"> <th style="width: 13%;">CONTRACTOR ID</th> <th  style="width: 10%;">NAME</th><th  style="width: 2%;">MOBILE</th> <th  style="width: 5%;">4.5 Tyre</th> <th  style="width: 5%;">10 Tyre</th> <th  style="width: 5%;">18 Tyre</th><th  style="width: 5%;">24 Tyre</th> <th  style="width: 5%;">TOTAL</th> </tr> </thead> </thead><tbody>';
+			contractor_cluster_tablebody_cumulative = '<table id="dt_table_contractor_cum" class="table"><thead style="font-size:14px;"> <tr class="text-left"> <th style="width: 13%;">CONTRACTOR ID</th> <th  style="width: 10%;">NAME</th><th  style="width: 2%;">MOBILE</th> <th  style="width: 5%;">Tractor</th> <th  style="width: 5%;">6 Tyre</th> <th  style="width: 5%;">10 Tyre</th><th  style="width: 5%;">12 Tyre</th> <th  style="width: 5%;">TOTAL</th> </tr> </thead> </thead><tbody>';
 			String.prototype.replaceAt = function (index, charcount) {
 				return this.substr(0, index) + this.substr(index + charcount);
 			}
@@ -797,54 +810,17 @@ function load_cluster_for_contrator_by_contratorID(contratorID) {
 
 		console.log(res);
 		//$('#loading-wrapper').show();
-
-		Load_contractor_id_datatable = '<table id="dt_table_Load_contractor_id" class="table"><thead style="font-size:12px;"> <tr class="text-left"> <th>AGENCY NAME</th> <th  title="Contractor Name">NAME</th> <th >PAN NUMBER</th> <th>BANK NAME</th> <th>VEHICLE NUMBER</th> </tr> </thead> </thead><tbody>';
+		  // table created by bhagya Lakshmi.. .. .. .. .. ..
+		Load_contractor_id_datatable = '<table id="dt_table_Load_contractor_id" class="table"><thead style="font-size:12px;"> <tr class="text-left"> <th>AGENCY NAME</th> <th  title="Contractor Name">NAME</th> <th >PAN NUMBER</th> <th>BANK NAME</th><th>BANK ACCOUNT NUMBER</th> <th>VEHICLE NUMBER</th><th>VEHICLE TYPE</th>  </tr> </thead> </thead><tbody>';
 		if (res.Code == "100") {
 
 			for (var index = 0; index < res.DailyRepDetsli.length; index++) {
 				var obj = res.DailyRepDetsli[index];
 				var counter = index + 1;
 
-				Load_contractor_id_datatable += "<tr><td><a>" + obj.CONTRACTOR_AGENCY_NAME + "</a></td><td>" + obj.CONTRACTOR_NAME + "</td><td>" + obj.CONRACTOR_PAN_NUMBER + "</td><td style='text-align:center'>" + obj.CONTRACTOR_BANK_NAME + "</td><td style='color: #33af65;font-weight: bold;font-style: italic; text-decoration: underline;font-size:15px;'>" + obj.VEHICLE_NO + "</td></tr>";
-
-
-
-				
-			//	CONTRACTOR_AGENCY_NAME: "DVN TRANSPORT"
-				//CONTRACTOR_NAME: "SUBHASHINI"
-				
-				//CONTRACTOR_MAIL_ID: null
-				
-				
-			//	CONRACTOR_PAN_NUMBER: "CICPD2447J"
-				//CONTRACTOR_BANK_IFSCCODE: "KVBL0004818"
-				//CONTRACTOR_BANK_NAME: "KARUR VYSYA BANK"
-				//CONTRACTOR_BANK_BRANCH_NAME: "RAJAMPET"
-				//CONTRACTOR_BANK_ACCOUNT_NUMBER: "4818155000019660"
-				//CONTRACTOR_CAPTUERDATETIME: "2020-02-12T08:08:16"
-				//CLUSTER_ID: "C504001"
-				//CLUSTER_NAME: "Rajampeta"
-				//VEHICLE_CREATED_DATE: "2020-02-12T00:00:00"
-				//VEHICLE_NO: "AP04TX6756"
-				//VEHICLE_QTY: 4.5
-				//GPS_STATUS: "GPS Enabled"
-
-
-
-
-
-
+				Load_contractor_id_datatable += "<tr><td><a>" + obj.CONTRACTOR_AGENCY_NAME + "</a></td><td>" + obj.CONTRACTOR_NAME + "</td><td>" + obj.CONRACTOR_PAN_NUMBER + "</td><td>" + obj.CONTRACTOR_BANK_NAME + "</td><td>" + obj.CONTRACTOR_BANK_ACCOUNT_NUMBER + "</td><td>" + obj.VEHICLE_NO + "</td><td>" + obj.VEHICLE_CLASS + "</td></tr>";
 			}
-			//$('#mydatatabs').append(navtabs);
-			//$('#mytabcontent').append(navbody);
 			$('#Load_contractor_id_table').html(Load_contractor_id_datatable + '<tbody><table>');
-			//$('#Load_contractor_id_table').DataTable({
-			//	destroy: true,
-			//	stateSave: true,
-			//	paging: true,
-			//	"pageLength": 10,
-			//	"ordering": false
-			//});
 		}
 	});
 }
@@ -1217,13 +1193,14 @@ function load_per_hourdisplay(disthourdisp) {
 				tableperhourDisplay += "<tr><td> " + obj.HR + "</td><td>" + obj.DISTRICT + "</td><td style='text-align:center'>" + obj.TOTAL_ALLOCATED + "</td><td style='text-align:center'>" + obj.TOTAL_ACCEPTED + "</td><td style='text-align:center'>" + obj.TRACTOR + "</td><td style='text-align:center'>" + obj.SIXTYRE + "</td><td style='text-align:center'>" + obj.TENTYRE + "</td></tr>";
 			}
 
-			if (disthourdisp == '1') {
+			if (disthourdisp == '1') {							  
 				$("#prehour_datatable").html(tableperhourDisplay + '<tbody><table>');
-				$("#prehour_datatable tr:contains('ANANTAPUR')").css("background-color", "#d8d2d2a8");
+				$("#prehour_datatable tr:contains('EAST')").css("background-color", "#d8d2d2a8");
 				$("#prehour_datatable tr:contains('KADAPA')").css("background-color", "#d8d2d2a8");
 				$("#prehour_datatable tr:contains('NELLORE')").css("background-color", "#d8d2d2a8");
 				$("#prehour_datatable tr:contains('SRIKAKULAM')").css("background-color", "#d8d2d2a8");
-				//$("#prehour_datatable tr:contains('SRIKAKULAM')").css("background-color", "#d8d2d2a8");
+				$("#prehour_datatable tr:contains('VISAKHAPATANAM')").css("background-color", "#d8d2d2a8");
+				$("#prehour_datatable tr:contains('GODAVARI')").css("background-color", "#d8d2d2a8");
 			}
 			else {
 				$("#prehour_datatable").html(tableperhourDisplay + '<tbody><table>');
@@ -1272,15 +1249,7 @@ function perhourchangefunc(p_hour,distrperhour) {
 	});
 
 }
-
-
-
-
-
-
-//  sivaram b program for display cluster vehicle info
-
-//// vehcile details Started..			  
+		  
 
 var vehmts = [];
 var veh_navbody = [];
@@ -1291,7 +1260,6 @@ var veh_Obj = [];
 
 function load_Vehicle_panel(vehicleMT) {
 
-	//	$('#lobipanel_custom_control_Vehicle').lobiPanel({ close: { icon: 'fa fa-times-circle' } });
 	$('#lobipanel_custom_control_Vehicle').lobiPanel();
 	vehmts = vehicleMT;
 	if (vehmts == 0 || vehmts == undefined) {
@@ -1301,7 +1269,9 @@ function load_Vehicle_panel(vehicleMT) {
 		$("#veh_headcolor").addClass('icon-bg bg-primary dropdown-head');
 		$('#vehicle_register_show').show();
 		veh_Obj = 'vehTractor';
+		$("#Vtyre_veh_id").val("Tractors");
 		load_cluster_for_vehicle(vehmts);
+		
 	}
 	else if (vehmts == '10') {
 
@@ -1310,30 +1280,43 @@ function load_Vehicle_panel(vehicleMT) {
 		$("#vehicle_register_show").delay(500).show();
 		veh_Obj = 'veh10Tyre';
 		load_cluster_for_vehicle(vehmts);
+		$("#Vtyre_veh_id").val("6 Tyre Vehicles");
 	}
 	else if (vehmts == '18') {
 		$("#veh_headcolor").removeClass();
 		$("#veh_headcolor").addClass('icon-bg bg-danger dropdown-head');
 		$("#vehicle_register_show").delay(500).show();
 		veh_Obj = 'veh18Tyre';
+		$("#Vtyre_veh_id").val("10 Tyre Vehicles");
 		load_cluster_for_vehicle(vehmts);
+		
 	}
 	else if (vehmts == '24') {
-		$("#headcolor").removeClass();
-		$("#headcolor").addClass('icon-bg bg-warning dropdown-head');
-		$("#vehicle_register_show").delay(500).hide();
+		$("#veh_headcolor").removeClass();
+		$("#veh_headcolor").addClass('icon-bg bg-warning dropdown-head');
+		$("#vehicle_register_show").delay(500).show();
 		veh_Obj = 'veh24Tyre';
-		load_cluster_for_vehicle(0);
+		$("#Vtyre_veh_id").val("12 Tyre Vehicles");
+		load_cluster_for_vehicle(vehmts);
+	}	
+	else if (vehmts == '30') {
+		$("#veh_headcolor").removeClass();
+		$("#veh_headcolor").addClass('icon-bg bg-secondary dropdown-head');
+		$("#vehicle_register_show").delay(500).show();
+		veh_Obj = 'veh30Tyre';
+		$("#Vtyre_veh_id").val("14 Tyre Vehicles");
+		load_cluster_for_vehicle(vehmts);
 	}
 	else if (vehmts == '22') {
-		$("#headcolor").removeClass();
-		$("#headcolor").addClass('card-header icon-bg bg-white dropdown-head text-dark');
+		$("#veh_headcolor").removeClass();
+		$("#veh_headcolor").addClass('card-header icon-bg bg-white dropdown-head text-dark');
 		$("#vehicle_register_show").delay(500).show();
 		veh_Obj = 'veh22Tyre';
+		$("#Vtyre_veh_id").val("Total Vehicles");
 		load_cluster_for_vehicle(vehmts);
 	}
 	else {
-		$('#vehicle_register_show').hide();
+		//$('#vehicle_register_show').hide();
 	}
 }
 
@@ -1355,7 +1338,7 @@ var obj = "{FTYPE:'31',FDISTRICT:'" + $("#Loadistricts").find("option:selected")
 			cluster_for_vehicle(vehicle_cluster_tablebody);
 		}
 		else {
-
+			$('#tbl_cluster_vehicledata').html('');
 		}
 	});
 }
@@ -1461,7 +1444,79 @@ function load_cluster_for_vechiledatasearch(id) {
 }
 
 $("#btn_submit_vehicle").click(function () {
-	
 	var textValue = $("#txt_veh_number").val();
 	load_cluster_for_vechiledatasearch(textValue);
+});
+
+
+$("#ibtn_RptView").click(function () {
+	btrptval = 1;
+	$("#ibtn_RptView").hide();
+	$("#ibtn_RptClose").show();
+	$("#RptView").show();
+	load_DailyReports_for_db($("#Loadistricts").find("option:selected").val(), $("#from_datepicker").val(), $("#to_datepicker").val(), $("#Loadistricts").find("option:selected").text());
+});
+
+$("#ibtn_RptClose").click(function () {
+	btrptval = 0;
+	$("#ibtn_RptView").show();
+	$("#ibtn_RptClose").hide();
+	$("#excelXtraLarge").hide();
+	$("#pdfXtraLarge").hide();
+	$("#RptView").hide();
+});
+
+var DailyReports_for_db_table_body = [];
+function load_DailyReports_for_db(distid,fm,tm,distText) {
+	$('#dailyReport_db').html('');
+//	$(".tabledob").dateFormat('dd/mm/yy');
+	var obj = "{FDISTRICT:'" + distid + "',FROMDATE:'" + fm +"',TODATE:'"+tm+"'}";
+	_Sand_Auth("../GET_deliveryreportRoute", obj, function (res) {
+		if (res.Code == "100") {
+			console.log(res);
+			$("#excelXtraLarge").show();
+			$("#pdfXtraLarge").show();
+			DailyReports_for_db_table_body = "<table  id='dt_table_DailyReports' class='table'><thead style='font-size:10px;'><tr> <th colspan='27' style='text-align:center'>" + distText + " " +" Door Delivery Report</th> </tr> <tr> <th rowspan='3' style='text-align:center'>Date</th> <th colspan='6' style='text-align:center'>10 Tyre Lorry</th> <th colspan='6' style='text-align:center'>6 Tyre Lorry</th> <th colspan='6' style='text-align:center'>Tractors</th> <th colspan='8' style='text-align:center'> Total</th> </tr> <tr> <th colspan='2'>Dispatched</th> <th colspan='2' style='color:red;'>Yet To Dispatch</th> <th colspan='2'>Total</th> <th colspan='2'>Dispatched</th> <th colspan='2' style='color:red;'>Yet To Dispatch</th> <th colspan='2'>Total</th> <th colspan='2'>Dispatched</th> <th colspan='2' style='color:red;'>Yet To Dispatch</th> <th colspan='2'>Total</th> <th colspan='3'>Dispatched</th> <th colspan='3' style='color:red;'>Yet To Dispatch</th> <th colspan='2'>Grand Total</th> </tr> <tr style='font-size:8px;'> <th>No.Of Orders</th> <th>Booked Qty</th> <th style='color:red;'>No.Of Orders</th> <th style='color:red;'>Booked Qty</th> <th>No.Of Orders</th> <th>Booked Qty</th> <th>No.Of Orders</th> <th>Booked Qty</th> <th style='color:red;'>No.Of Orders</th> <th style='color:red;'>Booked Qty</th> <th>No.Of Orders</th> <th>Booked Qty</th> <th>No.Of Orders</th> <th>Booked Qty</th> <th style='color:red;'>No.Of Orders</th> <th style='color:red;'>Booked Qty</th> <th>No.Of Orders</th> <th>Booked Qty</th> <th>No.Of Orders</th> <th>Booked Qty</th><th>% Qty </th> <th style='color:red;'>No.Of Orders</th> <th style='color:red;'>Booked Qty</th><th style='color:red;'>% Qty </th> <th>No.Of Orders</th> <th>Booked Qty</th> </tr></thead><tbody>";
+			
+			for (var index = 0; index < res.DailyRepDetsli.length; index++) {
+				var obj = res.DailyRepDetsli[index];
+				var counter = index + 1;
+				
+				DailyReports_for_db_table_body += "<tr style='font-size:8px;'><td ><a>" + obj.BOOKED_DATE + " </a></td><td> " + obj.R_10TYRE_D_BOOKED_QTY + "</td> <td>" + obj.R_10TYRE_D_NO_OF_ORDERS + "</td> <td style='color:red;'>" + obj.R_10TYRE_Y_BOOKED_QTY + "</td> <td style='color:red;'>" + obj.R_10TYRE_Y_NO_OF_ORDERS + "</td> <td style='text-align:left'>" + obj.R_10TYRE_T_BOOKED_QTY + "</td> <td style='text-align:left'>" + obj.R_10TYRE_T_NO_OF_ORDERS + "</td> <td style='text-align:left'>" + obj.R_6TYRE_D_BOOKED_QTY + "</td> <td>" + obj.R_6TYRE_D_NO_OF_ORDERS + "</td> <td style='color:red;'>" + obj.R_6TYRE_Y_BOOKED_QTY + "</td> <td style='color:red;'>" + obj.R_6TYRE_Y_NO_OF_ORDERS + "</td> <td style='text-align:left'>" + obj.R_6TYRE_T_BOOKED_QTY + "</td> <td style='text-align:left'>" + obj.R_6TYRE_T_NO_OF_ORDERS + "</td> <td style='text-align:left'>" + obj.TRACTOR_D_BOOKED_QTY + "</td> <td style='text-align:left'>" + obj.TRACTOR_D_NO_OF_ORDERS + "</td> <td  style='color:red;'>" + obj.TRACTOR_Y_BOOKED_QTY + "</td> <td  style='color:red;'>" + obj.TRACTOR_Y_NO_OF_ORDERS + "</td> <td style='text-align:left'>" + obj.TRACTOR_T_BOOKED_QTY + "</td> <td style='text-align:left'>" + obj.TRACTOR_T_NO_OF_ORDERS + "</td> <td style='text-align:left'>" + obj.TOTAL_D_BOOKED_QTY + "</td> <td style='text-align:left'>" + obj.TOTAL_D_NO_OF_ORDERS + "</td><td style='text-align:left'>" + obj.TOTAL_D_PER_QTY + "</td> <td  style='color:red;'>" + obj.TOTAL_Y_BOOKED_QTY + "</td> <td  style='color:red;'>" + obj.TOTAL_Y_NO_OF_ORDERS + "</td><td  style='color:red;'>" + obj.TOTAL_Y_PER_QTY + "</td> <td style='text-align:left'>" + obj.TOTAL_T_BOOKED_QTY + "</td> <td style='text-align:left'>" + obj.TOTAL_T_NO_OF_ORDERS + "</td></tr > ";
+			}
+			$('#dailyReport_db').html(DailyReports_for_db_table_body + '<tbody><table>');			
+		}
+		else {
+			$("#excelXtraLarge").hide();
+			$("#pdfXtraLarge").hide();
+			$('#dailyReport_db').html('No data found');
+		}
+	});
+}
+
+$("#excelXtraLarge").click(function () {
+//	https://www.jqueryscript.net/table/Export-Html-Table-To-Excel-Spreadsheet-using-jQuery-table2excel.html
+	$("#dailyReport_db").table2excel({
+		// exclude: ".noExl",  if you want to remove some columns from table use this class at your <TR> tag and Uncoment this line
+		name: "Worksheet Name",
+		filename: "SomeFile", 
+		fileext: ".xls",
+		preserveColors: true
+	});
+	$("#excelXtraLarge").hide();
+	$("#pdfXtraLarge").hide();
+	
+});
+
+
+$("#pdfXtraLarge").click(function () {
+
+
+
+
+
+
+	$("#excelXtraLarge").hide();
+	$("#pdfXtraLarge").hide();
+
 });

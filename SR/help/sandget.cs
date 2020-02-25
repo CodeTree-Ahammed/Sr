@@ -687,5 +687,254 @@ namespace SR.help
 
 		}
 
+
+		public dynamic GET_deliveryreport_sp(Load_district obj)
+		{
+			try
+			{
+				data.Reset(); data.Clear();
+				con.Open();
+				cmd = new OracleCommand();
+				cmd.Connection = con;
+				cmd.InitialLONGFetchSize = 1000;
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.CommandText = "apmdc_pk_dash_board.door_delivery_cumulative";
+				cmd.Parameters.Add("p_district_id", OracleDbType.Int16).Value = obj.FDISTRICT;
+				cmd.Parameters.Add("p_from_date", OracleDbType.Date).Value = ConvertDateFormat(obj.FROMDATE);
+				cmd.Parameters.Add("p_to_date", OracleDbType.Date).Value = ConvertDateFormat(obj.TODATE);
+				cmd.Parameters.Add("p_ref_cursor", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+				OracleDataAdapter oda = new OracleDataAdapter(cmd);
+				oda.Fill(data);
+				if (data != null && data.Rows.Count > 0)
+				{
+					return data;
+				}
+				else
+				{
+					return data;
+				}
+			}
+			catch (Exception ex)
+			{
+				return ex.Message;
+			}
+			finally
+			{
+				con.Close();
+				cmd.Dispose();
+			}
+
+		}
+
+		public dynamic APMDC_SP_GET_STOCKYARD_DETAILS_sp(Load_district obj)
+		{
+			try
+			{
+				data.Reset(); data.Clear();
+				con.Open();
+				cmd = new OracleCommand();
+				cmd.Connection = con;
+				cmd.InitialLONGFetchSize = 1000;
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.CommandText = "APMDC_SP_GET_STOCKYARD_DETAILS";
+				cmd.Parameters.Add("FTYPE", OracleDbType.Int32).Value = obj.FTYPE;
+				cmd.Parameters.Add("FDISTRICRID", OracleDbType.Varchar2).Value = obj.FDISTRICT;
+				cmd.Parameters.Add("FSTOCKYARDID", OracleDbType.Varchar2).Value = obj.FSTOCKYARDID;
+				cmd.Parameters.Add("P_CUR", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+				OracleDataAdapter oda = new OracleDataAdapter(cmd);
+
+				oda.Fill(data);
+
+				if (data != null && data.Rows.Count > 0)
+				{
+					return data;
+				}
+				else
+				{
+					return data;
+				}
+			}
+
+			catch (Exception ex)
+			{
+				return ex.Message;
+			}
+			finally
+			{
+				con.Close();
+				cmd.Dispose();
+			}
+
+
+		}
+
+		public dynamic APMDC_SP_GET_STOCKYARD_NAME_sp(Load_district obj)
+		{
+			try
+			{
+				data.Reset(); data.Clear();
+				con.Open();
+				cmd = new OracleCommand();
+				cmd.Connection = con;
+				cmd.InitialLONGFetchSize = 1000;
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.CommandText = "APMDC_SP_GET_STOCKYARD_DETAILS";
+				cmd.Parameters.Add("FTYPE", OracleDbType.Int32).Value = obj.FTYPE;
+				cmd.Parameters.Add("FDISTRICRID", OracleDbType.Varchar2).Value = obj.FDISTRICT;
+				cmd.Parameters.Add("FSTOCKYARDID", OracleDbType.Varchar2).Value = obj.FSTOCKYARDID;
+				cmd.Parameters.Add("P_CUR", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+				OracleDataAdapter oda = new OracleDataAdapter(cmd);
+
+				oda.Fill(data);
+
+				if (data != null && data.Rows.Count > 0)
+				{
+					return data;
+				}
+				else
+				{
+					return data;
+				}
+			}
+
+			catch (Exception ex)
+			{
+				return ex.Message;
+			}
+			finally
+			{
+				con.Close();
+				cmd.Dispose();
+			}
+
+		}
+		public dynamic Tripsdoordelivery_sp(Load_district obj)
+		{
+			try
+			{
+				data.Reset(); data.Clear();
+				con.Open();
+				cmd = new OracleCommand();
+				cmd.Connection = con;
+				cmd.InitialLONGFetchSize = 1000;
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.CommandText = "apmdc_Doordelivery_dashboard1";
+				cmd.Parameters.Add("FTYPE", OracleDbType.Int16).Value = obj.FTYPE;
+				cmd.Parameters.Add("FDISTRICT", OracleDbType.Int16).Value = obj.FDISTRICT;
+
+				cmd.Parameters.Add("f_from_date", OracleDbType.Date).Value = ConvertDateFormat(obj.FROMDATE);
+				cmd.Parameters.Add("f_to_date", OracleDbType.Date).Value = ConvertDateFormat(obj.TODATE);
+				cmd.Parameters.Add("fquantity", OracleDbType.Varchar2).Value = obj.FSchQUANTY;
+				cmd.Parameters.Add("fcluster_id", OracleDbType.Varchar2).Value = obj.Fclusterid;
+				cmd.Parameters.Add("fstockyard_id", OracleDbType.Varchar2).Value = obj.STOCKYARD_ID;
+				cmd.Parameters.Add("fcontractor_id", OracleDbType.Varchar2).Value = obj.FCONTACTNO;
+				cmd.Parameters.Add("P_CUR", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+				OracleDataAdapter oda = new OracleDataAdapter(cmd);
+				oda.Fill(data);
+
+				if (data != null && data.Rows.Count > 0)
+				{
+					return data;
+				}
+				else
+				{
+					return data;
+				}
+			}
+			catch (Exception ex)
+			{
+				return ex.Message;
+			}
+			finally
+			{
+				con.Close();
+				cmd.Dispose();
+			}
+
+		}
+		public dynamic Tripsdoordelivery_Update_Status_sp(Load_district obj)
+		{
+			try
+			{
+				data.Reset(); data.Clear();
+				con.Open();
+				cmd = new OracleCommand();
+				cmd.Connection = con;
+				cmd.InitialLONGFetchSize = 1000;
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.CommandText = "apmdc_sp_vts_dataupdate";
+				cmd.Parameters.Add("p_type", OracleDbType.Int16).Value = obj.FTYPE;
+				cmd.Parameters.Add("p_remarks", OracleDbType.Varchar2).Value = obj.Remarks;
+				cmd.Parameters.Add("p_status", OracleDbType.Varchar2).Value = obj.Status;
+				cmd.Parameters.Add("p_transit_id", OracleDbType.Varchar2).Value = obj.P_transactionid;
+
+				cmd.Parameters.Add("P_cur", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+				OracleDataAdapter oda = new OracleDataAdapter(cmd);
+				oda.Fill(data);
+				if (data != null && data.Rows.Count > 0)
+				{
+					return data;
+				}
+				else
+				{
+					return data;
+				}
+			}
+			catch (Exception ex)
+			{
+				return ex.Message;
+			}
+			finally
+			{
+				con.Close();
+				cmd.Dispose();
+			}
+
+		}
+		public dynamic Tripsdoordelivery_counts_display_sp(Load_district obj)
+		{
+			try
+			{
+				data.Reset(); data.Clear();
+				con.Open();
+				cmd = new OracleCommand();
+				cmd.Connection = con;
+				cmd.InitialLONGFetchSize = 1000;
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.CommandText = "apmdc_Doordelivery_dashboard1";
+				cmd.Parameters.Add("FTYPE", OracleDbType.Int16).Value = obj.FTYPE;
+				cmd.Parameters.Add("FDISTRICT", OracleDbType.Int16).Value = obj.FDISTRICT;
+
+				cmd.Parameters.Add("f_from_date", OracleDbType.Date).Value = ConvertDateFormat(obj.FROMDATE);
+				cmd.Parameters.Add("f_to_date", OracleDbType.Date).Value = ConvertDateFormat(obj.TODATE);
+				cmd.Parameters.Add("fquantity", OracleDbType.Varchar2).Value = obj.FSchQUANTY;
+				cmd.Parameters.Add("fcluster_id", OracleDbType.Varchar2).Value = obj.Fclusterid;
+				cmd.Parameters.Add("fstockyard_id", OracleDbType.Varchar2).Value = obj.STOCKYARD_ID;
+				cmd.Parameters.Add("fcontractor_id", OracleDbType.Varchar2).Value = obj.FCONTACTNO;
+				cmd.Parameters.Add("P_CUR", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+				OracleDataAdapter oda = new OracleDataAdapter(cmd);
+				oda.Fill(data);
+				if (data != null && data.Rows.Count > 0)
+				{
+					return data;
+				}
+				else
+				{
+					return data;
+				}
+			}
+			catch (Exception ex)
+			{
+				return ex.Message;
+			}
+			finally
+			{
+				con.Close();
+				cmd.Dispose();
+			}
+
+		}
+
+
 	}
 }

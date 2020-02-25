@@ -1,1 +1,0 @@
-{"Username":"","Password":null,"Role":null,"FTYPE":1,"REQUESTIP":null,"Browser":null,"SOURCE":"WEB","Confor":null,"Conforid":null,"Flat":null,"Flong":null,"Fgeoaddres":null,"Version":null}ExceptionwebsocketPadding is invalid and cannot be removed.

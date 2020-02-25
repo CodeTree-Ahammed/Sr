@@ -138,13 +138,10 @@ namespace SR.Controllers
 				return _valid.Load_Contarctor_Details_by_id_Valid(root);
 
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				E_return E_return = new E_return();
-				E_return.Code = "99";
-				E_return.Message = "something went wrong please contact admin" + ex.Message;
-				E_return.Url = "Error.htm";
-				return E_return;
+			
+				return 0;
 			}
 		}
 
@@ -231,17 +228,17 @@ namespace SR.Controllers
 				return _valid.Check_get_userlogs(root);
 
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				string logdata = JsonConvert.SerializeObject(root);
-				string mappath = HttpContext.Current.Server.MapPath("ExceptionLogs");
-				Task WriteTask = Task.Factory.StartNew(() => _Security.Log(logdata + "Exception" + "userlogs" + ex.Message.ToString(), mappath, DateTime.Now.ToString("yyyyMMddhhmmssmmm")));
+				//string logdata = JsonConvert.SerializeObject(root);
+				//string mappath = HttpContext.Current.Server.MapPath("ExceptionLogs");
+				//Task WriteTask = Task.Factory.StartNew(() => _Security.Log(logdata + "Exception" + "userlogs" + ex.Message.ToString(), mappath, DateTime.Now.ToString("yyyyMMddhhmmssmmm")));
 
-				//	E_return E_return = new E_return();
-				EER.Code = "99";
-				EER.Message = "something went wrong please contact admin";
-				EER.Url = "Error.htm";
-				return EER;
+				////	E_return E_return = new E_return();
+				//EER.Code = "99";
+				//EER.Message = "something went wrong please contact admin";
+				//EER.Url = "Error.htm";
+				return 0;
 			}
 		}
 
@@ -253,17 +250,10 @@ namespace SR.Controllers
 			{
 				return _valid.PerhourDisplay_valid(root);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				string logdata = JsonConvert.SerializeObject(root);
-				string mappath = HttpContext.Current.Server.MapPath("ExceptionLogs");
-				Task WriteTask = Task.Factory.StartNew(() => _Security.Log(logdata + "Exception" + "userlogs" + ex.Message.ToString(), mappath, DateTime.Now.ToString("yyyyMMddhhmmssmmm")));
-
-				//	E_return E_return = new E_return();
-				EER.Code = "99";
-				EER.Message = "something went wrong please contact admin";
-				EER.Url = "Error.htm";
-				return EER;
+				
+				return 0;
 			}
 		}
 
@@ -277,15 +267,8 @@ namespace SR.Controllers
 			}
 			catch (Exception ex)
 			{
-				string logdata = JsonConvert.SerializeObject(root);
-				string mappath = HttpContext.Current.Server.MapPath("ExceptionLogs");
-				Task WriteTask = Task.Factory.StartNew(() => _Security.Log(logdata + "Exception" + "userlogs" + ex.Message.ToString(), mappath, DateTime.Now.ToString("yyyyMMddhhmmssmmm")));
-
-				//	E_return E_return = new E_return();
-				EER.Code = "99";
-				EER.Message = "something went wrong please contact admin";
-				EER.Url = "Error.htm";
-				return EER;
+				
+				return 0;
 			}
 		}
 
@@ -301,14 +284,6 @@ namespace SR.Controllers
 			}
 			catch (Exception)
 			{
-				//string logdata = JsonConvert.SerializeObject(root);
-				//string mappath = HttpContext.Current.Server.MapPath("ExceptionLogs");
-				//Task WriteTask = Task.Factory.StartNew(() => _Security.Log(logdata + "Exception" + "TransportReport" + ex.Message.ToString(), mappath, DateTime.Now.ToString("yyyyMMddhhmmssmmm")));
-
-				//E_return E_return = new E_return();
-				//E_return.code = "99";
-				//E_return.message = "something went wrong please contact admin";
-				//E_return.url = "Error.htm";
 				return 0;
 			}
 		}
@@ -360,9 +335,8 @@ namespace SR.Controllers
 			{
 				return _valid.GET_deliveryreport_Valid(root);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				//E_return E_return = new E_return();
 	
 				return 0;
 			}
@@ -496,8 +470,6 @@ namespace SR.Controllers
 				{
 					response = sr.ReadToEnd().Trim();
 				}
-
-
 			}
 			catch (WebException wex)
 			{

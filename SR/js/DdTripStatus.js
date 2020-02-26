@@ -18,7 +18,9 @@ $(document).ready(function () {
 	load_Counters_display();
 
 	$('#sandtbldr').hide();
-
+	$('#Trip_Status').append('<option value="dest_rchd">Destination Reached</option>');
+	$('#Trip_Status').append('<option value="dest_not_fnd">Destination not Reached</option>');
+	$('#Trip_Status').append('<option value="time_expired">GPS Status</option>');
 });
 
 function userlogfirst() {
@@ -88,7 +90,25 @@ function userlog() {
 	}
 }
 
+$(function () {
+    $("#logout").click(function () {
+        var r = confirm("Are you Sure want to logOut");
+        if (r == true) {
 
+            sessionStorage.clear(),
+				window.sessionStorage.clear(),
+				window.sessionStorage.clear(),
+				sessionStorage.clear();
+            window.location.href = 'https://sand.ap.gov.in/Login.htm';
+            window.close();
+
+        } else {
+
+
+        }
+    });
+
+});
 
 
 
@@ -156,7 +176,14 @@ $(function () {
 			load_Counters_display();
 		}
 	});
+	$("#Trip_Status").change(function () {
 
+	    $('#sandtbldr').dataTable().fnClearTable();
+	    $('#sandtbldr').hide();
+	    $('#sandtbldr_wrapper').hide();
+	    $('#sandtbldr_filter').hide();
+	   
+	});
 });
 
 
@@ -358,7 +385,7 @@ function Detaildoordeliverytrip(ftype) {
 	if (dist == '0') {
 		dist = '1';
 	}
-	var obj = "{FTYPE:'" + ftype + "',FDISTRICT:'" + $("#SandDistrict_dd").find("option:selected").val() + "',Fclusterid:'" + $("#Clusteridid_dd").find("option:selected").val() + "',STOCKYARD_ID:'" + $("#Stockyardid_dd").find("option:selected").val() + "',FROMDATE:'" + $("#from_datepicker").val() + "',TODATE:'" + $("#to_datepicker").val() + "'}";
+	var obj = "{FTYPE:'" + ftype + "',FDISTRICT:'" + $("#SandDistrict_dd").find("option:selected").val() + "',Fclusterid:'" + $("#Clusteridid_dd").find("option:selected").val() + "',STOCKYARD_ID:'" + $("#Stockyardid_dd").find("option:selected").val() + "',FROMDATE:'" + $("#from_datepicker").val() + "',TODATE:'" + $("#to_datepicker").val() + "',FCONTACTNO:'" + $("#Trip_Status").val() + "'}";
 
 	_Sand_Auth("../Tripsdoordelivery_Route", obj, function (res) {
 		if (res.code == "100") {
@@ -745,24 +772,42 @@ $(function () {
 
 
 
-		if ($("#SandDistrict_dd").val() != "0" && $("#Clusteridid_dd").val() == "0" && $("#Stockyardid_dd").val() == "0") {
+	    if ($("#SandDistrict_dd").val() != "0" && $("#Clusteridid_dd").val() == "0" && $("#Stockyardid_dd").val() == "0" && $("#Trip_Status").val() == "0") {
 
 
 			Detaildoordeliverytrip('9')
 
 		}
-		if ($("#SandDistrict_dd").val() != "0" && $("#Clusteridid_dd").val() != "0" && $("#Stockyardid_dd").val() == "0") {
+	    if ($("#SandDistrict_dd").val() != "0" && $("#Clusteridid_dd").val() != "0" && $("#Stockyardid_dd").val() == "0" && $("#Trip_Status").val() == "0") {
 
 
 			Detaildoordeliverytrip('10')
 
 		}
-		if ($("#SandDistrict_dd").val() != "0" && $("#Clusteridid_dd").val() != "0" && $("#Stockyardid_dd").val() != "0") {
+	    if ($("#SandDistrict_dd").val() != "0" && $("#Clusteridid_dd").val() != "0" && $("#Stockyardid_dd").val() != "0" && $("#Trip_Status").val() == "0") {
 
 			Detaildoordeliverytrip('11')
 
 		}
 
+
+	    if ($("#SandDistrict_dd").val() != "0" && $("#Clusteridid_dd").val() == "0" && $("#Stockyardid_dd").val() == "0" && $("#Trip_Status").val() != "0") {
+
+
+	        Detaildoordeliverytrip('15')
+
+	    }
+	    if ($("#SandDistrict_dd").val() != "0" && $("#Clusteridid_dd").val() != "0" && $("#Stockyardid_dd").val() == "0" && $("#Trip_Status").val() != "0") {
+
+
+	        Detaildoordeliverytrip('16')
+
+	    }
+	    if ($("#SandDistrict_dd").val() != "0" && $("#Clusteridid_dd").val() != "0" && $("#Stockyardid_dd").val() != "0" && $("#Trip_Status").val() != "0") {
+
+	        Detaildoordeliverytrip('17')
+
+	    }
 
 	});
 
